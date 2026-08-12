@@ -25,12 +25,15 @@ class HomeController extends Controller
             ->orderBy('sort_order')
             ->get();
 
-        $cities = City::where('is_active', true)
-            ->withCount(['properties' => fn($q) => $q->published()])
-            ->having('properties_count', '>', 0)
-            ->orderByDesc('properties_count')
-            ->take(5)
-            ->get();
+            $cities = City::where('is_active', true)
+                ->withCount([
+                    'properties' => fn ($q) => $q->published()
+                ])
+                ->orderByDesc('properties_count')
+                ->take(5)
+                ->get()
+                ->filter(fn ($city) => $city->properties_count > 0)
+                ->values();
 
         $agents = Agent::where('is_active', true)
             ->withCount(['properties' => fn($q) => $q->published()])
