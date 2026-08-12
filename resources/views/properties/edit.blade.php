@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Tambah Properti</title>
+    <title>Edit Properti</title>
 
     {{-- Tailwind CSS --}}
     <script src="https://cdn.tailwindcss.com"></script>
@@ -83,11 +83,11 @@
         <div class="mb-6">
 
             <h2 class="text-2xl font-bold text-gray-900">
-                Tambah Properti
+                Edit Properti
             </h2>
 
             <p class="mt-1 text-sm text-gray-500">
-                Tambahkan properti baru ke dalam daftar properti.
+                Edit properti yang ada di dalam daftar properti.
             </p>
 
         </div>
@@ -97,7 +97,7 @@
             FORM
         ========================== --}}
         <form
-            action="{{ route('properties.store') }}"
+            action="{{ route('properties.update', $property) }}"
             method="POST"
             enctype="multipart/form-data"
             class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm"
@@ -105,6 +105,7 @@
 
             {{-- CSRF --}}
             @csrf
+            @method('PUT')
 
 
             {{-- Form Content --}}
@@ -129,7 +130,7 @@
                         id="name"
                         name="title"
                         required
-                        value="{{ old('title') }}"
+                        value="{{ $property->title }}"
                         placeholder="Contoh: Rumah Minimalis Modern"
                         class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none transition placeholder:text-gray-400 focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
                     >
@@ -163,7 +164,7 @@
                         rows="4"
                         placeholder="Masukkan alamat lengkap properti"
                         class="w-full resize-none rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none transition placeholder:text-gray-400 focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
-                    >{{ old('address') }}</textarea>
+                    >{{ $property->address }}</textarea>
 
                     @error('address')
                         <p class="mt-1.5 text-sm text-red-600">
@@ -193,49 +194,16 @@
                         class="group relative flex min-h-[260px] cursor-pointer flex-col items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-gray-300 bg-white text-center transition hover:border-gray-500 hover:bg-gray-50"
                     >
 
-                        {{-- Default Upload Content --}}
-                        <div id="uploadPlaceholder">
-
-                            <div class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 transition group-hover:bg-gray-200">
-
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    class="h-6 w-6 text-gray-500"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2v12a2 2 0 002 2z"
-                                    />
-                                </svg>
-
-                            </div>
-
-                            <p class="text-sm font-medium text-gray-700">
-                                Klik untuk memilih gambar
-                            </p>
-
-                            <p class="mt-1 text-xs text-gray-500">
-                                PNG, JPG atau JPEG maksimal 2MB
-                            </p>
-
-                        </div>
-
-
                         {{-- Image Preview --}}
                         <div
                             id="imagePreviewContainer"
-                            class="absolute inset-0 hidden"
+                            class="absolute inset-0"
                         >
 
                             <img
                                 id="imagePreview"
-                                src=""
-                                alt="Preview gambar properti"
+                                src="{{ $property->thumbnail_url }}"
+                                alt="{{ $property->title }}"
                                 class="h-full w-full object-cover"
                             >
 
@@ -279,15 +247,6 @@
             ========================== --}}
             <div class="flex flex-col-reverse gap-3 border-t border-gray-200 bg-gray-50 p-5 sm:flex-row sm:justify-end sm:p-6">
 
-                {{-- Cancel --}}
-                <a
-                    href="{{ route('dashboard') }}"
-                    class="inline-flex w-full items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-100 sm:w-auto"
-                >
-                    Batal
-                </a>
-
-
                 {{-- Submit --}}
                 <button
                     type="submit"
@@ -309,7 +268,7 @@
                         />
                     </svg>
 
-                    Simpan Properti
+                    Update Properti
 
                 </button>
 
@@ -325,10 +284,11 @@
     const imageInput = document.getElementById('image');
     const imagePreview = document.getElementById('imagePreview');
     const imagePreviewContainer = document.getElementById('imagePreviewContainer');
-    const uploadPlaceholder = document.getElementById('uploadPlaceholder');
+
+    console.log(imageInput)
 
     imageInput.addEventListener('change', function () {
-        const file = this.files[0];
+    const file = this.files[0];
 
         if (!file) {
             return;
@@ -345,7 +305,6 @@
         reader.onload = function (event) {
             imagePreview.src = event.target.result;
 
-            uploadPlaceholder.classList.add('hidden');
             imagePreviewContainer.classList.remove('hidden');
         };
 

@@ -1,0 +1,60 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Property;
+use App\Models\Category;
+use App\Models\City;
+use App\Models\Agent;
+use App\Models\Service;
+use App\Models\SiteSetting;
+use Illuminate\View\View;
+
+class HomeController extends Controller
+{
+    public function index(): View
+    {
+        $featuredProperties = Property::with(['city', 'agent', 'images', 'propertyType'])
+            ->featured()
+            ->latest('published_at')
+            ->take(8)
+            ->get();
+
+        $categories = Category::where('is_active', true)
+            ->withCount(['properties' => fn($q) => $q->published()])
+            ->orderBy('sort_order')
+            ->get();
+
+        $cities = City::where('is_active', true)
+            ->withCount(['properties' => fn($q) => $q->published()])
+            ->having('properties_count', '>', 0)
+            ->orderByDesc('properties_count')
+            ->take(5)
+            ->get();
+
+        $agents = Agent::where('is_active', true)
+            ->withCount(['properties' => fn($q) => $q->published()])
+            ->orderBy('sort_order')
+            ->take(4)
+            ->get();
+
+        $services = Service::where('is_active', true)
+            ->orderBy('sort_order')
+            ->take(6)
+            ->get();
+
+        $settings = SiteSetting::getAllAsArray();
+
+        $stats = [
+            'total_properties' => Property::published()->count(),
+            'total_clients'    => SiteSetting::get('stat_clients', '1500+'),
+            'total_agents'     => Agent::where('is_active', true)->count(),
+            'support'          => SiteSetting::get('stat_support', '24/7'),
+        ];
+
+        return view('home.index', compact(
+            'featuredProperties', 'categories', 'cities',
+            'agents', 'services', 'settings', 'stats'
+        ));
+    }
+}

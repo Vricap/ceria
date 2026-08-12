@@ -183,7 +183,7 @@
 
                                 <td class="px-6 py-4">
                                     <div class="font-medium text-gray-900">
-                                        {{ $property->nama }}
+                                        {{ $property->title }}
                                     </div>
 
                                     <!--<div class="mt-1 text-xs text-gray-500">
@@ -192,14 +192,14 @@
                                 </td>
 
                                 <td class="px-6 py-4 text-gray-600">
-                                    {{ $property->alamat }}
+                                    {{ $property->address }}
                                 </td>
 
                                 <td class="px-6 py-4">
 
                                     <img
-                                        src="storage/{{ $property->gambar }}"
-                                        alt="{{ $property->gambar }}"
+                                        src="{{ $property->thumbnail_url }}"
+                                        alt="{{ $property->title }}"
                                         class="h-16 w-24 rounded-lg object-cover"
                                     >
 
@@ -210,14 +210,14 @@
                                     <div class="flex justify-end gap-2">
 
                                         <a
-                                            href="{{ route('properties.show', $property->id) }}"
+                                            href="{{ route('properties.edit', $property) }}"
                                             class="rounded-lg border border-gray-200 px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100"
                                         >
                                             Edit
                                         </a>
 
                                         <form
-                                            action="{{ route('properties.destroy', $property->id) }}"
+                                            action="{{ route('properties.destroy', $property) }}"
                                             method="POST"
                                             onsubmit="return confirm('Apakah kamu yakin ingin menghapus properti ini?')"
                                         >
@@ -257,8 +257,8 @@
                         <div class="flex gap-4">
 
                             <img
-                                src="storage/{{ $property->gambar }}"
-                                alt="{{ $property->gambar }}"
+                                src="{{ $property->thumbnail_url }}"
+                                alt="{{ $property->title }}"
                                 class="h-24 w-28 shrink-0 rounded-lg object-cover"
                             >
 
@@ -267,7 +267,7 @@
                                 <div class="mb-1 flex items-start justify-between gap-2">
 
                                     <h4 class="font-semibold text-gray-900">
-                                        {{ $property->nama }}
+                                        {{ $property->title }}
                                     </h4>
 
                                     <span class="shrink-0 text-xs font-medium text-gray-400">
@@ -304,7 +304,7 @@
                                     </svg>
 
                                     <span>
-                                        {{ $property->alamat }}
+                                        {{ $property->address }}
                                     </span>
 
                                 </div>
@@ -324,7 +324,7 @@
                             </button>
 
                             <form
-                                action="{{ route('properties.destroy', $property->id) }}"
+                                action="{{ route('properties.destroy', $property) }}"
                                 method="POST"
                                 onsubmit="return confirm('Apakah kamu yakin ingin menghapus properti ini?')"
                             >

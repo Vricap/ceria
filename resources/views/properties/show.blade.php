@@ -1,316 +1,86 @@
-{{-- resources/views/properties/create.blade.php --}}
+@extends('layouts.app')
 
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+@section('title', $property->title . ' - Ceria Property')
 
-    <title>Edit Properti</title>
+@section('content')
+<div class="container" style="margin-top: 40px; margin-bottom: 80px;">
+    <!-- Breadcrumb or Back Button -->
+    <a href="{{ route('properties.index') }}" class="btn btn-outline" style="margin-bottom: 20px; display: inline-block;">
+        <i class="fa-solid fa-arrow-left"></i> Kembali ke Pencarian
+    </a>
 
-    {{-- Tailwind CSS --}}
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-
-<body class="min-h-screen bg-gray-50 text-gray-800">
-
-<div class="min-h-screen">
-
-    {{-- =========================
-        NAVBAR
-    ========================== --}}
-    <nav class="border-b border-gray-200 bg-white">
-        <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6">
-
-            <div>
-                <h1 class="text-xl font-bold text-gray-900">
-                    PropertiKu
-                </h1>
-            </div>
-
-            <div class="flex items-center gap-3">
-
-                <span class="hidden text-sm text-gray-500 sm:block">
-                    Dashboard
-                </span>
-
-                <div class="flex h-9 w-9 items-center justify-center rounded-full bg-gray-900 text-sm font-semibold text-white">
-                    A
-                </div>
-
-            </div>
-
-        </div>
-    </nav>
-
-
-    {{-- =========================
-        MAIN
-    ========================== --}}
-    <main class="mx-auto max-w-3xl px-4 py-6 sm:px-6 sm:py-10">
-
-        {{-- Back --}}
-        <div class="mb-6">
-
-            <a
-                href="{{ route('dashboard') }}"
-                class="inline-flex items-center gap-2 text-sm font-medium text-gray-500 transition hover:text-gray-900"
-            >
-
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-4 w-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M15 19l-7-7 7-7"
-                    />
-                </svg>
-
-                Kembali ke Dashboard
-
-            </a>
-
+    <div class="property-detail">
+        <h1 class="page-title" style="margin-bottom: 10px;">{{ $property->title }}</h1>
+        <div style="color: var(--color-text-muted); margin-bottom: 20px; font-size: 1.1rem;">
+            <i class="fa-solid fa-location-dot"></i> {{ $property->location_string ?? $property->address }}
+            <br>
+            <i class="fa-solid fa-map"></i> {{ $property->address }}
         </div>
 
-
-        {{-- Page Header --}}
-        <div class="mb-6">
-
-            <h2 class="text-2xl font-bold text-gray-900">
-                Edit Properti
-            </h2>
-
-            <p class="mt-1 text-sm text-gray-500">
-                Edit properti yang ada di dalam daftar properti.
-            </p>
-
+        <div style="margin-bottom: 30px;">
+            @if(isset($property->status_color) && isset($property->status_label))
+                <span class="badge {{ $property->status_color }}" style="font-size: 1rem; padding: 8px 15px;">{{ $property->status_label }}</span>
+            @endif
+            @if(isset($property->formatted_price))
+                <span style="font-size: 1.5rem; font-weight: bold; color: var(--color-primary); margin-left: 15px;">{{ $property->formatted_price }}</span>
+            @endif
         </div>
 
+        <div style="margin-bottom: 40px; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow-md);">
+            <img src="{{ $property->thumbnail_url }}" alt="{{ $property->title }}" style="width: 100%; max-height: 600px; object-fit: cover;">
+        </div>
 
-        {{-- =========================
-            FORM
-        ========================== --}}
-        <form
-            action="{{ route('properties.update', $property->id) }}"
-            method="POST"
-            enctype="multipart/form-data"
-            class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm"
-        >
-
-            {{-- CSRF --}}
-            @csrf
-            @method('PUT')
-
-
-            {{-- Form Content --}}
-            <div class="space-y-6 p-5 sm:p-6">
-
-
-                {{-- =========================
-                    NAMA PROPERTI
-                ========================== --}}
-                <div>
-
-                    <label
-                        for="name"
-                        class="mb-2 block text-sm font-medium text-gray-900"
-                    >
-                        Nama Properti
-                        <span class="text-red-500">*</span>
-                    </label>
-
-                    <input
-                        type="text"
-                        id="name"
-                        name="nama"
-                        required
-                        value="{{ $property->nama }}"
-                        placeholder="Contoh: Rumah Minimalis Modern"
-                        class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none transition placeholder:text-gray-400 focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
-                    >
-
-                    @error('nama')
-                        <p class="mt-1.5 text-sm text-red-600">
-                            {{ $message }}
-                        </p>
-                    @enderror
-
-                </div>
-
-
-                {{-- =========================
-                    ALAMAT
-                ========================== --}}
-                <div>
-
-                    <label
-                        for="address"
-                        class="mb-2 block text-sm font-medium text-gray-900"
-                    >
-                        Alamat
-                        <span class="text-red-500">*</span>
-                    </label>
-
-                    <textarea
-                        id="address"
-                        name="alamat"
-                        required
-                        rows="4"
-                        placeholder="Masukkan alamat lengkap properti"
-                        class="w-full resize-none rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none transition placeholder:text-gray-400 focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
-                    >{{ $property->alamat }}</textarea>
-
-                    @error('alamat')
-                        <p class="mt-1.5 text-sm text-red-600">
-                            {{ $message }}
-                        </p>
-                    @enderror
-
-                </div>
-
-
-                {{-- =========================
-                    GAMBAR
-                ========================== --}}
-                <div>
-                    <label
-                        for="image"
-                        class="mb-2 block text-sm font-medium text-gray-900"
-                    >
-                        Gambar Properti
-                        <span class="text-red-500">*</span>
-                    </label>
-
-                    {{-- Image Upload / Preview --}}
-                    <label
-                        for="image"
-                        id="imageUploadArea"
-                        class="group relative flex min-h-[260px] cursor-pointer flex-col items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-gray-300 bg-white text-center transition hover:border-gray-500 hover:bg-gray-50"
-                    >
-
-                        {{-- Image Preview --}}
-                        <div
-                            id="imagePreviewContainer"
-                            class="absolute inset-0"
-                        >
-
-                            <img
-                                id="imagePreview"
-                                src="{{ asset('storage/' . $property->gambar) }}"
-                                alt="storage/{{ $property->gambar }}"
-                                class="h-full w-full object-cover"
-                            >
-
-                            {{-- Overlay --}}
-                            <div class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition group-hover:opacity-100">
-
-                                <div class="rounded-lg bg-white px-4 py-2 text-sm font-medium text-gray-800 shadow-sm">
-                                    Ganti gambar
-                                </div>
-
+        <div style="display: grid; gap: 30px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+            <!-- Left column: Details -->
+            <div style="grid-column: span 2;">
+                <h3 style="font-size: 1.5rem; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid var(--color-border);">Spesifikasi Properti</h3>
+                
+                <div style="display: flex; gap: 30px; margin-bottom: 30px; flex-wrap: wrap;">
+                    @if($property->bedrooms)
+                        <div style="display: flex; align-items: center; gap: 10px; font-size: 1.2rem;">
+                            <i class="fa-solid fa-bed" style="color: var(--color-primary);"></i>
+                            <div>
+                                <div style="font-size: 0.9rem; color: var(--color-text-muted);">Kamar Tidur</div>
+                                <strong>{{ $property->bedrooms }}</strong>
                             </div>
-
                         </div>
-
-                    </label>
-
-
-                    {{-- File Input --}}
-                    <input
-                        type="file"
-                        id="image"
-                        name="gambar"
-                        accept="image/png,image/jpeg,image/jpg"
-                        class="hidden"
-                    >
-
-
-                    @error('gambar')
-                        <p class="mt-1.5 text-sm text-red-600">
-                            {{ $message }}
-                        </p>
-                    @enderror
-
+                    @endif
+                    @if($property->bathrooms)
+                        <div style="display: flex; align-items: center; gap: 10px; font-size: 1.2rem;">
+                            <i class="fa-solid fa-bath" style="color: var(--color-primary);"></i>
+                            <div>
+                                <div style="font-size: 0.9rem; color: var(--color-text-muted);">Kamar Mandi</div>
+                                <strong>{{ $property->bathrooms }}</strong>
+                            </div>
+                        </div>
+                    @endif
+                    @if($property->land_area)
+                        <div style="display: flex; align-items: center; gap: 10px; font-size: 1.2rem;">
+                            <i class="fa-solid fa-ruler-combined" style="color: var(--color-primary);"></i>
+                            <div>
+                                <div style="font-size: 0.9rem; color: var(--color-text-muted);">Luas Tanah</div>
+                                <strong>{{ $property->land_area }} m&sup2;</strong>
+                            </div>
+                        </div>
+                    @endif
                 </div>
 
+                <h3 style="font-size: 1.5rem; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid var(--color-border);">Deskripsi</h3>
+                <div style="line-height: 1.8; color: var(--color-text-main); font-size: 1.1rem; white-space: pre-wrap;">{{ $property->description ?? 'Belum ada deskripsi untuk properti ini.' }}</div>
             </div>
 
-
-            {{-- =========================
-                FORM FOOTER
-            ========================== --}}
-            <div class="flex flex-col-reverse gap-3 border-t border-gray-200 bg-gray-50 p-5 sm:flex-row sm:justify-end sm:p-6">
-
-                {{-- Submit --}}
-                <button
-                    type="submit"
-                    class="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-gray-900 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-gray-700 sm:w-auto"
-                >
-
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-5 w-5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M5 13l4 4L19 7"
-                        />
-                    </svg>
-
-                    Update Properti
-
-                </button>
-
+            <!-- Right column: Inquiry / Contact -->
+            <div style="grid-column: span 1;">
+                <div style="background: white; padding: 25px; border-radius: 12px; box-shadow: var(--shadow-sm); border: 1px solid var(--color-border); position: sticky; top: 20px;">
+                    <h3 style="font-size: 1.3rem; margin-bottom: 20px;">Tertarik dengan properti ini?</h3>
+                    <p style="color: var(--color-text-muted); margin-bottom: 20px;">Hubungi kami sekarang juga untuk informasi lebih lanjut atau mengatur jadwal kunjungan.</p>
+                    
+                    <a href="https://wa.me/6281234567890?text=Halo%20Ceria%20Property,%20saya%20tertarik%20dengan%20properti%20{{ urlencode($property->title) }}" target="_blank" class="btn btn-primary" style="display: block; text-align: center; width: 100%; margin-bottom: 15px;">
+                        <i class="fa-brands fa-whatsapp"></i> Hubungi via WhatsApp
+                    </a>
+                </div>
             </div>
-
-        </form>
-
-    </main>
-
+        </div>
+    </div>
 </div>
-
-<script>
-    const imageInput = document.getElementById('image');
-    const imagePreview = document.getElementById('imagePreview');
-    const imagePreviewContainer = document.getElementById('imagePreviewContainer');
-
-    console.log(imageInput)
-
-    imageInput.addEventListener('change', function () {
-    const file = this.files[0];
-
-        if (!file) {
-            return;
-        }
-
-        // Pastikan file adalah gambar
-        if (!file.type.startsWith('image/')) {
-            return;
-        }
-
-        // Preview gambar
-        const reader = new FileReader();
-
-        reader.onload = function (event) {
-            imagePreview.src = event.target.result;
-
-            imagePreviewContainer.classList.remove('hidden');
-        };
-
-        reader.readAsDataURL(file);
-    });
-</script>
-
-</body>
-</html>
+@endsection
