@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Property;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PropertyController extends Controller
 {
@@ -20,7 +21,7 @@ class PropertyController extends Controller
      */
     public function create()
     {
-        //
+        return view('properties.create');
     }
 
     /**
@@ -28,7 +29,26 @@ class PropertyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // TODO: BUG. return php file upload error 7 if image size bigger than 800kb
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'alamat' => 'required|string|max:255',
+            'gambar' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ], [
+        'nama.max' => 'Nama terlalu panjang.',
+        'alamat.max' => 'Alamat terlalu panjang.',
+        'gambar.max' => 'Ukuran gambar terlalu besar.',
+        ]);
+
+        $path = $request->file('gambar')->store('properties', 'public');
+
+        Property::create([
+            'nama' => $request->input('nama'),
+            'alamat' => $request->input('alamat'),
+            'gambar' => $path,
+        ]);
+
+        return redirect()->route('dashboard');
     }
 
     /**
@@ -36,7 +56,8 @@ class PropertyController extends Controller
      */
     public function show(Property $property)
     {
-        //
+        $prop = Property::find($property->id);
+        return view("properties.show", ['property' => $prop]);
     }
 
     /**
@@ -44,7 +65,7 @@ class PropertyController extends Controller
      */
     public function edit(Property $property)
     {
-        //
+
     }
 
     /**
@@ -52,7 +73,37 @@ class PropertyController extends Controller
      */
     public function update(Request $request, Property $property)
     {
-        //
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'alamat' => 'required|string|max:255',
+        ], [
+        'nama.max' => 'Nama terlalu panjang.',
+        'alamat.max' => 'Alamat terlalu panjang.',
+        ]);
+
+        if($request->file("gambar")) {
+            $request->validate([
+                'gambar' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            ], [
+            'gambar.max' => 'Ukuran gambar terlalu besar.',
+            ]);
+
+            Storage::disk('public')->delete($property->gambar);
+        }
+
+        $property->update([
+            'nama' => $request->input("nama"),
+            'alamat' => $request->input("alamat"),
+        ]);
+
+        if ($request->file("gambar")) {
+            $path = $request->file('gambar')->store('properties', 'public');
+            $property->update([
+                'gambar' => $path,
+            ]);
+        }
+
+        return redirect()->route('properties.show', $property->id);
     }
 
     /**
@@ -60,6 +111,9 @@ class PropertyController extends Controller
      */
     public function destroy(Property $property)
     {
-        //
+        Storage::disk('public')->delete($property->gambar);
+        $property->delete();
+
+        return redirect()->route('dashboard');
     }
 }

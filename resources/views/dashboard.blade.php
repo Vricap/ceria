@@ -21,7 +21,7 @@
 
                 <div>
                     <h1 class="text-xl font-bold text-gray-900">
-                        PropertiKu
+                        Ceria
                     </h1>
                 </div>
 
@@ -56,9 +56,10 @@
                 </div>
 
                 {{-- Tombol tambah --}}
-                <button
+                <a
                     type="button"
-                    class="inline-flex items-center justify-center gap-2 rounded-lg bg-gray-900 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-gray-700"
+                    href="{{ route('properties.create') }}"
+                    class="inline-flex items-center justify-center gap-2 rounded-lg bg-gray-900 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-gray-700 cursor-pointer"
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -76,7 +77,7 @@
                     </svg>
 
                     Tambah Properti
-                </button>
+                </a>
 
             </div>
 
@@ -90,7 +91,7 @@
                     </p>
 
                     <p class="mt-2 text-3xl font-bold text-gray-900">
-                        12
+                        {{ count($properties) }}
                     </p>
                 </div>
 
@@ -177,7 +178,7 @@
                             <tr class="transition hover:bg-gray-50">
 
                                 <td class="px-6 py-4 font-medium text-gray-900">
-                                    {{ $property->id }}
+                                    {{ $loop->index + 1 }}
                                 </td>
 
                                 <td class="px-6 py-4">
@@ -197,8 +198,8 @@
                                 <td class="px-6 py-4">
 
                                     <img
-                                        src={{ $property->gambar }}
-                                        alt="Rumah Minimalis Modern"
+                                        src="storage/{{ $property->gambar }}"
+                                        alt="{{ $property->gambar }}"
                                         class="h-16 w-24 rounded-lg object-cover"
                                     >
 
@@ -208,19 +209,28 @@
 
                                     <div class="flex justify-end gap-2">
 
-                                        <button
-                                            type="button"
+                                        <a
+                                            href="{{ route('properties.show', $property->id) }}"
                                             class="rounded-lg border border-gray-200 px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100"
                                         >
                                             Edit
-                                        </button>
+                                        </a>
 
-                                        <button
-                                            type="button"
-                                            class="rounded-lg bg-red-50 px-3 py-2 text-sm font-medium text-red-600 transition hover:bg-red-100"
+                                        <form
+                                            action="{{ route('properties.destroy', $property->id) }}"
+                                            method="POST"
+                                            onsubmit="return confirm('Apakah kamu yakin ingin menghapus properti ini?')"
                                         >
-                                            Hapus
-                                        </button>
+                                            @csrf
+                                            @method('DELETE')
+
+                                            <button
+                                                type="submit"
+                                                class="rounded-lg bg-red-50 px-3 py-2 text-sm font-medium text-red-600 transition hover:bg-red-100"
+                                            >
+                                                Hapus
+                                            </button>
+                                        </form>
 
                                     </div>
 
@@ -247,8 +257,8 @@
                         <div class="flex gap-4">
 
                             <img
-                                src={{ $property->gambar }}
-                                alt={{ $property->gambar }}
+                                src="storage/{{ $property->gambar }}"
+                                alt="{{ $property->gambar }}"
                                 class="h-24 w-28 shrink-0 rounded-lg object-cover"
                             >
 
@@ -261,7 +271,7 @@
                                     </h4>
 
                                     <span class="shrink-0 text-xs font-medium text-gray-400">
-                                        {{ $property->id }}
+                                        {{ $loop->index + 1 }}
                                     </span>
 
                                 </div>
@@ -313,12 +323,20 @@
                                 Edit
                             </button>
 
-                            <button
-                                type="button"
-                                class="flex-1 rounded-lg bg-red-50 px-3 py-2 text-sm font-medium text-red-600 transition hover:bg-red-100"
+                            <form
+                                action="{{ route('properties.destroy', $property->id) }}"
+                                method="POST"
+                                onsubmit="return confirm('Apakah kamu yakin ingin menghapus properti ini?')"
                             >
-                                Hapus
-                            </button>
+                                @csrf
+                                @method('DELETE')
+                                <button
+                                    type="submit"
+                                    class="flex-1 rounded-lg bg-red-50 px-3 py-2 text-sm font-medium text-red-600 transition hover:bg-red-100"
+                                >
+                                    Hapus
+                                </button>
+                            </form>
 
                         </div>
 
