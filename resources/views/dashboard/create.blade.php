@@ -19,7 +19,7 @@
         <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6">
             <div class="flex items-center gap-3">
                 <a href="{{ route('dashboard') }}" class="text-xl font-bold tracking-tight text-gray-900">
-                    Ceria <span class="text-blue-600">Admin</span>
+                    Ceria <span class="text-amber-600">Admin</span>
                 </a>
             </div>
             <div class="flex items-center gap-3">
@@ -73,7 +73,7 @@
             <div class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
                 <div class="border-b border-gray-100 pb-4 mb-6">
                     <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                        <i class="fa-solid fa-house-chimney text-blue-600"></i> Informasi Utama
+                        <i class="fa-solid fa-house-chimney text-amber-600"></i> Informasi Utama
                     </h2>
                     <p class="text-xs text-gray-500 mt-0.5">Judul, kategori, tipe, dan agen penanggung jawab.</p>
                 </div>
@@ -86,7 +86,7 @@
                         </label>
                         <input type="text" id="title" name="title" required value="{{ old('title') }}"
                             placeholder="Contoh: Rumah Minimalis Modern Dekat Kampus UGM"
-                            class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none transition focus:border-blue-600 focus:ring-1 focus:ring-blue-600">
+                            class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none transition focus:border-amber-600 focus:ring-1 focus:ring-amber-600">
                         @error('title')
                             <p class="mt-1.5 text-xs text-red-600">{{ $message }}</p>
                         @enderror
@@ -99,7 +99,7 @@
                         </label>
                         <input type="text" id="property_id_code" name="property_id_code" value="{{ old('property_id_code') }}"
                             placeholder="Contoh: PROP-001 (Opsional, dibuat otomatis jika kosong)"
-                            class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none transition focus:border-blue-600 focus:ring-1 focus:ring-blue-600">
+                            class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none transition focus:border-amber-600 focus:ring-1 focus:ring-amber-600">
                     </div>
 
                     {{-- Agen --}}
@@ -108,7 +108,7 @@
                             Agen Penanggung Jawab
                         </label>
                         <select id="agent_id" name="agent_id"
-                            class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none transition focus:border-blue-600 focus:ring-1 focus:ring-blue-600 bg-white">
+                            class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none transition focus:border-amber-600 focus:ring-1 focus:ring-amber-600 bg-white">
                             <option value="">-- Pilih Agen --</option>
                             @foreach($agents as $agent)
                                 <option value="{{ $agent->id }}" {{ old('agent_id') == $agent->id ? 'selected' : '' }}>
@@ -124,7 +124,7 @@
                             Kategori Properti
                         </label>
                         <select id="category_id" name="category_id"
-                            class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none transition focus:border-blue-600 focus:ring-1 focus:ring-blue-600 bg-white">
+                            class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none transition focus:border-amber-600 focus:ring-1 focus:ring-amber-600 bg-white">
                             <option value="">-- Pilih Kategori --</option>
                             @foreach($categories as $cat)
                                 <option value="{{ $cat->id }}" {{ old('category_id') == $cat->id ? 'selected' : '' }}>
@@ -140,7 +140,7 @@
                             Tipe Properti
                         </label>
                         <select id="property_type_id" name="property_type_id"
-                            class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none transition focus:border-blue-600 focus:ring-1 focus:ring-blue-600 bg-white">
+                            class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none transition focus:border-amber-600 focus:ring-1 focus:ring-amber-600 bg-white">
                             <option value="">-- Pilih Tipe --</option>
                             @foreach($propertyTypes as $pt)
                                 <option value="{{ $pt->id }}" {{ old('property_type_id') == $pt->id ? 'selected' : '' }}>
@@ -168,7 +168,7 @@
                             Jenis Transaksi <span class="text-red-500">*</span>
                         </label>
                         <select id="transaction_type" name="transaction_type" required
-                            class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none transition focus:border-blue-600 focus:ring-1 focus:ring-blue-600 bg-white">
+                            class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none transition focus:border-amber-600 focus:ring-1 focus:ring-amber-600 bg-white">
                             <option value="dijual" {{ old('transaction_type') == 'dijual' ? 'selected' : '' }}>Dijual</option>
                             <option value="disewa" {{ old('transaction_type') == 'disewa' ? 'selected' : '' }}>Disewa</option>
                         </select>
@@ -181,7 +181,7 @@
                         </label>
                         <input type="number" id="price" name="price" value="{{ old('price') }}" step="100000" min="0"
                             placeholder="Contoh: 1500000000"
-                            class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none transition focus:border-blue-600 focus:ring-1 focus:ring-blue-600">
+                            class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none transition focus:border-amber-600 focus:ring-1 focus:ring-amber-600">
                     </div>
 
                     {{-- Harga Sewa Bulanan --}}
@@ -191,7 +191,7 @@
                         </label>
                         <input type="number" id="price_rent_monthly" name="price_rent_monthly" value="{{ old('price_rent_monthly') }}" step="50000" min="0"
                             placeholder="Contoh: 5000000"
-                            class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none transition focus:border-blue-600 focus:ring-1 focus:ring-blue-600">
+                            class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none transition focus:border-amber-600 focus:ring-1 focus:ring-amber-600">
                     </div>
 
                     {{-- Catatan Harga --}}
@@ -201,7 +201,7 @@
                         </label>
                         <input type="text" id="price_note" name="price_note" value="{{ old('price_note') }}"
                             placeholder="Contoh: Nego, Include SHM & Pajak, Per Bulan, Dll."
-                            class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none transition focus:border-blue-600 focus:ring-1 focus:ring-blue-600">
+                            class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none transition focus:border-amber-600 focus:ring-1 focus:ring-amber-600">
                     </div>
                 </div>
             </div>
@@ -220,49 +220,49 @@
                     <div>
                         <label for="land_area" class="mb-1.5 block text-xs font-medium text-gray-700">Luas Tanah (m²)</label>
                         <input type="number" id="land_area" name="land_area" value="{{ old('land_area') }}" step="0.1" min="0" placeholder="120"
-                            class="w-full rounded-lg border border-gray-300 px-3.5 py-2 text-sm outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600">
+                            class="w-full rounded-lg border border-gray-300 px-3.5 py-2 text-sm outline-none focus:border-amber-600 focus:ring-1 focus:ring-amber-600">
                     </div>
 
                     {{-- Luas Bangunan --}}
                     <div>
                         <label for="building_area" class="mb-1.5 block text-xs font-medium text-gray-700">Luas Bangunan (m²)</label>
                         <input type="number" id="building_area" name="building_area" value="{{ old('building_area') }}" step="0.1" min="0" placeholder="90"
-                            class="w-full rounded-lg border border-gray-300 px-3.5 py-2 text-sm outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600">
+                            class="w-full rounded-lg border border-gray-300 px-3.5 py-2 text-sm outline-none focus:border-amber-600 focus:ring-1 focus:ring-amber-600">
                     </div>
 
                     {{-- Kamar Tidur --}}
                     <div>
                         <label for="bedrooms" class="mb-1.5 block text-xs font-medium text-gray-700">Kamar Tidur</label>
                         <input type="number" id="bedrooms" name="bedrooms" value="{{ old('bedrooms') }}" min="0" placeholder="3"
-                            class="w-full rounded-lg border border-gray-300 px-3.5 py-2 text-sm outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600">
+                            class="w-full rounded-lg border border-gray-300 px-3.5 py-2 text-sm outline-none focus:border-amber-600 focus:ring-1 focus:ring-amber-600">
                     </div>
 
                     {{-- Kamar Mandi --}}
                     <div>
                         <label for="bathrooms" class="mb-1.5 block text-xs font-medium text-gray-700">Kamar Mandi</label>
                         <input type="number" id="bathrooms" name="bathrooms" value="{{ old('bathrooms') }}" min="0" placeholder="2"
-                            class="w-full rounded-lg border border-gray-300 px-3.5 py-2 text-sm outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600">
+                            class="w-full rounded-lg border border-gray-300 px-3.5 py-2 text-sm outline-none focus:border-amber-600 focus:ring-1 focus:ring-amber-600">
                     </div>
 
                     {{-- Garasi --}}
                     <div>
                         <label for="garage" class="mb-1.5 block text-xs font-medium text-gray-700">Garasi / Carport</label>
                         <input type="number" id="garage" name="garage" value="{{ old('garage') }}" min="0" placeholder="1"
-                            class="w-full rounded-lg border border-gray-300 px-3.5 py-2 text-sm outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600">
+                            class="w-full rounded-lg border border-gray-300 px-3.5 py-2 text-sm outline-none focus:border-amber-600 focus:ring-1 focus:ring-amber-600">
                     </div>
 
                     {{-- Lantai --}}
                     <div>
                         <label for="floors" class="mb-1.5 block text-xs font-medium text-gray-700">Jumlah Lantai</label>
                         <input type="number" id="floors" name="floors" value="{{ old('floors') }}" min="0" placeholder="2"
-                            class="w-full rounded-lg border border-gray-300 px-3.5 py-2 text-sm outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600">
+                            class="w-full rounded-lg border border-gray-300 px-3.5 py-2 text-sm outline-none focus:border-amber-600 focus:ring-1 focus:ring-amber-600">
                     </div>
 
                     {{-- Sertifikat --}}
                     <div>
                         <label for="certificate" class="mb-1.5 block text-xs font-medium text-gray-700">Sertifikat</label>
                         <select id="certificate" name="certificate"
-                            class="w-full rounded-lg border border-gray-300 px-3.5 py-2 text-sm outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 bg-white">
+                            class="w-full rounded-lg border border-gray-300 px-3.5 py-2 text-sm outline-none focus:border-amber-600 focus:ring-1 focus:ring-amber-600 bg-white">
                             <option value="">-- Pilih --</option>
                             <option value="SHM" {{ old('certificate') == 'SHM' ? 'selected' : '' }}>SHM (Sertifikat Hak Milik)</option>
                             <option value="HGB" {{ old('certificate') == 'HGB' ? 'selected' : '' }}>HGB (Hak Guna Bangunan)</option>
@@ -276,14 +276,14 @@
                     <div>
                         <label for="electric_power" class="mb-1.5 block text-xs font-medium text-gray-700">Daya Listrik</label>
                         <input type="text" id="electric_power" name="electric_power" value="{{ old('electric_power') }}" placeholder="2200W"
-                            class="w-full rounded-lg border border-gray-300 px-3.5 py-2 text-sm outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600">
+                            class="w-full rounded-lg border border-gray-300 px-3.5 py-2 text-sm outline-none focus:border-amber-600 focus:ring-1 focus:ring-amber-600">
                     </div>
 
                     {{-- Tahun Dibangun --}}
                     <div class="col-span-2 md:col-span-1">
                         <label for="year_built" class="mb-1.5 block text-xs font-medium text-gray-700">Tahun Dibangun</label>
                         <input type="number" id="year_built" name="year_built" value="{{ old('year_built') }}" min="1900" max="{{ date('Y') + 1 }}" placeholder="2023"
-                            class="w-full rounded-lg border border-gray-300 px-3.5 py-2 text-sm outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600">
+                            class="w-full rounded-lg border border-gray-300 px-3.5 py-2 text-sm outline-none focus:border-amber-600 focus:ring-1 focus:ring-amber-600">
                     </div>
                 </div>
             </div>
@@ -304,7 +304,7 @@
                             Kota / Kabupaten
                         </label>
                         <select id="city_id" name="city_id"
-                            class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none transition focus:border-blue-600 focus:ring-1 focus:ring-blue-600 bg-white">
+                            class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none transition focus:border-amber-600 focus:ring-1 focus:ring-amber-600 bg-white">
                             <option value="">-- Pilih Kota/Kabupaten --</option>
                             @foreach($cities as $city)
                                 <option value="{{ $city->id }}" {{ old('city_id') == $city->id ? 'selected' : '' }}>
@@ -320,7 +320,7 @@
                             Kecamatan
                         </label>
                         <select id="district_id" name="district_id"
-                            class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none transition focus:border-blue-600 focus:ring-1 focus:ring-blue-600 bg-white">
+                            class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none transition focus:border-amber-600 focus:ring-1 focus:ring-amber-600 bg-white">
                             <option value="">-- Pilih Kecamatan --</option>
                             @foreach($districts as $dist)
                                 <option value="{{ $dist->id }}" data-city-id="{{ $dist->city_id }}" {{ old('district_id') == $dist->id ? 'selected' : '' }}>
@@ -337,7 +337,7 @@
                         </label>
                         <textarea id="address" name="address" required rows="3"
                             placeholder="Jl. Kaliurang KM 5, Depok, Sleman, DI Yogyakarta"
-                            class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none transition focus:border-blue-600 focus:ring-1 focus:ring-blue-600 resize-none">{{ old('address') }}</textarea>
+                            class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none transition focus:border-amber-600 focus:ring-1 focus:ring-amber-600 resize-none">{{ old('address') }}</textarea>
                         @error('address')
                             <p class="mt-1.5 text-xs text-red-600">{{ $message }}</p>
                         @enderror
@@ -362,7 +362,7 @@
                         </label>
                         <input type="text" id="short_description" name="short_description" value="{{ old('short_description') }}"
                             placeholder="Contoh: Rumah 2 lantai siap huni, bebas banjir, akses jalan 2 mobil."
-                            class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600">
+                            class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none focus:border-amber-600 focus:ring-1 focus:ring-amber-600">
                     </div>
 
                     {{-- Deskripsi Lengkap --}}
@@ -372,7 +372,7 @@
                         </label>
                         <textarea id="description" name="description" rows="6"
                             placeholder="Tuliskan keunggulan, tata ruang, akses jalan, legalitas, serta kondisi lingkungan sekitar..."
-                            class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 resize-y">{{ old('description') }}</textarea>
+                            class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none focus:border-amber-600 focus:ring-1 focus:ring-amber-600 resize-y">{{ old('description') }}</textarea>
                     </div>
                 </div>
             </div>
@@ -393,10 +393,10 @@
                             Foto Utama (Thumbnail) <span class="text-red-500">*</span>
                         </label>
                         <label for="thumbnail" id="thumbnailDropzone"
-                            class="group relative flex min-h-[220px] cursor-pointer flex-col items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-gray-300 bg-gray-50 p-4 text-center transition hover:border-blue-500 hover:bg-blue-50/30">
+                            class="group relative flex min-h-[220px] cursor-pointer flex-col items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-gray-300 bg-gray-50 p-4 text-center transition hover:border-amber-500 hover:bg-amber-50/30">
                             
                             <div id="thumbnailPlaceholder" class="space-y-2">
-                                <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-sm text-gray-400 group-hover:text-blue-600">
+                                <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-sm text-gray-400 group-hover:text-amber-600">
                                     <i class="fa-solid fa-cloud-arrow-up text-xl"></i>
                                 </div>
                                 <p class="text-sm font-medium text-gray-700">Pilih atau Tarik Foto Utama</p>
@@ -422,14 +422,14 @@
                             Foto Galeri Tambahan (Multiple)
                         </label>
                         <label for="gallery_images"
-                            class="group flex min-h-[220px] cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-gray-300 bg-gray-50 p-4 text-center transition hover:border-blue-500 hover:bg-blue-50/30">
+                            class="group flex min-h-[220px] cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-gray-300 bg-gray-50 p-4 text-center transition hover:border-amber-500 hover:bg-amber-50/30">
                             <div class="space-y-2">
-                                <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-sm text-gray-400 group-hover:text-blue-600">
+                                <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-sm text-gray-400 group-hover:text-amber-600">
                                     <i class="fa-solid fa-images text-xl"></i>
                                 </div>
                                 <p class="text-sm font-medium text-gray-700">Pilih Foto Galeri</p>
                                 <p class="text-xs text-gray-500">Bisa memilih beberapa foto sekaligus</p>
-                                <span id="galleryCount" class="inline-block rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-700 hidden">
+                                <span id="galleryCount" class="inline-block rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-700 hidden">
                                     0 Foto Terpilih
                                 </span>
                             </div>
@@ -459,10 +459,10 @@
 
                 <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
                     @foreach($popularFacilities as $fac)
-                        <label class="flex items-center gap-2.5 rounded-lg border border-gray-200 p-3 cursor-pointer transition hover:bg-gray-50 has-[:checked]:border-blue-600 has-[:checked]:bg-blue-50/40">
+                        <label class="flex items-center gap-2.5 rounded-lg border border-gray-200 p-3 cursor-pointer transition hover:bg-gray-50 has-[:checked]:border-amber-600 has-[:checked]:bg-amber-50/40">
                             <input type="checkbox" name="facilities[]" value="{{ $fac }}"
                                 {{ is_array(old('facilities')) && in_array($fac, old('facilities')) ? 'checked' : '' }}
-                                class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                                class="h-4 w-4 rounded border-gray-300 text-amber-600 focus:ring-amber-500">
                             <span class="text-xs font-medium text-gray-800">{{ $fac }}</span>
                         </label>
                     @endforeach
@@ -485,7 +485,7 @@
                             Status Properti <span class="text-red-500">*</span>
                         </label>
                         <select id="status" name="status" required
-                            class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none transition focus:border-blue-600 focus:ring-1 focus:ring-blue-600 bg-white">
+                            class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none transition focus:border-amber-600 focus:ring-1 focus:ring-amber-600 bg-white">
                             <option value="published" {{ old('status', 'published') == 'published' ? 'selected' : '' }}>Dipublikasikan (Published)</option>
                             <option value="draft" {{ old('status') == 'draft' ? 'selected' : '' }}>Draft (Disimpan saja)</option>
                             <option value="featured" {{ old('status') == 'featured' ? 'selected' : '' }}>Featured (Unggulan)</option>
@@ -498,7 +498,7 @@
                     <div class="flex items-center pt-6">
                         <label class="flex items-center gap-3 cursor-pointer">
                             <input type="checkbox" name="is_featured" value="1" {{ old('is_featured') ? 'checked' : '' }}
-                                class="h-5 w-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                                class="h-5 w-5 rounded border-gray-300 text-amber-600 focus:ring-amber-500">
                             <div>
                                 <span class="text-sm font-semibold text-gray-900">Tampilkan di Properti Unggulan (Featured)</span>
                                 <p class="text-xs text-gray-500">Properti akan dimunculkan di section rekomendasi halaman depan.</p>

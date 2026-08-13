@@ -24,7 +24,7 @@
     .hero-overlay {
         position: absolute;
         inset: 0;
-        background: linear-gradient(135deg, rgba(29, 78, 109, 0.92) 0%, rgba(38, 101, 140, 0.65) 60%, rgba(73, 130, 165, 0.3) 100%);
+        background: linear-gradient(135deg, rgba(31, 22, 17, 0.92) 0%, rgba(82, 56, 40, 0.68) 60%, rgba(148, 110, 75, 0.3) 100%);
     }
 
     .hero-content {
@@ -114,15 +114,15 @@
     .service-highlight-card:hover {
         transform: translateY(-8px);
         box-shadow: var(--shadow-lg);
-        border-color: var(--color-primary);
+        border-color: var(--color-gilded);
     }
 
     .service-highlight-icon {
         width: 80px;
         height: 80px;
         border-radius: 50%;
-        background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
-        color: white;
+        background: var(--color-champagne);
+        color: var(--color-bronze);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -132,6 +132,8 @@
     }
 
     .service-highlight-card:hover .service-highlight-icon {
+        background: var(--color-gilded);
+        color: var(--color-noir);
         transform: scale(1.1) rotate(5deg);
     }
 
@@ -205,13 +207,13 @@
     }
 
     .property-title a:hover {
-        color: var(--color-primary);
+        color: var(--color-bronze);
     }
 
     .property-price {
         font-size: 1.1rem;
         font-weight: 700;
-        color: var(--color-primary);
+        color: var(--color-bronze);
         margin-bottom: 8px;
     }
 
@@ -274,7 +276,7 @@
     .portfolio-card-home-overlay {
         position: absolute;
         inset: 0;
-        background: linear-gradient(to top, rgba(29, 78, 109, 0.88) 0%, transparent 55%);
+        background: linear-gradient(to top, rgba(31, 22, 17, 0.88) 0%, transparent 55%);
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
@@ -309,43 +311,49 @@
 
     /* ── CTA WhatsApp ────────────────────────── */
     .cta-whatsapp-section {
-        background: linear-gradient(135deg, #1d4e6d 0%, #26658c 50%, #173b52 100%);
-        color: white;
-        padding: 80px 0;
+        padding: 60px 0 40px;
+    }
+
+    .cta-whatsapp-card {
+        background: linear-gradient(135deg, var(--color-noir) 0%, var(--color-espresso) 100%);
+        color: var(--color-champagne);
+        padding: 60px 20px;
         text-align: center;
+        border-radius: var(--border-radius-lg);
         position: relative;
         overflow: hidden;
     }
 
-    .cta-whatsapp-section::before {
+    .cta-whatsapp-card::before {
         content: '';
         position: absolute;
         top: -50%;
         left: -10%;
         width: 400px;
         height: 400px;
-        background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(212, 165, 105, 0.12) 0%, transparent 70%);
         border-radius: 50%;
     }
 
-    .cta-whatsapp-section::after {
+    .cta-whatsapp-card::after {
         content: '';
         position: absolute;
         bottom: -30%;
         right: 5%;
         width: 300px;
         height: 300px;
-        background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(212, 165, 105, 0.1) 0%, transparent 70%);
         border-radius: 50%;
     }
 
     .cta-wa-title {
-        font-size: 2.75rem;
+        font-size: 2.5rem;
         font-weight: 700;
-        margin-bottom: 16px;
+        margin-bottom: 20px;
         line-height: 1.2;
         position: relative;
         z-index: 1;
+        color: var(--color-champagne);
     }
 
     .cta-wa-subtitle {
@@ -360,8 +368,8 @@
     }
 
     .btn-whatsapp {
-        background: #25D366;
-        color: white;
+        background: var(--color-gilded);
+        color: var(--color-noir);
         padding: 16px 40px;
         border-radius: 50px;
         font-weight: 700;
@@ -372,14 +380,14 @@
         transition: all 0.3s ease;
         position: relative;
         z-index: 1;
-        box-shadow: 0 8px 25px rgba(37, 211, 102, 0.35);
+        box-shadow: 0 8px 25px rgba(212, 165, 105, 0.45);
     }
 
     .btn-whatsapp:hover {
-        background: #1EBE5D;
+        background: var(--color-gilded-dark);
+        color: var(--color-noir);
         transform: translateY(-3px);
-        box-shadow: 0 12px 30px rgba(37, 211, 102, 0.5);
-        color: white;
+        box-shadow: 0 12px 30px rgba(212, 165, 105, 0.6);
     }
 
     /* ── About Section ───────────────────────── */
@@ -411,8 +419,8 @@
         width: 44px;
         height: 44px;
         border-radius: 10px;
-        background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
-        color: white;
+        background: var(--color-champagne);
+        color: var(--color-bronze);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -444,7 +452,8 @@
         .portfolio-grid-home { grid-template-columns: 1fr; }
         .cta-wa-title { font-size: 1.75rem; }
         .btn-whatsapp { padding: 14px 30px; font-size: 1rem; }
-        .cta-whatsapp-section { padding: 60px 20px; }
+        .cta-whatsapp-section { padding: 40px 0 30px; }
+        .cta-whatsapp-card { padding: 45px 20px; }
     }
 
     @media (max-width: 480px) {
@@ -559,7 +568,7 @@
 {{-- ──────────────────────────────────────────────── --}}
 {{-- 3. PROPERTY HIGHLIGHT                            --}}
 {{-- ──────────────────────────────────────────────── --}}
-<section class="section section-muted" aria-labelledby="judul-properti">
+<section class="section section-muted" style="background: linear-gradient(135deg, var(--color-champagne) 0%, #FBF4E4 100%);" aria-labelledby="judul-properti">
     <div class="container">
         <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; gap: 15px;">
             <div data-scroll>
@@ -674,17 +683,19 @@
 {{-- 5. CTA WHATSAPP                                  --}}
 {{-- ──────────────────────────────────────────────── --}}
 <section class="cta-whatsapp-section" aria-label="Hubungi DJM via WhatsApp">
-    <div class="container" data-scroll>
-        <h2 class="cta-wa-title">Siap Membantu Kebutuhan Anda</h2>
-        <p class="cta-wa-subtitle">Konsultasikan kebutuhan perizinan, properti, atau konstruksi Anda langsung bersama tim ahli DJM — tanpa biaya awal.</p>
-        <a href="https://wa.me/6281234567890?text=Halo%20DJM%2C%20saya%20ingin%20berkonsultasi%20mengenai%20layanan%20DJM."
-           target="_blank"
-           rel="noopener noreferrer"
-           class="btn-whatsapp"
-           title="Hubungi DJM via WhatsApp">
-            <i class="fa-brands fa-whatsapp" style="font-size: 1.4rem;"></i>
-            Konsultasi via WhatsApp
-        </a>
+    <div class="container">
+        <div class="cta-whatsapp-card" data-scroll>
+            <h2 class="cta-wa-title">Siap Membantu Kebutuhan Anda</h2>
+            <p class="cta-wa-subtitle">Konsultasikan kebutuhan perizinan, properti, atau konstruksi Anda langsung bersama tim ahli DJM — tanpa biaya awal.</p>
+            <a href="https://wa.me/6281234567890?text=Halo%20DJM%2C%20saya%20ingin%20berkonsultasi%20mengenai%20layanan%20DJM."
+               target="_blank"
+               rel="noopener noreferrer"
+               class="btn-whatsapp"
+               title="Hubungi DJM via WhatsApp">
+                <i class="fa-brands fa-whatsapp" style="font-size: 1.4rem;"></i>
+                Konsultasi via WhatsApp
+            </a>
+        </div>
     </div>
 </section>
 

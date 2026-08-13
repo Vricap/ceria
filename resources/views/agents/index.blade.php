@@ -23,7 +23,7 @@
     .agent-card-large:hover {
         transform: translateY(-5px);
         box-shadow: var(--shadow);
-        border-color: var(--color-primary);
+        border-color: var(--color-bronze);
     }
     
     .agent-photo-lg {
@@ -38,7 +38,7 @@
     
     .agent-card-large:hover .agent-photo-lg {
         transform: scale(1.05);
-        border-color: var(--color-primary-light);
+        border-color: var(--color-bronze);
     }
 
     .agent-name {
@@ -53,11 +53,11 @@
     }
     
     .agent-name a:hover {
-        color: var(--color-primary);
+        color: var(--color-bronze);
     }
 
     .agent-title {
-        color: var(--color-primary);
+        color: var(--color-bronze);
         font-weight: 600;
         margin-bottom: 15px;
         font-size: 0.95rem;
@@ -109,7 +109,7 @@
     }
 
     .social-icon:hover {
-        background: var(--color-primary);
+        background: var(--color-bronze);
         color: white;
         transform: translateY(-2px);
     }

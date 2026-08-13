@@ -19,12 +19,12 @@
             <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
                 <div class="flex items-center gap-3">
                     <a href="{{ route('dashboard') }}" class="text-xl font-bold tracking-tight text-gray-900">
-                        DJM <span class="text-blue-600">Admin</span>
+                        DJM <span class="text-amber-600">Admin</span>
                     </a>
                 </div>
 
                 <div class="flex items-center gap-4">
-                    <a href="{{ route('home') }}" target="_blank" class="text-xs font-semibold text-blue-600 hover:underline flex items-center gap-1">
+                    <a href="{{ route('home') }}" target="_blank" class="text-xs font-semibold text-amber-600 hover:underline flex items-center gap-1">
                         <i class="fa-solid fa-arrow-up-right-from-square"></i> Lihat Website
                     </a>
                     <span class="text-sm text-gray-500">
@@ -166,7 +166,7 @@
                                     <div class="font-bold text-gray-900">
                                         {{ $property->formatted_price }}
                                     </div>
-                                    <span class="inline-block mt-0.5 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider {{ $property->transaction_type == 'disewa' ? 'bg-amber-100 text-amber-800' : 'bg-blue-100 text-blue-800' }}">
+                                    <span class="inline-block mt-0.5 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider {{ $property->transaction_type == 'disewa' ? 'bg-amber-100 text-amber-800' : 'bg-amber-100 text-amber-800' }}">
                                         {{ ucfirst($property->transaction_type ?? 'dijual') }}
                                     </span>
                                 </td>
@@ -206,7 +206,7 @@
 
                                         <a
                                             href="{{ route('properties.edit', $property) }}"
-                                            class="rounded-lg border border-gray-200 px-3 py-1.5 text-xs font-medium text-blue-600 transition hover:bg-blue-50"
+                                            class="rounded-lg border border-gray-200 px-3 py-1.5 text-xs font-medium text-amber-600 transition hover:bg-amber-50"
                                         >
                                             <i class="fa-solid fa-pen-to-square"></i> Edit
                                         </a>
@@ -267,7 +267,7 @@
                         <div class="mt-3 flex gap-2">
                             <a
                                 href="{{ route('properties.edit', $property) }}"
-                                class="flex-1 text-center rounded-lg border border-gray-200 px-3 py-2 text-xs font-medium text-blue-600 transition hover:bg-blue-50"
+                                class="flex-1 text-center rounded-lg border border-gray-200 px-3 py-2 text-xs font-medium text-amber-600 transition hover:bg-amber-50"
                             >
                                 Edit
                             </a>

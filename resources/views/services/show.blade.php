@@ -22,8 +22,8 @@
 
     .service-detail-badge {
         display: inline-block;
-        background: rgba(37, 211, 102, 0.12);
-        color: #1f9d57;
+        background: var(--color-champagne);
+        color: var(--color-bronze);
         font-size: 0.85rem;
         font-weight: 600;
         padding: 6px 16px;
@@ -33,7 +33,7 @@
 
     .service-detail-icon {
         font-size: 2.5rem;
-        color: var(--color-primary);
+        color: var(--color-bronze);
         margin-bottom: 20px;
     }
 
@@ -82,8 +82,8 @@
     }
 
     .wa-box {
-        background-color: var(--color-primary);
-        color: white;
+        background: linear-gradient(135deg, var(--color-noir) 0%, var(--color-espresso) 100%);
+        color: var(--color-champagne);
         padding: 45px 30px;
         border-radius: var(--border-radius-lg);
         text-align: center;
@@ -142,7 +142,7 @@
         <div class="grid grid-cols-3">
             @foreach($services as $other)
                 <div class="service-card" style="background: white; border: 1px solid var(--color-border); border-radius: var(--border-radius-lg); padding: 30px 20px; text-align: center; box-shadow: var(--shadow-sm);">
-                    <div style="font-size: 2rem; color: var(--color-primary); margin-bottom: 15px;"><i class="fa-solid {{ $other->icon }}"></i></div>
+                    <div style="font-size: 2rem; color: var(--color-bronze); margin-bottom: 15px;"><i class="fa-solid {{ $other->icon }}"></i></div>
                     <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; color: var(--color-text-main);">{{ $other->name }}</h3>
                     <p style="color: var(--color-text-muted); font-size: 0.95rem; margin-bottom: 20px;">{{ $other->short_description }}</p>
                     <a href="{{ route('services.show', $other->slug) }}" class="btn btn-outline" style="width: 100%;">Lihat Detail</a>

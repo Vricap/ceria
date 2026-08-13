@@ -35,15 +35,15 @@
 
     .contact-info-item:hover {
         transform: translateY(-3px);
-        border-color: var(--color-primary);
+        border-color: var(--color-bronze);
         box-shadow: var(--shadow);
     }
 
     .info-icon {
         width: 50px;
         height: 50px;
-        background: rgba(26, 92, 58, 0.1);
-        color: var(--color-primary);
+        background: rgba(212, 165, 105, 0.16);
+        color: var(--color-bronze);
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -54,7 +54,7 @@
     }
 
     .contact-info-item:hover .info-icon {
-        background: var(--color-primary);
+        background: var(--color-bronze);
         color: white;
     }
 
@@ -88,7 +88,7 @@
     }
 
     .contact-info-item:hover .info-arrow {
-        color: var(--color-primary);
+        color: var(--color-bronze);
         transform: translate(2px, -2px);
     }
 
@@ -162,7 +162,7 @@
 @endpush
 
 @section('content')
-    <div class="page-header">
+    <div class="page-header" style="background: var(--color-champagne);">
         <div class="container" style="max-width: 800px;">
             <h1 class="page-title">Hubungi Kami</h1>
             <p style="color: var(--color-text-muted); font-size: 1.125rem;">
@@ -227,9 +227,9 @@
                 <div style="margin-top: 40px;">
                     <h4 style="font-size: 1.1rem; margin-bottom: 15px; color: var(--color-text-main);">Ikuti Kami</h4>
                     <div style="display: flex; gap: 15px;">
-                        <a href="#" style="color: var(--color-primary); font-size: 1.5rem; opacity: 0.8; transition: opacity 0.3s;"><i class="fa-brands fa-facebook"></i></a>
-                        <a href="#" style="color: var(--color-primary); font-size: 1.5rem; opacity: 0.8; transition: opacity 0.3s;"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#" style="color: var(--color-primary); font-size: 1.5rem; opacity: 0.8; transition: opacity 0.3s;"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#" style="color: var(--color-bronze); font-size: 1.5rem; opacity: 0.8; transition: color 0.3s, opacity 0.3s;"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#" style="color: var(--color-bronze); font-size: 1.5rem; opacity: 0.8; transition: color 0.3s, opacity 0.3s;"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" style="color: var(--color-bronze); font-size: 1.5rem; opacity: 0.8; transition: color 0.3s, opacity 0.3s;"><i class="fa-brands fa-youtube"></i></a>
                     </div>
                 </div>
             </div>

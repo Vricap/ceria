@@ -13,10 +13,10 @@
   }
 
   var palettes = [
-    "linear-gradient(135deg,#EAF7FB 0%,#C8E9F2 100%)",
-    "linear-gradient(135deg,#E6F4EF 0%,#C9E8DC 100%)",
-    "linear-gradient(135deg,#F1EBFA 0%,#DED0F0 100%)",
-    "linear-gradient(135deg,#E4F5F7 0%,#C0E6ED 100%)",
+    "linear-gradient(135deg,#F9F0D6 0%,#EDDFBE 100%)",
+    "linear-gradient(135deg,#F4E4CB 0%,#E4CBA0 100%)",
+    "linear-gradient(135deg,#FDF4E3 0%,#F2E3C8 100%)",
+    "linear-gradient(135deg,#F6E7D3 0%,#E8CDAC 100%)",
   ];
   function phColor(i) { return palettes[i % palettes.length]; }
 
@@ -425,7 +425,7 @@
       "<p><i class=\"fa-solid fa-location-dot\"></i> " + p.location + "</p></div></div>" +
       '<div class="container"><div class="detail-grid">' +
       '<div class="detail-media" style="background:' + phColor(p.slug.length) +
-      ';display:flex;align-items:center;justify-content:center;color:rgba(84,172,191,.6);font-size:4rem;">' +
+      ';display:flex;align-items:center;justify-content:center;color:rgba(148,110,75,.6);font-size:4rem;">' +
       '<i class="fa-solid fa-house-chimney"></i></div>' +
       '<div class="detail-info">' +
       '<div class="d-title">' + p.title + "</div>" +

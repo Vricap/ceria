@@ -52,8 +52,8 @@
 
         /* Base header styles */
         .site-header {
-            background-color: var(--color-primary);
-            color: white;
+            background-color: var(--color-white);
+            color: var(--color-noir);
             padding: 15px 0;
             position: fixed;
             width: 100%;
@@ -61,6 +61,7 @@
             top: 0;
             z-index: 1000;
             box-shadow: var(--shadow-sm);
+            border-bottom: 1px solid var(--color-border);
         }
         
         .header-inner {
@@ -72,14 +73,14 @@
         .logo {
             font-size: 1.5rem;
             font-weight: 700;
-            color: white;
+            color: var(--color-noir);
             display: flex;
             align-items: center;
             gap: 10px;
         }
         
         .logo:hover {
-            color: var(--color-secondary);
+            color: var(--color-gilded-dark);
         }
 
         .logo-img {
@@ -94,17 +95,17 @@
         }
 
         .nav-link {
-            color: rgba(255, 255, 255, 0.9);
-            font-weight: 500;
+            color: var(--color-espresso);
+            font-weight: 600;
             font-size: 0.95rem;
         }
 
         .nav-link:hover {
-            color: white;
+            color: var(--color-gilded-dark);
         }
 
         .nav-link.active {
-            color: #a7ebf2;
+            color: var(--color-gilded-dark);
         }
 
         .header-actions {
@@ -117,15 +118,15 @@
             display: none;
             background: none;
             border: none;
-            color: white;
+            color: var(--color-noir);
             font-size: 1.5rem;
             cursor: pointer;
         }
 
         /* Footer */
         .site-footer {
-            background-color: var(--color-primary-dark);
-            color: white;
+            background-color: var(--color-noir);
+            color: var(--color-champagne);
             padding: 60px 0 30px;
             margin-top: 60px;
         }
@@ -140,13 +141,13 @@
         .footer-logo {
             font-size: 1.5rem;
             font-weight: 700;
-            color: white;
+            color: var(--color-champagne);
             margin-bottom: 15px;
             display: block;
         }
 
         .footer-text {
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(249, 240, 214, 0.7);
             margin-bottom: 20px;
             font-size: 0.95rem;
         }
@@ -155,7 +156,7 @@
             font-size: 1.125rem;
             font-weight: 600;
             margin-bottom: 20px;
-            color: white;
+            color: var(--color-champagne);
         }
 
         .footer-links {
@@ -167,12 +168,12 @@
         }
 
         .footer-links a {
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(249, 240, 214, 0.7);
             font-size: 0.95rem;
         }
 
         .footer-links a:hover {
-            color: white;
+            color: var(--color-gilded);
             padding-left: 5px;
         }
 
@@ -187,14 +188,15 @@
             justify-content: center;
             width: 36px;
             height: 36px;
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
+            background-color: rgba(249, 240, 214, 0.1);
+            color: var(--color-champagne);
             border-radius: 50%;
             transition: all 0.3s;
         }
 
         .social-links a:hover {
-            background-color: var(--color-accent);
+            background-color: var(--color-gilded);
+            color: var(--color-noir);
             transform: translateY(-3px);
         }
 
@@ -202,23 +204,23 @@
             display: flex;
             gap: 10px;
             margin-bottom: 15px;
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(249, 240, 214, 0.7);
             font-size: 0.95rem;
         }
         
         .contact-info i {
-            color: var(--color-accent);
+            color: var(--color-gilded);
             margin-top: 4px;
         }
 
         .footer-bottom {
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(249, 240, 214, 0.12);
             padding-top: 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.6);
+            color: rgba(249, 240, 214, 0.55);
         }
 
         /* Page Header (Global for pages like About, Services, Contact, Properties, Agents) */
@@ -231,7 +233,7 @@
 
         .page-title {
             font-size: 3rem;
-            color: var(--color-primary);
+            color: var(--color-noir);
             margin-bottom: 15px;
         }
 
@@ -247,7 +249,8 @@
                 grid-template-columns: 1fr 1fr;
                 gap: 30px;
             }
-            .header-actions .btn-outline {
+            .header-actions .btn-outline,
+            .header-actions .btn-primary {
                 padding: 8px 16px;
                 font-size: 0.85rem;
             }
@@ -279,7 +282,8 @@
                 padding: 40px 0 25px;
                 margin-top: 40px;
             }
-            .header-actions .btn-outline {
+            .header-actions .btn-outline,
+            .header-actions .btn-primary {
                 display: none;
             }
             .page-header {
@@ -363,7 +367,7 @@
             </nav>
 
             <div class="header-actions">
-                <a href="{{ route('contact.index') }}" class="btn btn-outline" style="border-color: white; color: white;">Hubungi Kami</a>
+                <a href="{{ route('contact.index') }}" class="btn btn-primary" style="color: var(--color-noir);">Hubungi Kami</a>
                 <button @click="mobileMenuOpen = !mobileMenuOpen" class="mobile-menu-btn">
                     <i class="fa-solid fa-bars"></i>
                 </button>
@@ -381,7 +385,7 @@
                 <a href="{{ route('services.index') }}" style="color: var(--color-text-main); font-weight: 500;">Layanan</a>
                 <a href="{{ route('properties.index') }}" style="color: var(--color-text-main); font-weight: 500;">Properti</a>
                 <a href="{{ route('portfolio.index') }}" style="color: var(--color-text-main); font-weight: 500;">Portfolio</a>
-                <a href="{{ route('contact.index') }}" style="color: var(--color-primary); font-weight: 600;">Hubungi Kami</a>
+                <a href="{{ route('contact.index') }}" style="color: var(--color-bronze); font-weight: 600;">Hubungi Kami</a>
             </div>
         </div>
     </header>
@@ -399,7 +403,7 @@
             <div class="footer-grid">
                 <div class="footer-widget">
                     <a href="{{ route('home') }}" class="footer-logo">
-                        <img src="{{ asset('images/logodjm.png') }}" alt="DJM — Desty Jaya Mandiri" class="logo-img">
+                        <img src="{{ asset('images/logodjm2.png') }}" alt="DJM — Desty Jaya Mandiri" class="logo-img">
                     </a>
                     <p class="footer-text">
                         Desty Jaya Mandiri — perusahaan terpercaya di bidang perizinan, properti, dan konstruksi di Yogyakarta dan sekitarnya.

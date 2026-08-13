@@ -7,31 +7,40 @@
 @import '@fancyapps/ui/dist/fancybox/fancybox.css';
 
 :root {
-    /* Color Palette - Blue Theme */
-    --color-primary: #26658c; /* PRIMARY BLUE */
-    --color-primary-light: #4982a5;
-    --color-primary-dark: #1d4e6d; /* DARK BLUE */
-    --color-secondary: #e6eff5; /* LIGHT BLUE */
-    --color-accent: #26658c;
-    --color-text-main: #172B4D; /* NAVY TEXT */
-    --color-text-muted: #4A5C7A;
-    --color-text-light: #8090A8;
-    --color-background: #F7F9FC; /* BACKGROUND */
-    --color-surface: #FFFFFF; /* WHITE */
-    --color-border: #DCE6F5; /* BORDER */
-    
+    /* Color Palette — Premium Warm (Cream, Gold, Dark Brown) */
+    --color-champagne: #F9F0D6;
+    --color-gilded: #D4A569;
+    --color-gilded-dark: #B98647;
+    --color-bronze: #946E4B;
+    --color-espresso: #523828;
+    --color-noir: #1F1611;
+    --color-white: #FFFFFF;
+
+    /* Semantic mappings */
+    --color-primary: #D4A569; /* GILDED — primary CTA / accent */
+    --color-primary-light: #E6C48D;
+    --color-primary-dark: #B98647;
+    --color-secondary: #F9F0D6; /* CHAMPAGNE — secondary background */
+    --color-accent: #D4A569; /* GILDED accent */
+    --color-text-main: #1F1611; /* NOIR — headings / main text */
+    --color-text-muted: #523828; /* ESPRESSO — supporting text */
+    --color-text-light: #946E4B; /* BRONZE — subtle / secondary */
+    --color-background: #FFFFFF; /* WHITE — main page background */
+    --color-surface: #FFFFFF; /* WHITE — cards / containers */
+    --color-border: #EADFCB; /* warm neutral border */
+
     /* Layout */
     --container-width: 1200px;
     --border-radius-sm: 4px;
     --border-radius: 8px;
     --border-radius-lg: 16px;
     --border-radius-full: 9999px;
-    
-    /* Shadows */
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+    /* Shadows — warm tinted */
+    --shadow-sm: 0 1px 2px 0 rgba(31, 22, 17, 0.05);
+    --shadow: 0 4px 6px -1px rgba(31, 22, 17, 0.08), 0 2px 4px -1px rgba(31, 22, 17, 0.05);
+    --shadow-lg: 0 10px 15px -3px rgba(31, 22, 17, 0.12), 0 4px 6px -2px rgba(31, 22, 17, 0.06);
+    --shadow-hover: 0 20px 25px -5px rgba(31, 22, 17, 0.14), 0 10px 10px -5px rgba(31, 22, 17, 0.06);
 }
 
 * {
@@ -53,13 +62,13 @@ body {
 }
 
 a {
-    color: var(--color-primary);
+    color: var(--color-bronze);
     text-decoration: none;
     transition: color 0.2s ease;
 }
 
 a:hover {
-    color: var(--color-primary-dark);
+    color: var(--color-gilded-dark);
 }
 
 img {
@@ -145,7 +154,7 @@ img {
 .section-title {
     font-size: 2.25rem;
     font-weight: 700;
-    color: var(--color-primary);
+    color: var(--color-noir);
     margin-bottom: 15px;
 }
 
@@ -166,7 +175,7 @@ img {
 
 .page-title {
     font-size: 3rem;
-    color: var(--color-primary);
+    color: var(--color-noir);
     margin-bottom: 15px;
 }
 
@@ -211,35 +220,35 @@ img {
 }
 
 .btn-primary {
-    background-color: var(--color-primary);
-    color: white;
+    background-color: var(--color-gilded);
+    color: var(--color-noir);
 }
 
 .btn-primary:hover {
-    background-color: var(--color-primary-dark);
-    color: white;
+    background-color: var(--color-gilded-dark);
+    color: var(--color-noir);
     transform: translateY(-2px);
     box-shadow: var(--shadow);
 }
 
 .btn-outline {
     background-color: transparent;
-    border-color: var(--color-primary);
-    color: var(--color-primary);
+    border-color: var(--color-bronze);
+    color: var(--color-bronze);
 }
 
 .btn-outline:hover {
-    background-color: var(--color-primary);
+    background-color: var(--color-bronze);
     color: white;
 }
 
 .btn-white {
     background-color: white;
-    color: var(--color-primary);
+    color: var(--color-noir);
 }
 
 .btn-white:hover {
-    background-color: var(--color-surface);
+    background-color: var(--color-champagne);
 }
 
 /* Components */
@@ -294,9 +303,9 @@ img {
     color: white;
 }
 
-.badge-sale { background-color: var(--color-primary); }
-.badge-rent { background-color: var(--color-accent); }
-.badge-featured { background-color: var(--color-accent); }
+.badge-sale { background-color: var(--color-gilded); color: var(--color-noir); }
+.badge-rent { background-color: var(--color-espresso); color: var(--color-champagne); }
+.badge-featured { background-color: var(--color-gilded); color: var(--color-noir); }
 
 .property-card-content {
     padding: 20px;
@@ -308,7 +317,7 @@ img {
 .property-price {
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--color-primary);
+    color: var(--color-bronze);
     margin-bottom: 10px;
 }
 
@@ -324,7 +333,7 @@ img {
 }
 
 .property-title a:hover {
-    color: var(--color-primary);
+    color: var(--color-bronze);
 }
 
 .property-location {
@@ -365,7 +374,7 @@ img {
 }
 
 .category-card:hover {
-    border-color: var(--color-primary);
+    border-color: var(--color-bronze);
     box-shadow: var(--shadow);
     transform: translateY(-5px);
 }
@@ -385,8 +394,8 @@ img {
 }
 
 .category-card:hover .category-icon {
-    background-color: var(--color-primary);
-    color: white;
+    background-color: var(--color-gilded);
+    color: var(--color-noir);
 }
 
 .category-title {
@@ -425,8 +434,8 @@ img {
 
 .form-control:focus {
     outline: none;
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(26, 92, 58, 0.1);
+    border-color: var(--color-bronze);
+    box-shadow: 0 0 0 3px rgba(212, 165, 105, 0.22);
 }
 
 select.form-control {

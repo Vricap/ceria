@@ -28,7 +28,7 @@
     .service-card:hover {
         transform: translateY(-10px);
         box-shadow: var(--shadow-lg);
-        border-color: var(--color-primary);
+        border-color: var(--color-gilded);
     }
 
     .service-image-wrapper {
@@ -96,8 +96,8 @@
     }
 
     .cta-section {
-        background-color: var(--color-primary);
-        color: white;
+        background: linear-gradient(135deg, var(--color-noir) 0%, var(--color-espresso) 100%);
+        color: var(--color-champagne);
         padding: 60px 0;
         text-align: center;
         border-radius: var(--border-radius-lg);
@@ -149,7 +149,7 @@
 @endpush
 
 @section('content')
-    <div class="page-header">
+    <div class="page-header" style="background: var(--color-champagne);">
         <div class="container" style="max-width: 800px;">
             <h1 class="page-title">Layanan Kami</h1>
             <p style="color: var(--color-text-muted); font-size: 1.125rem;">
@@ -166,7 +166,7 @@
             @endphp
 
             <div style="text-align: center; max-width: 600px; margin: {{ $loop->first ? '0 auto 35px' : '70px auto 35px' }};">
-                <i class="fa-solid {{ $categoryIcon }}" style="font-size: 1.6rem; color: var(--color-primary); margin-bottom: 12px; display: inline-block;"></i>
+                <i class="fa-solid {{ $categoryIcon }}" style="font-size: 1.6rem; color: var(--color-bronze); margin-bottom: 12px; display: inline-block;"></i>
                 <h2 class="section-title" style="font-size: 2rem; margin-bottom: 10px;">{{ $categoryName }}</h2>
                 <p style="color: var(--color-text-muted); font-size: 1.05rem;">
                     @if($category === 'perizinan')
@@ -184,7 +184,7 @@
                             <img src="{{ $service->image_url }}" alt="{{ $service->name }}" class="service-image" loading="lazy">
                         </div>
                         <div class="service-content">
-                            <span style="display: inline-block; background: rgba(37, 211, 102, 0.12); color: #1f9d57; font-size: 0.8rem; font-weight: 600; padding: 4px 12px; border-radius: 999px; margin-bottom: 14px; align-self: center;">
+                            <span style="display: inline-block; background: var(--color-champagne); color: var(--color-bronze); font-size: 0.8rem; font-weight: 600; padding: 4px 12px; border-radius: 999px; margin-bottom: 14px; align-self: center;">
                                 <i class="fa-solid {{ $service->icon }}"></i> {{ $service->category_name }}
                             </span>
                             <h2 class="service-title">{{ $service->name }}</h2>

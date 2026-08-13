@@ -91,9 +91,9 @@
     }
     
     .page-item.active .page-link {
-        background: var(--color-primary);
-        color: white;
-        border-color: var(--color-primary);
+        background: var(--color-gilded);
+        color: var(--color-noir);
+        border-color: var(--color-gilded);
     }
     
     .page-item.disabled .page-link {
@@ -106,19 +106,9 @@
         .top-filter-form {
             grid-template-columns: repeat(2, 1fr);
         }
-        .page-title {
-            font-size: 1.75rem;
-        }
     }
     
     @media (max-width: 767px) {
-        .page-header {
-            padding: 30px 0;
-            margin-bottom: 25px;
-        }
-        .page-title {
-            font-size: 1.5rem;
-        }
         .top-filter-form {
             grid-template-columns: 1fr;
         }
@@ -143,13 +133,6 @@
     }
 
     @media (max-width: 480px) {
-        .page-header {
-            padding: 25px 0;
-            margin-bottom: 20px;
-        }
-        .page-title {
-            font-size: 1.35rem;
-        }
         .top-filter {
             padding: 15px;
         }
@@ -158,7 +141,7 @@
 @endpush
 
 @section('content')
-    <div class="page-header">
+    <div class="page-header" style="background: var(--color-champagne);">
         <div class="container" style="max-width: 800px;">
             <h1 class="page-title">Cari Properti</h1>
             <p style="color: var(--color-text-muted); font-size: 1.125rem;">
@@ -194,7 +177,7 @@
                 }
             }">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                    <h3 style="font-size: 1.2rem; color: var(--color-primary);">Filter Pencarian</h3>
+                    <h3 style="font-size: 1.2rem; color: var(--color-bronze);">Filter Pencarian</h3>
                     <button type="button" class="btn btn-outline d-lg-none" style="padding: 5px 10px;" @click="expanded = !expanded">
                         <i class="fa-solid fa-filter"></i> <span x-text="expanded ? 'Tutup Filter' : 'Tampilkan Filter'"></span>
                     </button>
@@ -247,26 +230,6 @@
                             <template x-for="district in availableDistricts" :key="district.slug">
                                 <option :value="district.slug" x-text="district.name"></option>
                             </template>
-                        </select>
-                    </div>
-
-                    <div class="filter-group">
-                        <label class="filter-label">Harga (Rp)</label>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                            <input type="text" name="min_price" class="form-control" placeholder="Min" value="{{ request('min_price') }}">
-                            <input type="text" name="max_price" class="form-control" placeholder="Max" value="{{ request('max_price') }}">
-                        </div>
-                    </div>
-
-                    <div class="filter-group">
-                        <label class="filter-label">Kamar Tidur</label>
-                        <select name="bedrooms" class="form-control">
-                            <option value="">Semua</option>
-                            <option value="1" {{ request('bedrooms') == '1' ? 'selected' : '' }}>1+</option>
-                            <option value="2" {{ request('bedrooms') == '2' ? 'selected' : '' }}>2+</option>
-                            <option value="3" {{ request('bedrooms') == '3' ? 'selected' : '' }}>3+</option>
-                            <option value="4" {{ request('bedrooms') == '4' ? 'selected' : '' }}>4+</option>
-                            <option value="5" {{ request('bedrooms') == '5' ? 'selected' : '' }}>5+</option>
                         </select>
                     </div>
                     

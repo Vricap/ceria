@@ -41,7 +41,7 @@
 
     .agent-info .title {
         font-size: 1.25rem;
-        color: var(--color-primary);
+        color: var(--color-bronze);
         font-weight: 600;
         margin-bottom: 20px;
     }
@@ -68,7 +68,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        color: var(--color-primary);
+        color: var(--color-bronze);
         box-shadow: var(--shadow-sm);
     }
 

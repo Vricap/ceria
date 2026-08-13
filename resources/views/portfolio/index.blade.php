@@ -27,9 +27,9 @@
 
     .filter-btn:hover,
     .filter-btn.active {
-        border-color: var(--color-primary);
-        background: var(--color-primary);
-        color: white;
+        border-color: var(--color-gilded);
+        background: var(--color-gilded);
+        color: var(--color-noir);
     }
 
     .portfolio-card {
@@ -69,8 +69,8 @@
         position: absolute;
         top: 14px;
         left: 14px;
-        background: var(--color-primary);
-        color: white;
+        background: var(--color-champagne);
+        color: var(--color-bronze);
         padding: 4px 14px;
         border-radius: 50px;
         font-size: 0.8rem;
@@ -134,8 +134,8 @@
     }
 
     .cta-portfolio {
-        background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
-        color: white;
+        background: linear-gradient(135deg, var(--color-noir) 0%, var(--color-espresso) 100%);
+        color: var(--color-champagne);
         padding: 70px 40px;
         text-align: center;
         border-radius: var(--border-radius-lg);
@@ -146,6 +146,7 @@
         font-size: 2.25rem;
         font-weight: 700;
         margin-bottom: 15px;
+        color: var(--color-champagne);
     }
 
     .cta-portfolio p {
@@ -177,7 +178,7 @@
 @endpush
 
 @section('content')
-    <div class="page-header">
+    <div class="page-header" style="background: var(--color-champagne);">
         <div class="container" style="max-width: 800px;">
             <h1 class="page-title">Portfolio Kami</h1>
             <p style="color: var(--color-text-muted); font-size: 1.125rem;">

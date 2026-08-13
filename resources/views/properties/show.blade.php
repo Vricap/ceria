@@ -22,7 +22,7 @@
                 <span class="badge {{ $property->status_color }}" style="font-size: 1rem; padding: 8px 15px;">{{ $property->status_label }}</span>
             @endif
             @if(isset($property->formatted_price))
-                <span style="font-size: 1.5rem; font-weight: bold; color: var(--color-primary); margin-left: 15px;">{{ $property->formatted_price }}</span>
+                <span style="font-size: 1.5rem; font-weight: bold; color: var(--color-bronze); margin-left: 15px;">{{ $property->formatted_price }}</span>
             @endif
         </div>
 
@@ -38,7 +38,7 @@
                 <div style="display: flex; gap: 30px; margin-bottom: 30px; flex-wrap: wrap;">
                     @if($property->bedrooms)
                         <div style="display: flex; align-items: center; gap: 10px; font-size: 1.2rem;">
-                            <i class="fa-solid fa-bed" style="color: var(--color-primary);"></i>
+                            <i class="fa-solid fa-bed" style="color: var(--color-bronze);"></i>
                             <div>
                                 <div style="font-size: 0.9rem; color: var(--color-text-muted);">Kamar Tidur</div>
                                 <strong>{{ $property->bedrooms }}</strong>
@@ -47,7 +47,7 @@
                     @endif
                     @if($property->bathrooms)
                         <div style="display: flex; align-items: center; gap: 10px; font-size: 1.2rem;">
-                            <i class="fa-solid fa-bath" style="color: var(--color-primary);"></i>
+                            <i class="fa-solid fa-bath" style="color: var(--color-bronze);"></i>
                             <div>
                                 <div style="font-size: 0.9rem; color: var(--color-text-muted);">Kamar Mandi</div>
                                 <strong>{{ $property->bathrooms }}</strong>
@@ -56,7 +56,7 @@
                     @endif
                     @if($property->land_area)
                         <div style="display: flex; align-items: center; gap: 10px; font-size: 1.2rem;">
-                            <i class="fa-solid fa-ruler-combined" style="color: var(--color-primary);"></i>
+                            <i class="fa-solid fa-ruler-combined" style="color: var(--color-bronze);"></i>
                             <div>
                                 <div style="font-size: 0.9rem; color: var(--color-text-muted);">Luas Tanah</div>
                                 <strong>{{ $property->land_area }} m&sup2;</strong>

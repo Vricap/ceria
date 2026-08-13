@@ -44,8 +44,8 @@
     }
 
     .values-section {
-        background-color: var(--color-primary);
-        color: white;
+        background: linear-gradient(135deg, var(--color-champagne) 0%, #FBF4E4 100%);
+        color: var(--color-noir);
         padding: 80px 0;
         margin-bottom: 80px;
     }
@@ -59,7 +59,7 @@
 
     .value-icon {
         font-size: 2.5rem;
-        color: #A7EBF2;
+        color: var(--color-bronze);
         margin-bottom: 20px;
     }
 
@@ -122,7 +122,7 @@
 @endpush
 
 @section('content')
-    <div class="page-header">
+    <div class="page-header" style="background: var(--color-champagne);">
         <div class="container" style="max-width: 800px;">
             <h1 class="page-title">Tentang DJM Property</h1>
             <p style="font-size: 1.125rem; color: var(--color-text-muted);">
@@ -155,12 +155,12 @@
             </div>
             <div class="about-text">
                 <h2>Visi & Misi</h2>
-                <h4 style="font-size: 1.25rem; margin-bottom: 10px; color: var(--color-primary);">Visi</h4>
+                <h4 style="font-size: 1.25rem; margin-bottom: 10px; color: var(--color-bronze);">Visi</h4>
                 <p>
                     Menjadi ekosistem properti paling terpercaya dan inovatif di Indonesia yang memberdayakan masyarakat dalam membuat keputusan properti yang cerdas.
                 </p>
                 
-                <h4 style="font-size: 1.25rem; margin-top: 20px; margin-bottom: 10px; color: var(--color-primary);">Misi</h4>
+                <h4 style="font-size: 1.25rem; margin-top: 20px; margin-bottom: 10px; color: var(--color-bronze);">Misi</h4>
                 <ul style="color: var(--color-text-muted); font-size: 1.1rem; line-height: 1.8; padding-left: 20px; margin-bottom: 20px;">
                     <li>Menyediakan platform properti yang mudah digunakan, transparan, dan informatif.</li>
                     <li>Membangun jaringan agen properti yang profesional, beretika, dan berfokus pada klien.</li>
