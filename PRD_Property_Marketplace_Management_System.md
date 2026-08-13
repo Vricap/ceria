@@ -1,1352 +1,1529 @@
-# PRD — Property Marketplace & Management System
+# PRD — Website DJM (Desty Jaya Mandiri)
 
-**Versi:** 1.0  
+**Versi:** 1.1  
 **Platform:** Web Responsive  
-**Target:** Indonesia, tahap awal Yogyakarta  
-**Tipe:** Property Listing & Real Estate Management Platform
+**Nama Produk:** DJM — Desty Jaya Mandiri  
+**Jenis:** Company Profile, Digital Catalog & Lead Generation  
+**Target Area:** Yogyakarta dan sekitarnya  
+**Teknologi:** Laravel 12 + Blade + Tailwind CSS + SQLite
 
 ---
 
-## 1. Product Overview
+# 1. Product Overview
 
-Sistem merupakan platform digital properti yang memungkinkan pengguna untuk:
+DJM (Desty Jaya Mandiri) adalah perusahaan yang menyediakan layanan dalam bidang:
 
-- mencari properti berdasarkan lokasi, kategori, harga, dan tipe;
-- melihat detail properti;
-- melihat foto/video properti;
-- menghubungi agen/pengelola;
-- mengajukan minat terhadap properti;
-- melihat artikel/informasi properti;
-- menemukan properti berdasarkan kota/area;
-- mengakses layanan properti.
+1. Perizinan
+2. Property
+3. Konstruksi
 
-Di sisi internal, administrator dapat mengelola:
+Website DJM berfungsi sebagai **company profile dan katalog digital** untuk memperkenalkan perusahaan, menampilkan layanan, menampilkan property yang tersedia, menampilkan portfolio, dan mengarahkan calon pelanggan untuk melakukan konsultasi melalui WhatsApp.
 
-- data properti;
-- kategori properti;
-- lokasi;
-- agen;
-- pemilik/developer;
-- inquiry dari calon pembeli;
-- artikel;
-- layanan;
-- konten homepage.
+Website **tidak melakukan transaksi jual beli atau sewa property secara langsung**.
 
----
+Seluruh komunikasi, negosiasi, konsultasi, dan transaksi dilakukan di luar website, terutama melalui WhatsApp.
 
-## 2. Tujuan Produk
-
-### Business Goals
-
-1. Menjadi media pemasaran properti secara digital.
-2. Mempermudah calon pembeli menemukan properti.
-3. Meningkatkan jumlah inquiry/leads.
-4. Menampilkan informasi properti secara profesional.
-5. Memusatkan pengelolaan listing properti dalam satu sistem.
-6. Meningkatkan visibilitas properti melalui SEO.
-
-### User Goals
-
-Pengguna dapat melakukan:
-
-> **Search → Filter → Explore → View Detail → Contact Agent**
-
-dengan sesedikit mungkin langkah.
-
----
-
-## 3. Target User
-
-### 3.1 Visitor / Buyer
-
-Pengunjung yang ingin:
-
-- membeli rumah;
-- membeli tanah;
-- menyewa properti;
-- mencari apartemen;
-- mencari properti komersial;
-- mencari investasi properti.
-
-### 3.2 Property Agent
-
-Agen yang:
-
-- memasukkan listing;
-- mengelola listing;
-- menerima inquiry;
-- mengelola profil.
-
-### 3.3 Property Owner / Developer
-
-Pemilik/developer yang ingin memasarkan properti.
-
-### 3.4 Administrator
-
-Pengelola seluruh platform.
-
----
-
-## 4. Struktur Sistem
+### Model Bisnis Website
 
 ```text
-PUBLIC WEBSITE
-│
-├── Home
-├── Properties
-│   ├── Property Listing
-│   ├── Search
-│   ├── Filter
-│   └── Property Detail
-│
-├── Categories
-│   ├── Residential
-│   ├── Commercial
-│   ├── Apartment
-│   ├── Land
-│   ├── Luxury Villa
-│   └── Office
-│
-├── Locations
-│   ├── City
-│   └── Area
-│
-├── Agents
-│   └── Agent Detail
-│
-├── Services
-├── Blog
-├── About
-└── Contact
+Pengunjung
+    ↓
+Website DJM
+    ↓
+Melihat Layanan / Property / Portfolio
+    ↓
+Melihat Detail
+    ↓
+Tertarik
+    ↓
+Hubungi DJM via WhatsApp
+    ↓
+Konsultasi / Negosiasi
+    ↓
+Transaksi di luar Website
+```
 
-ADMIN PANEL
+---
+
+# 2. Tujuan Produk
+
+## 2.1 Business Goals
+
+1. Meningkatkan kredibilitas DJM secara digital.
+2. Memperkenalkan layanan perizinan dan konstruksi.
+3. Menampilkan katalog property yang dijual atau disewakan.
+4. Menampilkan portfolio pekerjaan DJM.
+5. Menghasilkan calon pelanggan melalui WhatsApp.
+6. Memudahkan admin memperbarui informasi website.
+7. Meningkatkan visibilitas DJM di search engine.
+
+## 2.2 User Goals
+
+Pengunjung harus dapat:
+
+```text
+Explore
+   ↓
+Find Service / Property
+   ↓
+View Detail
+   ↓
+Contact DJM
+```
+
+Proses harus sederhana dan tidak membutuhkan login.
+
+---
+
+# 3. Target User
+
+## 3.1 Calon Pelanggan Perizinan
+
+Pengguna yang membutuhkan layanan:
+
+- PBG / IMB
+- Pengeringan
+- Pecah Sertifikat
+- Layanan perizinan lain sesuai layanan resmi DJM
+
+## 3.2 Calon Pembeli / Penyewa Property
+
+Pengguna yang mencari:
+
+- Rumah
+- Tanah
+- Ruko
+- Villa
+- Property lain yang ditawarkan DJM
+
+## 3.3 Calon Pelanggan Konstruksi
+
+Pengguna yang membutuhkan:
+
+- Pembangunan
+- Renovasi
+- Jasa konstruksi
+- Layanan konstruksi lain sesuai layanan resmi DJM
+
+## 3.4 Admin DJM
+
+Admin bertugas mengelola:
+
+- Property
+- Layanan
+- Portfolio
+- Kategori
+- Informasi perusahaan
+- Informasi kontak
+- Konten website
+
+---
+
+# 4. Konsep Utama Website
+
+Website memiliki tiga jenis konten utama.
+
+## 4.1 Services
+
+Menjawab pertanyaan:
+
+> **"DJM dapat membantu apa?"**
+
+Contoh:
+
+```text
+Layanan
+├── Perizinan
+│   ├── PBG / IMB
+│   ├── Pengeringan
+│   └── Pecah Sertifikat
+│
+└── Konstruksi
+    ├── Pembangunan
+    ├── Renovasi
+    └── Layanan lainnya
+```
+
+## 4.2 Property
+
+Menjawab pertanyaan:
+
+> **"Property apa yang tersedia?"**
+
+Property merupakan **katalog**, bukan transaksi online.
+
+```text
+Property
+├── Semua
+├── Dijual
+└── Disewakan
+```
+
+## 4.3 Portfolio
+
+Menjawab pertanyaan:
+
+> **"Apa yang sudah pernah dikerjakan DJM?"**
+
+Portfolio dapat berisi pekerjaan:
+
+- Perizinan
+- Konstruksi
+- Property
+- Pekerjaan lainnya
+
+---
+
+# 5. Scope Sistem
+
+## 5.1 Public Website
+
+```text
+HOME
+│
+├── TENTANG KAMI
+│
+├── LAYANAN
+│   ├── Perizinan
+│   │   ├── PBG / IMB
+│   │   ├── Pengeringan
+│   │   └── Pecah Sertifikat
+│   │
+│   └── Konstruksi
+│       ├── Pembangunan
+│       ├── Renovasi
+│       └── ...
+│
+├── PROPERTY
+│   ├── Semua
+│   ├── Dijual
+│   └── Disewakan
+│
+├── PORTFOLIO
+│
+└── KONTAK
+```
+
+## 5.2 Admin Panel
+
+```text
+ADMIN
+│
+├── Login
 │
 ├── Dashboard
-├── Properties
-├── Categories
-├── Locations
-├── Agents
-├── Users
-├── Leads / Inquiry
-├── Blog
+│
+├── Property
+│
 ├── Services
-├── Homepage
-├── Media
+│
+├── Portfolio
+│
+├── Categories
+│
 └── Settings
 ```
 
 ---
 
-# 5. Homepage
+# 6. Homepage
 
-Homepage mengikuti struktur desain referensi.
+Homepage menjadi halaman utama untuk memperkenalkan DJM dan mengarahkan pengguna menuju layanan, property, dan kontak.
 
-## 5.1 Header
+## 6.1 Navbar
 
-Menu:
-
-- Home
-- About
-- Properties
-- Services
-- Pages
-- Blog
-
-CTA:
-
-**Get in Touch**
-
-Header harus:
-
-- responsive;
-- sticky saat scroll;
-- memiliki mobile navigation;
-- logo dapat dikonfigurasi melalui admin.
-
----
-
-## 5.2 Hero Section
-
-Headline:
-
-> **Find Your Dream Property, Easy & Fast**
-
-Subtitle:
-
-> Discover verified properties, luxury homes, and great investment opportunities all in one place.
-
-### Search Component
-
-Input:
-
-- Location
-- Property Type
-- Purpose
-- Keyword
-
-Property Type:
-
-- Residential
-- Commercial
-- Apartment
-- Land
-- Villa
-- Office
-
-Purpose:
-
-- Buy
-- Rent
-
-Button:
-
-**Search**
-
-Contoh URL hasil pencarian:
+Menu utama:
 
 ```text
-/search?location=sleman&type=residential&purpose=buy
+Logo DJM
+
+Home
+Tentang Kami
+Layanan
+Property
+Portfolio
+Kontak
+
+[WhatsApp]
 ```
 
----
+Navbar wajib responsive.
 
-# 6. Browse by Category
+## 6.2 Hero Section
 
-Kategori awal:
+Menampilkan:
 
-| Category | Contoh |
-|---|---|
-| Residential | Rumah |
-| Commercial | Ruko / Commercial |
-| Apartment | Apartemen |
-| Land | Tanah |
-| Luxury Villa | Villa |
-| Office Space | Kantor |
+- Headline
+- Subheadline
+- Background/hero image
+- CTA
 
-Setiap kategori memiliki:
+Contoh:
 
-- icon;
-- nama;
-- jumlah listing;
-- link menuju listing.
+> **Solusi Properti, Perizinan & Konstruksi Terpercaya**
 
----
-
-# 7. About / Company Introduction
-
-Section:
-
-> **Your Trusted Partner in Property Investment & Management**
-
-Konten:
-
-- deskripsi perusahaan;
-- pengalaman;
-- keunggulan;
-- jumlah property;
-- jumlah client;
-- jumlah agent.
+> Membantu memenuhi kebutuhan properti, perizinan, dan konstruksi Anda.
 
 CTA:
 
-**Explore More**
+```text
+[Lihat Layanan]
+[Lihat Property]
+```
 
----
+CTA dapat diarahkan ke WhatsApp jika konteksnya membutuhkan konsultasi.
 
-# 8. Featured Properties
+## 6.3 Service Highlight
 
-Menampilkan properti pilihan.
+Menampilkan tiga bidang utama:
 
-Property card minimal berisi:
+```text
+Perizinan
+Property
+Konstruksi
+```
 
-- thumbnail;
-- status;
-- title;
-- lokasi;
-- harga;
-- tipe;
-- luas tanah;
-- luas bangunan;
-- kamar tidur;
-- kamar mandi.
+Masing-masing memiliki tombol untuk melihat detail.
+
+## 6.4 Property Highlight
+
+Menampilkan beberapa property terbaru/unggulan.
 
 Contoh:
 
 ```text
-[IMAGE]
+Property Terbaru
 
-For Sale
+[Property 1] [Property 2] [Property 3]
 
-Modern Family Home
-
-Rp 2.500.000.000
-
-Sleman, Yogyakarta
-
-4 Beds · 3 Baths · 180 m²
+[Lihat Semua Property]
 ```
 
-CTA:
+## 6.5 Portfolio Highlight
 
-**View Property**
+Menampilkan beberapa portfolio terbaru.
+
+## 6.6 CTA WhatsApp
+
+Bagian khusus untuk mengarahkan calon pelanggan menghubungi DJM.
 
 ---
 
-# 9. Property Listing Page
+# 7. Tentang Kami
 
 URL:
 
 ```text
-/properti
+/about
 ```
 
-### Layout
+Menampilkan:
 
-```text
-FILTER                    PROPERTY
-────────────────────────────────────
+- Profil DJM
+- Visi dan misi jika tersedia
+- Nilai/keunggulan perusahaan
+- Pengalaman
+- Area layanan
+- Informasi pendukung lainnya
 
-Location                  Property Card
-Property Type             Property Card
-Purpose                   Property Card
-Price                     Property Card
-Bedrooms                  Property Card
-Bathrooms                 Property Card
-Land Area                 Property Card
-Building Area             Property Card
-
-[Apply Filter]
-```
-
-### Sorting
-
-- Terbaru
-- Harga Terendah
-- Harga Tertinggi
-- Paling Populer
-
-### Pagination
-
-```text
-Previous 1 2 3 4 5 Next
-```
+Konten faktual harus diberikan atau disetujui oleh client.
 
 ---
 
-# 10. Filter Properti
+# 8. Services / Layanan
 
-## Location
-
-- Province
-- City
-- District
-- Area
-
-Tahap awal:
+URL:
 
 ```text
-DI Yogyakarta
-├── Kota Yogyakarta
-├── Sleman
-├── Bantul
-├── Kulon Progo
-└── Gunungkidul
+/services
 ```
 
-## Property Type
+Services merupakan layanan yang benar-benar dikerjakan oleh DJM.
+
+## 8.1 Kategori Perizinan
+
+Contoh berdasarkan brief client:
+
+- PBG / IMB
+- Pengeringan
+- Pecah Sertifikat
+
+Setiap service memiliki:
+
+- Gambar
+- Nama layanan
+- Deskripsi singkat
+- Tombol detail
+- CTA WhatsApp
+
+## 8.2 Kategori Konstruksi
+
+Daftar final harus dikonfirmasi kepada client.
+
+Contoh:
+
+- Pembangunan
+- Renovasi
+- Jasa konstruksi
+- Layanan lainnya
+
+**Developer tidak boleh menganggap semua contoh tersebut sebagai layanan resmi sebelum disetujui client.**
+
+---
+
+# 9. Service Detail
+
+URL:
+
+```text
+/services/{category}/{slug}
+```
+
+Contoh:
+
+```text
+/services/perizinan/pbg-imb
+/services/perizinan/pengeringan
+/services/perizinan/pecah-sertifikat
+/services/konstruksi/pembangunan
+```
+
+Menampilkan:
+
+- Hero image
+- Nama layanan
+- Deskripsi
+- Ruang lingkup layanan
+- Persyaratan jika tersedia
+- Proses layanan jika tersedia
+- Informasi tambahan
+- CTA WhatsApp
+
+### CTA
+
+```text
+[Konsultasikan via WhatsApp]
+```
+
+Contoh pesan otomatis:
+
+> Halo DJM, saya ingin berkonsultasi mengenai layanan PBG / IMB.
+
+---
+
+# 10. Property
+
+URL:
+
+```text
+/property
+```
+
+Property merupakan **katalog digital**.
+
+Website hanya menampilkan informasi property dan menghubungkan calon pelanggan dengan DJM.
+
+### Tidak ada:
+
+- Checkout
+- Keranjang
+- Pembayaran
+- Booking payment
+- Transaksi online
+
+## 10.1 Kategori Property
+
+Minimal:
+
+```text
+Dijual
+Disewakan
+```
+
+Jenis property dapat mencakup:
 
 - Rumah
 - Tanah
-- Apartemen
-- Villa
 - Ruko
-- Gudang
-- Kantor
-- Hotel
-- Commercial
+- Villa
+- Apartemen
+- Lainnya
 
-## Transaction
-
-- Dijual
-- Disewa
-
-## Price
-
-- Min Price
-- Max Price
-
-## Property Size
-
-- Land Area
-- Building Area
-
-## Bedrooms
-
-- 1+
-- 2+
-- 3+
-- 4+
-- 5+
+Jenis final disesuaikan dengan data DJM.
 
 ---
 
-# 11. Property Detail
+# 11. Property Listing
+
+Halaman:
+
+```text
+/property
+```
+
+Setiap property card menampilkan:
+
+```text
+Foto
+Status
+Judul
+Lokasi
+Harga
+Jenis Property
+Luas Tanah
+Luas Bangunan
+```
+
+Contoh:
+
+```text
+┌──────────────────────────────┐
+│            FOTO              │
+│                              │
+│ DIJUAL                       │
+│ Rumah Minimalis Sleman       │
+│ Sleman, Yogyakarta            │
+│ Rp750.000.000                │
+│ LT 120 m² · LB 90 m²         │
+│                              │
+│ [Lihat Detail]               │
+└──────────────────────────────┘
+```
+
+---
+
+# 12. Property Filter
+
+Filter dibuat sederhana agar sesuai dengan kebutuhan MVP.
+
+### Filter Status
+
+```text
+Semua
+Dijual
+Disewakan
+```
+
+### Filter Jenis
+
+```text
+Rumah
+Tanah
+Ruko
+Villa
+Apartemen
+Lainnya
+```
+
+### Filter Harga
+
+- Harga minimum
+- Harga maksimum
+
+### Filter Lokasi
+
+- Kota/Kabupaten
+- Kecamatan jika data tersedia
+
+Tidak diperlukan filter kompleks pada MVP kecuali jumlah property nantinya berkembang secara signifikan.
+
+---
+
+# 13. Property Detail
 
 URL:
 
 ```text
-/properti/{slug}
+/property/{slug}
 ```
 
 Contoh:
 
 ```text
-/properti/rumah-modern-sleman-dekat-kampus
+/property/rumah-minimalis-sleman
 ```
 
-## Gallery
+Menampilkan:
 
-- Main image
-- Multiple photos
-- Fullscreen gallery
+- Gallery
+- Foto utama
+- Judul
+- Harga
+- Status
+- Lokasi
+- Jenis property
+- Luas tanah
+- Luas bangunan
+- Kamar tidur jika tersedia
+- Kamar mandi jika tersedia
+- Fasilitas
+- Deskripsi
+- Informasi tambahan
 
-Opsional:
-
-- Video
-- Virtual tour
-
-## Property Information
+## CTA Utama
 
 ```text
-Property Title
-Price
-Location
-Property Type
-Transaction Type
-Property ID
+[💬 Tanyakan via WhatsApp]
 ```
 
-## Specification
-
-```text
-Land Area
-Building Area
-Bedrooms
-Bathrooms
-Garage
-Floors
-Certificate
-Year Built
-```
-
----
-
-# 12. Property Description
-
-Menampilkan deskripsi lengkap properti.
+Ketika diklik, WhatsApp membuka chat dengan pesan otomatis.
 
 Contoh:
 
-> Rumah modern dengan lokasi strategis di Sleman, dekat kampus, pusat perbelanjaan, dan akses jalan utama.
+> Halo DJM, saya tertarik dengan property **Rumah Minimalis Sleman** dengan harga Rp750.000.000. Saya ingin mendapatkan informasi lebih lanjut.
 
 ---
 
-# 13. Facilities
-
-Contoh:
-
-- Carport
-- Garden
-- Swimming Pool
-- Security
-- CCTV
-- Electricity
-- Water
-- Internet
-
----
-
-# 14. Location
-
-Property detail memiliki:
-
-- alamat;
-- district;
-- city;
-- province;
-- Google Maps;
-- latitude;
-- longitude.
-
-> Untuk privasi pemilik, alamat lengkap tidak harus selalu ditampilkan secara publik.
-
----
-
-# 15. Agent Information
-
-Pada property detail:
+# 14. Alur Property
 
 ```text
-[PHOTO]
-
-Agent Name
-Property Agent
-
-★★★★★
-
-[WhatsApp]
-[Contact Agent]
-```
-
-Informasi:
-
-- nama;
-- foto;
-- jabatan;
-- nomor kontak;
-- WhatsApp;
-- email;
-- jumlah listing.
-
----
-
-# 16. Inquiry / Lead System
-
-User dapat mengirim:
-
-```text
-Nama
-Email
-No. WhatsApp
+Pengunjung
+    ↓
 Property
-Message
+    ↓
+Filter / Cari
+    ↓
+Pilih Property
+    ↓
+Detail Property
+    ↓
+Tanyakan via WhatsApp
+    ↓
+Chat dengan DJM
+    ↓
+Negosiasi / Konsultasi
+    ↓
+Transaksi di luar Website
 ```
 
-Button:
+### Status Property
 
-**Send Inquiry**
-
-Admin/agent menerima:
+Admin dapat menggunakan:
 
 ```text
-New Inquiry
-
-Name:
-Email:
-WhatsApp:
-Property:
-Message:
-Date:
-Status:
+Draft
+Published
+Sold
+Rented
+Archived
 ```
 
-Status:
+Alur:
 
-- New
-- Contacted
-- Follow Up
-- Qualified
-- Closed
-- Cancelled
+```text
+Draft
+  ↓
+Published
+  ↓
+Ada calon pembeli/penyewa
+  ↓
+Komunikasi melalui WhatsApp
+  ↓
+Transaksi di luar website
+  ↓
+Admin mengubah status
+  ↓
+Sold / Rented
+```
+
+---
+
+# 15. Portfolio
+
+URL:
+
+```text
+/portfolio
+```
+
+Portfolio merupakan dokumentasi pekerjaan atau proyek yang pernah dilakukan DJM.
+
+Kategori:
+
+- Perizinan
+- Konstruksi
+- Property
+- Lainnya
+
+Portfolio card:
+
+```text
+Foto
+Judul
+Kategori
+Lokasi
+Tahun
+```
+
+Detail:
+
+```text
+/portfolio/{slug}
+```
+
+Menampilkan:
+
+- Gallery
+- Judul
+- Kategori
+- Lokasi
+- Tahun
+- Deskripsi
+- Informasi pekerjaan
+
+---
+
+# 16. Contact
+
+URL:
+
+```text
+/contact
+```
+
+Menampilkan:
+
+- Alamat
+- WhatsApp
+- Nomor telepon
+- Email
+- Jam operasional
+- Google Maps
+- Social media
+
+Data kontak menggunakan placeholder sampai client memberikan data final.
 
 ---
 
 # 17. WhatsApp Integration
 
-Setelah inquiry, tersedia:
+WhatsApp merupakan **kanal konversi utama** website.
 
-**Contact via WhatsApp**
-
-Contoh pesan otomatis:
+Implementasi MVP menggunakan link WhatsApp:
 
 ```text
-Halo, saya tertarik dengan properti
-Rumah Modern Sleman.
-
-Saya ingin mendapatkan informasi
-lebih lanjut mengenai properti tersebut.
+https://wa.me/{nomor}
 ```
 
-Nomor WhatsApp berasal dari data agent/admin.
+Tidak menggunakan WhatsApp Business API pada MVP.
 
----
+## WhatsApp CTA ditempatkan pada:
 
-# 18. Explore Properties by City
+- Navbar
+- Homepage
+- Service Detail
+- Property Detail
+- Contact
+- Portfolio jika relevan
 
-Menampilkan properti berdasarkan kota/area:
+### Property-specific message
+
+Pesan dapat dibuat otomatis berdasarkan property:
 
 ```text
-Yogyakarta
-Sleman
-Bantul
-Kulon Progo
-Gunungkidul
+Halo DJM, saya tertarik dengan property:
+[Nama Property]
+
+Harga:
+[Harga]
+
+Saya ingin mendapatkan informasi lebih lanjut.
 ```
 
-Setiap lokasi memiliki:
-
-- cover image;
-- jumlah property;
-- link listing.
-
-Contoh:
+### Service-specific message
 
 ```text
-Properties in Sleman
-128 Properties
+Halo DJM, saya ingin berkonsultasi mengenai:
+[Nama Layanan]
 ```
 
 ---
 
-# 19. Agents
+# 18. Admin Authentication
 
-URL:
+Public user:
 
-```text
-/agen
-```
+> **Tidak perlu login.**
 
-Menampilkan:
+Pengunjung dapat melihat seluruh informasi tanpa membuat akun.
 
-- nama;
-- foto;
-- spesialisasi;
-- lokasi;
-- total listing;
-- contact.
-
-Agent detail:
+Admin:
 
 ```text
-/agen/{slug}
+/admin/login
 ```
 
-Menampilkan semua properti milik agent tersebut.
+Setelah login:
+
+```text
+/admin
+```
+
+Admin login digunakan untuk mengelola konten website.
 
 ---
 
-# 20. Services
+# 19. Admin Dashboard
 
-Layanan:
+Dashboard menampilkan ringkasan:
 
-### Buy Property
+```text
+Total Property
+Property Aktif
+Property Terjual
+Property Disewakan
+Total Services
+Total Portfolio
+```
 
-Membantu menemukan dan membeli properti.
-
-### Sell Property
-
-Membantu pemilik memasarkan properti.
-
-### Rent Property
-
-Membantu pencarian properti sewa.
-
-### Property Management
-
-Pengelolaan properti.
-
-### Property Investment
-
-Konsultasi investasi properti.
-
-### Property Consultation
-
-Konsultasi kebutuhan properti.
+Dashboard tidak membutuhkan analytics kompleks pada MVP.
 
 ---
 
-# 21. Blog / News
-
-URL:
-
-```text
-/blog
-```
-
-Kategori:
-
-- Property Tips
-- Investment
-- Market News
-- Legal
-- Buying Guide
-- Selling Guide
-- Yogyakarta Property
-
-Detail:
-
-```text
-/blog/{slug}
-```
-
-Data:
-
-```text
-Title
-Slug
-Thumbnail
-Content
-Category
-Author
-Published Date
-SEO Title
-SEO Description
-```
-
----
-
-# 22. SEO Requirements
-
-Setiap property harus memiliki:
-
-```text
-Title
-Slug
-Meta Title
-Meta Description
-Canonical URL
-OG Image
-Structured Data
-```
-
-Contoh:
-
-```text
-https://domain.com/properti/rumah-modern-sleman
-```
-
-## SEO Landing Pages
-
-Sistem sebaiknya mendukung:
-
-```text
-/properti/dijual/yogyakarta
-/properti/dijual/sleman
-/properti/dijual/bantul
-/properti/disewa/yogyakarta
-/properti/tanah/sleman
-/properti/rumah/sleman
-```
-
-SEO tidak hanya bergantung pada domain. Struktur halaman dan kualitas konten listing harus menjadi prioritas.
-
----
-
-# 23. Structured Data
-
-Property detail menggunakan schema yang relevan, seperti:
-
-- `RealEstateListing`;
-- `Residence`;
-- `BreadcrumbList`;
-- `Article` untuk blog;
-- `Organization`;
-- `LocalBusiness`.
-
-Tujuannya membantu search engine memahami struktur informasi website.
-
----
-
-# 24. Admin Dashboard
-
-Dashboard menampilkan:
-
-```text
-Total Properties       1,248
-Active Listings          982
-Agents                    35
-New Leads                 128
-```
-
-Data tambahan:
-
-- Property Views;
-- Leads;
-- Latest Properties;
-- Latest Inquiries.
-
----
-
-# 25. Property Management
+# 20. Property Management
 
 Admin dapat:
 
-- Create property;
-- Read property;
-- Update property;
-- Delete property;
-- Publish property;
-- Save as draft;
-- Archive property;
-- Feature property.
-
----
-
-# 26. Property Database
-
-Minimal struktur:
-
-```text
-properties
-├── id
-├── title
-├── slug
-├── description
-├── price
-├── transaction_type
-├── property_type_id
-├── location_id
-├── land_area
-├── building_area
-├── bedrooms
-├── bathrooms
-├── floors
-├── certificate
-├── year_built
-├── latitude
-├── longitude
-├── status
-├── agent_id
-├── featured
-├── published_at
-├── created_at
-└── updated_at
-```
-
----
-
-# 27. Property Images
-
-```text
-property_images
-├── id
-├── property_id
-├── image_url
-├── alt_text
-├── sort_order
-├── is_primary
-└── created_at
-```
-
-Admin dapat:
-
-- upload multiple images;
-- menentukan cover;
-- mengubah urutan;
-- menghapus gambar.
-
----
-
-# 28. User Roles
-
-## Super Admin
-
-Full access.
-
-## Admin
-
-Mengelola konten dan properti.
-
-## Agent
-
-Mengelola listing miliknya dan melihat inquiry terkait.
-
-## Editor
-
-Mengelola artikel.
-
-## Visitor
-
-Mengakses website publik dan mengirim inquiry.
-
----
-
-# 29. Admin Permission
-
-| Module | Super Admin | Admin | Agent | Editor |
-|---|---:|---:|---:|---:|
-| Properties | ✅ | ✅ | Own | ❌ |
-| Agents | ✅ | ✅ | ❌ | ❌ |
-| Users | ✅ | ❌ | ❌ | ❌ |
-| Leads | ✅ | ✅ | Own | ❌ |
-| Blog | ✅ | ✅ | ❌ | ✅ |
-| Services | ✅ | ✅ | ❌ | ❌ |
-| Homepage | ✅ | ✅ | ❌ | ❌ |
-| Settings | ✅ | ❌ | ❌ | ❌ |
-
----
-
-# 30. Homepage CMS
-
-Homepage tidak boleh sepenuhnya hardcoded.
-
-Admin dapat mengubah:
-
-## Hero
-
-- title;
-- subtitle;
-- background;
-- CTA.
-
-## Featured Property
-
-Admin memilih property yang ditampilkan.
-
-## Category
-
-Admin dapat mengubah kategori.
-
-## City
-
-Admin memilih lokasi yang ditampilkan.
-
-## Testimonials
-
-CRUD testimonial.
-
-## Blog
-
-Memilih artikel yang tampil di homepage.
-
----
-
-# 31. Testimonial
-
-Data:
-
-```text
-Name
-Photo
-Position
-Testimonial
-Rating
-Status
-```
-
-Homepage menampilkan carousel testimonial.
-
----
-
-# 32. Contact
-
-Contact page:
-
-```text
-Company Address
-Phone
-WhatsApp
-Email
-Office Hours
-Google Maps
-Social Media
-```
-
-Contact form:
-
-```text
-Name
-Email
-Phone
-Subject
-Message
-```
-
----
-
-# 33. Mobile Responsive
-
-Website wajib mendukung:
-
-- Desktop;
-- Laptop;
-- Tablet;
-- Mobile.
-
-Breakpoints:
-
-```text
-Desktop > 1200px
-Tablet 768–1199px
-Mobile < 768px
-```
-
-Pada mobile:
-
-- hamburger menu;
-- search menjadi vertical;
-- property card menjadi satu kolom;
-- sticky WhatsApp/contact button;
-- gallery swipeable.
-
----
-
-# 34. Performance
-
-Target:
-
-- image WebP/AVIF;
-- lazy loading;
-- responsive images;
-- compression;
-- caching;
-- pagination;
-- optimized database query.
-
-Target awal:
-
-**Google Lighthouse Performance ≥ 85**
-
----
-
-# 35. Security
+- Melihat property
+- Menambah property
+- Mengedit property
+- Menghapus property
+- Upload banyak foto
+- Menentukan foto utama
+- Mengatur harga
+- Mengatur status
+- Mengatur tipe transaksi
+- Mengatur lokasi
+- Menentukan property unggulan
+- Publish/unpublish
+
+### Property Form
 
 Minimal:
 
-- authentication;
-- authorization;
-- password hashing;
-- CSRF protection;
-- XSS protection;
-- SQL injection prevention;
-- upload validation;
-- file type validation;
-- rate limiting;
-- admin audit log;
-- HTTPS.
+```text
+Judul
+Slug
+Kategori
+Status Transaksi
+Jenis Property
+Harga
+Lokasi
+Deskripsi
+Luas Tanah
+Luas Bangunan
+Kamar Tidur
+Kamar Mandi
+Fasilitas
+Status Publikasi
+Featured
+Gallery
+```
+
+Field yang tidak relevan boleh kosong.
 
 ---
 
-# 36. Recommended Tech Stack
+# 21. Service Management
 
-## Frontend
+Admin dapat:
 
-**Next.js**
+- Tambah service
+- Edit service
+- Hapus service
+- Upload gambar
+- Mengatur kategori
+- Mengatur deskripsi
+- Mengatur slug
+- Publish/unpublish
 
-Alasan:
+Kategori utama:
 
-- SEO;
-- SSR/SSG;
-- routing;
-- image optimization;
-- performa.
+```text
+Perizinan
+Konstruksi
+```
+
+Property tidak dimasukkan sebagai service karena memiliki katalog dan alur pengelolaan sendiri.
+
+---
+
+# 22. Portfolio Management
+
+Admin dapat:
+
+- Tambah portfolio
+- Edit portfolio
+- Hapus portfolio
+- Upload beberapa foto
+- Mengatur kategori
+- Mengatur lokasi
+- Mengatur tahun
+- Publish/unpublish
+
+---
+
+# 23. Category Management
+
+Admin dapat mengelola kategori jika dibutuhkan.
+
+Contoh:
+
+```text
+Service Category
+├── Perizinan
+└── Konstruksi
+
+Property Category
+├── Rumah
+├── Tanah
+├── Ruko
+└── Lainnya
+
+Property Transaction
+├── Dijual
+└── Disewakan
+
+Portfolio Category
+├── Perizinan
+├── Konstruksi
+└── Property
+```
+
+---
+
+# 24. Website Settings
+
+Admin dapat mengubah:
+
+```text
+Nama perusahaan
+Logo
+Favicon
+WhatsApp
+Nomor telepon
+Email
+Alamat
+Google Maps
+Instagram
+Facebook
+Jam operasional
+```
+
+Tujuannya agar informasi kontak tidak perlu diubah melalui source code.
+
+---
+
+# 25. Database
+
+Database menggunakan:
+
+> **SQLite**
+
+### Tabel utama
+
+```text
+users
+service_categories
+services
+property_categories
+properties
+property_images
+portfolio_categories
+portfolios
+portfolio_images
+settings
+```
+
+### Properties
+
+```text
+id
+property_category_id
+title
+slug
+description
+price
+transaction_type
+property_type
+location
+land_area
+building_area
+bedrooms
+bathrooms
+facilities
+status
+featured
+published_at
+created_at
+updated_at
+```
+
+### Property Images
+
+```text
+id
+property_id
+image
+alt_text
+sort_order
+is_primary
+created_at
+updated_at
+```
+
+### Services
+
+```text
+id
+service_category_id
+title
+slug
+short_description
+description
+image
+status
+published_at
+created_at
+updated_at
+```
+
+### Portfolios
+
+```text
+id
+portfolio_category_id
+title
+slug
+description
+location
+year
+status
+published_at
+created_at
+updated_at
+```
+
+---
+
+# 26. SEO
+
+SEO dasar wajib diterapkan.
+
+Setiap halaman penting memiliki:
+
+```text
+Title
+Meta Description
+Slug
+Open Graph Image
+Canonical URL
+Alt Text
+```
+
+Contoh property:
+
+```text
+/property/rumah-minimalis-sleman
+```
+
+Contoh service:
+
+```text
+/services/perizinan/pbg-imb
+```
+
+SEO advanced campaign bukan bagian dari MVP.
+
+---
+
+# 27. Design System
+
+## 27.1 Design Direction
+
+Karakter visual:
+
+- Soft
+- Modern
+- Professional
+- Trustworthy
+- Clean
+- Tidak terlalu ramai
+
+## 27.2 Font
+
+Rekomendasi:
+
+**Plus Jakarta Sans**
+
+Alternatif:
+
+**Inter**
+
+## 27.3 Color
+
+Arah warna:
+
+```text
+Primary
+Soft Blue / Blue Gray
+
+Secondary
+Warm Beige
+
+Background
+Off White
+
+Text
+Dark Gray
+
+Accent
+Soft Green / Blue
+```
+
+Palet final ditentukan pada tahap UI/UX.
+
+---
+
+# 28. Logo
+
+Logo:
+
+> **DJM — Desty Jaya Mandiri**
+
+Deliverables:
+
+- Logo utama
+- Versi horizontal
+- Versi icon jika diperlukan
+- Warna utama
+- File digital untuk website
+
+Jumlah revisi mengikuti kesepakatan proyek.
+
+---
+
+# 29. Content Management
+
+Konten yang dikelola:
+
+- Homepage
+- About
+- Services
+- Property
+- Portfolio
+- Contact
+
+Konten faktual harus berasal dari atau disetujui client.
+
+Developer/designer dapat membuat draft copy, tetapi tidak boleh mengarang klaim mengenai:
+
+- Legalitas
+- Pengalaman
+- Jumlah proyek
+- Sertifikasi
+- Keahlian
+- Alamat
+- Kontak
+- Layanan resmi
+
+---
+
+# 30. Security
+
+Minimal:
+
+- Admin authentication
+- Password hashing
+- Authorization
+- CSRF protection
+- Request validation
+- Upload validation
+- File type validation
+- File size validation
+- SQL injection prevention
+- XSS protection
+- HTTPS pada production
+
+---
+
+# 31. Technology Stack
 
 ## Backend
 
-**Laravel**
+**Laravel 12**
 
-Cocok untuk:
+## Frontend
 
-- CRUD;
-- authentication;
-- CMS;
-- admin;
-- REST API.
+**Blade + Tailwind CSS**
 
-Arsitektur:
+## Database
 
-```text
-Next.js
-    │
-    │ REST API
-    ▼
-Laravel API
-    │
-    ▼
-MySQL
-```
+**SQLite**
+
+## Development Environment
+
+**Laragon**
+
+## Production
+
+Hosting/server client sesuai spesifikasi yang disepakati.
 
 ## Storage
 
-- Cloudflare R2;
-- Amazon S3;
-- S3-compatible storage.
+Local/server storage untuk MVP.
 
-## Maps
+## Communication
 
-- Google Maps atau Mapbox.
+**WhatsApp Link / wa.me** sebagai kanal utama inquiry.
 
-## Authentication
+## Architecture
 
-- Laravel Sanctum / token-based authentication.
+Server-rendered application menggunakan Laravel Blade.
 
----
+Tidak menggunakan frontend framework terpisah seperti React, Vue, atau Next.js.
 
-# 37. MVP — Wajib Dibangun
-
-Jika waktu dan budget terbatas, jangan langsung membangun marketplace lengkap.
+# 32. MVP — Wajib
 
 ## Public Website
 
-- Home;
-- Property Listing;
-- Search;
-- Filter;
-- Property Detail;
-- Category;
-- Location;
-- Agent;
-- Contact;
-- Blog.
+- [x] Home
+- [x] About
+- [x] Services
+- [x] Service Detail
+- [x] Property Listing
+- [x] Property Filter Dasar
+- [x] Property Detail
+- [x] Portfolio
+- [x] Portfolio Detail
+- [x] Contact
+- [x] WhatsApp CTA
+- [x] Responsive Design
+- [x] Basic SEO
 
 ## Admin
 
-- Login;
-- Dashboard;
-- Property CRUD;
-- Category CRUD;
-- Location CRUD;
-- Agent CRUD;
-- Inquiry;
-- Blog CRUD;
-- Homepage CMS.
-
-## Integration
-
-- WhatsApp;
-- Google Maps;
-- SEO;
-- Image upload.
+- [x] Admin Login
+- [x] Dashboard
+- [x] Property CRUD
+- [x] Property Image Management
+- [x] Service CRUD
+- [x] Portfolio CRUD
+- [x] Category Management
+- [x] Website Settings
 
 ---
 
-# 38. Phase 2
+# 33. Tidak Termasuk MVP
 
-Setelah MVP berjalan:
+Fitur berikut tidak termasuk dalam scope awal:
 
-- user registration;
-- favorite property;
-- compare property;
-- property recommendation;
-- saved search;
-- email notification;
-- WhatsApp notification;
-- advanced analytics;
-- agent dashboard;
-- owner dashboard;
-- property verification;
-- property status tracking.
+- [ ] Customer login
+- [ ] Customer registration
+- [ ] Checkout
+- [ ] Payment gateway
+- [ ] Booking online
+- [ ] Transaksi jual beli online
+- [ ] Transaksi sewa online
+- [ ] Keranjang
+- [ ] Favorite property
+- [ ] Compare property
+- [ ] Agent dashboard
+- [ ] Owner dashboard
+- [ ] Marketplace multi-vendor
+- [ ] CRM kompleks
+- [ ] WhatsApp Business API
+- [ ] Email automation
+- [ ] Mobile application
+- [ ] Integrasi sistem pemerintah
+- [ ] Integrasi pihak ketiga berbayar
+- [ ] Advanced analytics
+- [ ] Advanced SEO campaign
+- [ ] Pembuatan konten tanpa batas
+- [ ] Revisi desain tanpa batas
+- [ ] Maintenance tanpa batas
 
 ---
 
-# 39. Phase 3
+# 34. Future Development
 
-Untuk marketplace properti yang lebih besar:
+Jika kebutuhan bisnis berkembang, sistem dapat dikembangkan.
+
+## Phase 2
+
+- Blog
+- Inquiry management
+- Customer database
+- Analytics
+- Favorite property
+- Compare property
+- Advanced SEO
+- Lead management
+
+## Phase 3
+
+Jika DJM ingin menjadi marketplace:
 
 ```text
 Owner
-   ↓
+ ↓
 Submit Property
-   ↓
+ ↓
 Admin Verification
-   ↓
-Agent Assignment
-   ↓
+ ↓
 Published
-   ↓
+ ↓
 Visitor
-   ↓
+ ↓
 Inquiry
-   ↓
-Agent Follow-up
-   ↓
-Deal
+ ↓
+Follow Up
 ```
 
-Fitur lanjutan:
-
-- CRM;
-- lead scoring;
-- subscription agent;
-- premium listing;
-- featured listing berbayar;
-- payment gateway;
-- booking;
-- digital document;
-- commission tracking.
+Fitur marketplace dan transaksi online harus menjadi proyek/phase terpisah.
 
 ---
 
-# 40. Property Status
+# 35. Acceptance Criteria
 
-Gunakan status:
+## Website
+
+Pengunjung dapat membuka website tanpa login dan melihat informasi DJM.
+
+## Services
+
+Pengunjung dapat:
 
 ```text
-Draft
-Pending Verification
-Published
-Featured
-Sold
-Rented
-Expired
-Archived
-Rejected
+Services
+ ↓
+Kategori
+ ↓
+Service Detail
+ ↓
+WhatsApp
 ```
-
-Jangan hanya menggunakan `active/inactive`, karena status detail akan berguna ketika jumlah listing meningkat.
-
----
-
-# 41. Acceptance Criteria
 
 ## Property
 
-> Admin membuat property → upload foto → menentukan lokasi → memilih agent → publish → property muncul di website.
+Pengunjung dapat:
 
-## Search
+```text
+Property
+ ↓
+Filter
+ ↓
+Property Detail
+ ↓
+WhatsApp
+```
 
-> User memasukkan lokasi + tipe + harga → sistem menampilkan property yang sesuai.
+Tidak ada transaksi atau pembayaran di website.
 
-## Detail
+## Property Status
 
-> User membuka property → dapat melihat informasi, foto, lokasi, agent, dan menghubungi agent.
+Admin dapat mengubah status property:
 
-## Inquiry
+```text
+Draft
+Published
+Sold
+Rented
+Archived
+```
 
-> User mengirim inquiry → inquiry masuk ke dashboard → agent dapat mengubah statusnya.
+## Admin Property
 
-## SEO
+Admin dapat:
 
-> Setiap property memiliki URL unik, metadata, canonical, sitemap, dan dapat di-index search engine.
+```text
+Create
+ ↓
+Upload Image
+ ↓
+Input Information
+ ↓
+Publish
+ ↓
+Property tampil di website
+```
 
-## CMS
+## Portfolio
 
-> Admin mengubah featured property → homepage otomatis berubah tanpa perubahan kode.
+Admin dapat membuat portfolio dan menampilkannya di website.
+
+## Contact
+
+Admin dapat memperbarui informasi kontak tanpa mengubah source code.
+
+## Responsive
+
+Website dapat digunakan dengan baik pada:
+
+- Desktop
+- Laptop
+- Tablet
+- Mobile
 
 ---
 
-# 42. User Flow
+# 36. User Flow
 
 ```text
-                  HOME
-                    │
-          ┌─────────┴─────────┐
-          │                   │
-       SEARCH             BROWSE
-          │                   │
-          └─────────┬─────────┘
-                    ↓
-             PROPERTY LIST
-                    │
-                    ↓
-             PROPERTY DETAIL
-                    │
-          ┌─────────┴─────────┐
-          ↓                   ↓
-     CONTACT AGENT         WHATSAPP
-          │
-          ↓
-        LEAD
-          │
-          ↓
-       AGENT/ADMIN
-```
-
----
-
-# 43. Recommended URL Structure
-
-Hindari:
-
-```text
-/property?id=123
-```
-
-Gunakan:
-
-```text
-/properti
-/properti/rumah
-/properti/tanah
-/properti/dijual
-/properti/disewa
-/properti/dijual/sleman
-/properti/dijual/bantul
-/properti/rumah-dijual-sleman
-```
-
-Property detail:
-
-```text
-/properti/rumah-modern-sleman-dekat-kampus
-```
-
-Blog:
-
-```text
-/blog/tips-membeli-rumah-pertama
-```
-
-Agent:
-
-```text
-/agen/nama-agent
+                         HOME
+                           │
+          ┌────────────────┼────────────────┐
+          ↓                ↓                ↓
+       LAYANAN          PROPERTY         PORTFOLIO
+          │                │                │
+          ↓                ↓                ↓
+   SERVICE DETAIL    PROPERTY DETAIL   PORTFOLIO DETAIL
+          │                │
+          └────────────────┤
+                           ↓
+                      WHATSAPP DJM
+                           ↓
+                    Konsultasi / Inquiry
+                           ↓
+                  Negosiasi / Transaksi
+                           ↓
+                    DI LUAR WEBSITE
 ```
 
 ---
 
-# 44. Development Priority
+# 37. Admin Flow
 
-## P0 — Fondasi
-
-1. Database
-2. Authentication
-3. Admin
-4. Property CRUD
-5. Image management
-6. Location
-7. Agent
-
-## P1 — Public Platform
-
-8. Homepage
-9. Property listing
-10. Search
-11. Filter
-12. Property detail
-13. Agent detail
-14. Contact/Inquiry
-15. WhatsApp
-
-## P2 — Growth
-
-16. Blog
-17. SEO
-18. Sitemap
-19. Schema
-20. Analytics
-21. Performance optimization
-
-## P3 — Advanced
-
-22. Favorites
-23. Compare
-24. User account
-25. CRM
-26. Premium listing
-27. Payment
-28. Recommendation
+```text
+/admin/login
+      ↓
+  Dashboard
+      │
+ ┌────┼──────────┬──────────┐
+ ↓    ↓          ↓          ↓
+Property Service Portfolio Settings
+ ↓
+CRUD
+ ↓
+Publish
+ ↓
+Public Website
+```
 
 ---
 
-# 45. Kesimpulan
+# 38. Scope Boundary
 
-Desain referensi merupakan **front-end presentation layer**, sedangkan sistem sebenarnya membutuhkan:
+Untuk mencegah scope creep, prinsip berikut berlaku:
 
-- Property Listing;
-- Search & Filter;
-- Location;
-- Agent;
-- Inquiry/Lead;
-- Admin CMS;
-- SEO;
-- Property Status;
-- Image Management;
-- WhatsApp;
-- Google Maps.
+1. Website bukan marketplace.
+2. Tidak ada transaksi online.
+3. WhatsApp menjadi kanal utama inquiry.
+4. Public user tidak membutuhkan akun.
+5. Admin menjadi satu-satunya pihak yang mengubah konten website.
+6. Property hanya berfungsi sebagai katalog.
+7. Layanan hanya menampilkan jasa yang benar-benar disetujui client.
+8. Portfolio hanya menampilkan pekerjaan yang disetujui client.
+9. Fitur tambahan di luar MVP harus melalui kesepakatan dan estimasi ulang.
+10. Integrasi eksternal berbayar tidak termasuk kecuali disepakati.
 
-Untuk MVP, fokus pada:
+---
 
-> **Property Listing + Admin CMS + Search/Filter + Property Detail + Inquiry + SEO**
+# 39. Project Positioning
 
-Fitur seperti payment, favorite, CRM, subscription, dan marketplace penuh dapat dikembangkan setelah MVP memiliki traffic dan jumlah listing yang cukup.
+Website DJM diposisikan sebagai:
+
+> **Company Profile + Digital Catalog + Lead Generation Website**
+
+untuk bidang:
+
+> **Perizinan + Property + Konstruksi**
+
+Fungsi utama website:
+
+```text
+INFORMASI
+   ↓
+KATALOG
+   ↓
+DETAIL
+   ↓
+INTEREST
+   ↓
+WHATSAPP
+   ↓
+KONSULTASI
+   ↓
+TRANSAKSI DI LUAR WEBSITE
+```
+
+Website tidak berfungsi sebagai platform transaksi online.
+
+---
+
+# 40. Prioritas Pengembangan
+
+Prioritas proyek:
+
+### P0 — Critical
+
+- Homepage
+- Services
+- Property Catalog
+- Property Detail
+- WhatsApp
+- Admin Login
+- Admin Property CRUD
+- Admin Service CRUD
+- Responsive Design
+
+### P1 — Important
+
+- About
+- Portfolio
+- Contact
+- Property Filter
+- Website Settings
+- Basic SEO
+
+### P2 — Optional / Future
+
+- Blog
+- Analytics
+- Inquiry management
+- Favorite
+- Compare
+- Advanced SEO
+- Marketplace features
+- Customer account
+- Transaction system
+
+---
+
+# 41. Final Product Definition
+
+Pada versi MVP, DJM adalah:
+
+> **Website company profile dan katalog digital yang membantu calon pelanggan menemukan layanan perizinan dan konstruksi serta melihat property yang dijual atau disewakan, kemudian menghubungkan mereka dengan DJM melalui WhatsApp.**
+
+Tidak ada proses pembelian, pembayaran, atau transaksi langsung di dalam website.
+
+**Alur utama produk:**
+
+```text
+VISITOR
+   ↓
+DISCOVER DJM
+   ↓
+VIEW SERVICES / PROPERTY
+   ↓
+VIEW DETAIL
+   ↓
+CONTACT VIA WHATSAPP
+   ↓
+CONSULTATION
+   ↓
+NEGOTIATION
+   ↓
+TRANSACTION OUTSIDE WEBSITE
+```

@@ -82,6 +82,11 @@
             color: var(--color-secondary);
         }
 
+        .logo-img {
+            height: 56px;
+            width: auto;
+        }
+
         .main-nav {
             display: flex;
             gap: 30px;
@@ -94,8 +99,12 @@
             font-size: 0.95rem;
         }
 
-        .nav-link:hover, .nav-link.active {
+        .nav-link:hover {
             color: white;
+        }
+
+        .nav-link.active {
+            color: #a7ebf2;
         }
 
         .header-actions {
@@ -341,16 +350,16 @@
     <!-- Header -->
     <header class="site-header" x-data="{ mobileMenuOpen: false }">
         <div class="container header-inner">
-            <a href="{{ route('home') }}" class="logo">
-                <i class="fa-solid fa-house-chimney"></i> DJM Property
+            <a href="{{ route('home') }}" class="logo" title="DJM — Desty Jaya Mandiri">
+                <img src="{{ asset('images/logodjm.png') }}" alt="DJM — Desty Jaya Mandiri" class="logo-img">
             </a>
             
             <nav class="main-nav">
                 <a href="{{ route('home') }}" class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}">Beranda</a>
                 <a href="{{ route('about.index') }}" class="nav-link {{ request()->routeIs('about.*') ? 'active' : '' }}">Tentang Kami</a>
-                <a href="{{ route('properties.index') }}" class="nav-link {{ request()->routeIs('properties.*') ? 'active' : '' }}">Properti</a>
-                <a href="{{ route('agents.index') }}" class="nav-link {{ request()->routeIs('agents.*') ? 'active' : '' }}">Agen</a>
                 <a href="{{ route('services.index') }}" class="nav-link {{ request()->routeIs('services.*') ? 'active' : '' }}">Layanan</a>
+                <a href="{{ route('properties.index') }}" class="nav-link {{ request()->routeIs('properties.*') ? 'active' : '' }}">Properti</a>
+                <a href="{{ route('portfolio.index') }}" class="nav-link {{ request()->routeIs('portfolio.*') ? 'active' : '' }}">Portfolio</a>
             </nav>
 
             <div class="header-actions">
@@ -369,9 +378,9 @@
             <div style="display: flex; flex-direction: column; gap: 15px;">
                 <a href="{{ route('home') }}" style="color: var(--color-text-main); font-weight: 500;">Beranda</a>
                 <a href="{{ route('about.index') }}" style="color: var(--color-text-main); font-weight: 500;">Tentang Kami</a>
-                <a href="{{ route('properties.index') }}" style="color: var(--color-text-main); font-weight: 500;">Properti</a>
-                <a href="{{ route('agents.index') }}" style="color: var(--color-text-main); font-weight: 500;">Agen</a>
                 <a href="{{ route('services.index') }}" style="color: var(--color-text-main); font-weight: 500;">Layanan</a>
+                <a href="{{ route('properties.index') }}" style="color: var(--color-text-main); font-weight: 500;">Properti</a>
+                <a href="{{ route('portfolio.index') }}" style="color: var(--color-text-main); font-weight: 500;">Portfolio</a>
                 <a href="{{ route('contact.index') }}" style="color: var(--color-primary); font-weight: 600;">Hubungi Kami</a>
             </div>
         </div>
@@ -390,36 +399,37 @@
             <div class="footer-grid">
                 <div class="footer-widget">
                     <a href="{{ route('home') }}" class="footer-logo">
-                        <i class="fa-solid fa-house-chimney"></i> DJM Property
+                        <img src="{{ asset('images/logodjm.png') }}" alt="DJM — Desty Jaya Mandiri" class="logo-img">
                     </a>
                     <p class="footer-text">
-                        Platform properti terpercaya di Yogyakarta. Kami membantu Anda menemukan, membeli, dan mengelola properti dengan proses yang mudah dan transparan.
+                        Desty Jaya Mandiri — perusahaan terpercaya di bidang perizinan, properti, dan konstruksi di Yogyakarta dan sekitarnya.
                     </p>
                     <div class="social-links">
-                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#" title="Facebook DJM"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" title="Instagram DJM"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://wa.me/6281234567890" target="_blank" title="WhatsApp DJM"><i class="fa-brands fa-whatsapp"></i></a>
                     </div>
                 </div>
 
                 <div class="footer-widget">
-                    <h4 class="footer-heading">Quick Links</h4>
+                    <h4 class="footer-heading">Navigasi</h4>
                     <ul class="footer-links">
                         <li><a href="{{ route('home') }}">Beranda</a></li>
                         <li><a href="{{ route('about.index') }}">Tentang Kami</a></li>
-                        <li><a href="{{ route('properties.index') }}">Cari Properti</a></li>
-                        <li><a href="{{ route('agents.index') }}">Daftar Agen</a></li>
+                        <li><a href="{{ route('services.index') }}">Layanan</a></li>
+                        <li><a href="{{ route('properties.index') }}">Properti</a></li>
+                        <li><a href="{{ route('portfolio.index') }}">Portfolio</a></li>
                     </ul>
                 </div>
 
                 <div class="footer-widget">
-                    <h4 class="footer-heading">Layanan</h4>
+                    <h4 class="footer-heading">Layanan Kami</h4>
                     <ul class="footer-links">
-                        <li><a href="{{ route('services.index') }}">Beli Properti</a></li>
-                        <li><a href="{{ route('services.index') }}">Jual Properti</a></li>
-                        <li><a href="{{ route('services.index') }}">Sewa Properti</a></li>
-                        <li><a href="{{ route('services.index') }}">Manajemen Properti</a></li>
-                        <li><a href="{{ route('services.index') }}">Konsultasi</a></li>
+                        <li><a href="{{ route('services.show', 'pbg-imb') }}">Perizinan (PBG/IMB)</a></li>
+                        <li><a href="{{ route('services.show', 'pengeringan') }}">Pengeringan Lahan</a></li>
+                        <li><a href="{{ route('services.show', 'pecah-sertifikat') }}">Pecah Sertifikat</a></li>
+                        <li><a href="{{ route('services.show', 'pembangunan') }}">Konstruksi & Renovasi</a></li>
+                        <li><a href="{{ route('properties.index') }}">Jual & Sewa Properti</a></li>
                     </ul>
                 </div>
 
@@ -447,10 +457,10 @@
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; {{ date('Y') }} DJM Property. All rights reserved.</p>
+                <p>&copy; {{ date('Y') }} DJM — Desty Jaya Mandiri. All rights reserved.</p>
                 <div style="display: flex; gap: 15px;">
-                    <a href="#" style="color: rgba(255,255,255,0.6);">Privacy Policy</a>
-                    <a href="#" style="color: rgba(255,255,255,0.6);">Terms of Service</a>
+                    <a href="{{ route('contact.index') }}" style="color: rgba(255,255,255,0.6);">Kontak</a>
+                    <a href="{{ route('about.index') }}" style="color: rgba(255,255,255,0.6);">Tentang Kami</a>
                 </div>
             </div>
         </div>

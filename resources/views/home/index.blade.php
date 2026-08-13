@@ -1,35 +1,52 @@
 @extends('layouts.app')
 
-@section('title', $settings['seo_title'] ?? 'DJM Property - Jual Beli Sewa Properti Terpercaya di Yogyakarta')
-@section('meta_description', $settings['seo_description'] ?? 'Temukan rumah, apartemen, tanah, dan properti komersial terbaik di Yogyakarta. DJM Property hadir sebagai mitra properti terpercaya Anda sejak 2020.')
+@section('title', $settings['seo_title'] ?? 'DJM — Desty Jaya Mandiri | Perizinan, Properti & Konstruksi Yogyakarta')
+@section('meta_description', $settings['seo_description'] ?? 'DJM Desty Jaya Mandiri menyediakan layanan perizinan (PBG/IMB), jual beli & sewa properti, serta konstruksi terpercaya di Yogyakarta dan sekitarnya.')
 
 @push('scripts')
 <style>
-    /* Hero Section */
+    /* ── Hero ──────────────────────────────────── */
     .hero-section {
         position: relative;
         min-height: 100vh;
         display: flex;
         align-items: center;
-        padding: 120px 0;
+        /* Pull up to cover the body padding-top so no white strip shows */
+        margin-top: -76px;
+        padding: calc(76px + 120px) 0 120px;
         background-color: var(--color-surface);
         background-image: url('{{ asset("images/desktop.jpg") }}');
         background-size: cover;
         background-position: center;
-        margin-bottom: 80px;
+        margin-bottom: 0;
     }
-    
+
     .hero-overlay {
         position: absolute;
         inset: 0;
-        background: linear-gradient(to right, rgba(33, 84, 161, 0.9), rgba(49, 109, 227, 0.4));
+        background: linear-gradient(135deg, rgba(29, 78, 109, 0.92) 0%, rgba(38, 101, 140, 0.65) 60%, rgba(73, 130, 165, 0.3) 100%);
     }
 
     .hero-content {
         position: relative;
         z-index: 10;
         color: white;
-        max-width: 600px;
+        max-width: 650px;
+    }
+
+    .hero-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255,255,255,0.15);
+        border: 1px solid rgba(255,255,255,0.3);
+        color: white;
+        padding: 6px 18px;
+        border-radius: 50px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        margin-bottom: 24px;
+        backdrop-filter: blur(4px);
     }
 
     .hero-title {
@@ -44,381 +61,517 @@
         font-size: 1.125rem;
         margin-bottom: 40px;
         opacity: 0.9;
+        line-height: 1.7;
     }
 
-    /* Search Component */
-    .search-box {
-        background: white;
-        padding: 25px;
-        border-radius: var(--border-radius-lg);
-        box-shadow: var(--shadow-lg);
-        max-width: 900px;
-        margin: -80px auto 80px;
-        position: relative;
-        z-index: 20;
-    }
-
-    .search-tabs {
+    .hero-cta {
         display: flex;
-        gap: 20px;
-        margin-bottom: 20px;
-        border-bottom: 1px solid var(--color-border);
-        padding-bottom: 15px;
-    }
-
-    .search-tab {
-        background: none;
-        border: none;
-        font-size: 1rem;
-        font-weight: 600;
-        color: var(--color-text-muted);
-        cursor: pointer;
-        padding: 5px 10px;
-        position: relative;
-    }
-
-    .search-tab.active {
-        color: var(--color-primary);
-    }
-
-    .search-tab.active::after {
-        content: '';
-        position: absolute;
-        bottom: -16px;
-        left: 0;
-        width: 100%;
-        height: 2px;
-        background-color: var(--color-primary);
-    }
-
-    .search-form {
-        display: grid;
-        grid-template-columns: 2fr 1.5fr 1fr auto;
         gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    .hero-stats {
+        display: flex;
+        gap: 40px;
+        margin-top: 50px;
+        padding-top: 40px;
+        border-top: 1px solid rgba(255,255,255,0.2);
+        flex-wrap: wrap;
+    }
+
+    .hero-stat h4 {
+        font-size: 2rem;
+        font-weight: 700;
+        color: white;
+        margin-bottom: 4px;
+    }
+
+    .hero-stat p {
+        font-size: 0.875rem;
+        color: rgba(255,255,255,0.75);
+    }
+
+    /* ── Service Highlight ───────────────────── */
+    .service-highlight-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+    }
+
+    .service-highlight-card {
+        background: white;
+        border-radius: var(--border-radius-lg);
+        padding: 40px 30px;
+        text-align: center;
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--color-border);
+        transition: all 0.35s ease;
+        display: flex;
+        flex-direction: column;
         align-items: center;
     }
-    
-    .search-input-group {
+
+    .service-highlight-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-lg);
+        border-color: var(--color-primary);
+    }
+
+    .service-highlight-icon {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+        color: white;
         display: flex;
         align-items: center;
-        background: var(--color-surface);
-        border-radius: var(--border-radius);
-        padding: 10px 15px;
+        justify-content: center;
+        font-size: 2rem;
+        margin-bottom: 24px;
+        transition: all 0.3s ease;
+    }
+
+    .service-highlight-card:hover .service-highlight-icon {
+        transform: scale(1.1) rotate(5deg);
+    }
+
+    .service-highlight-title {
+        font-size: 1.35rem;
+        font-weight: 700;
+        color: var(--color-text-main);
+        margin-bottom: 12px;
+    }
+
+    .service-highlight-desc {
+        color: var(--color-text-muted);
+        line-height: 1.7;
+        margin-bottom: 24px;
+        flex-grow: 1;
+    }
+
+    /* ── Property Card ───────────────────────── */
+    .property-card {
+        background: white;
+        border-radius: var(--border-radius-lg);
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
         border: 1px solid var(--color-border);
+        transition: all 0.3s ease;
     }
 
-    .search-input-group i {
-        color: var(--color-primary);
-        margin-right: 10px;
+    .property-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-lg);
     }
 
-    .search-input-group input, .search-input-group select {
-        border: none;
-        background: transparent;
+    .property-card-image {
+        position: relative;
+        overflow: hidden;
+        height: 210px;
+    }
+
+    .property-card-image img {
         width: 100%;
-        font-size: 0.95rem;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+    }
+
+    .property-card:hover .property-card-image img {
+        transform: scale(1.05);
+    }
+
+    .property-badges {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        display: flex;
+        gap: 6px;
+    }
+
+    .property-card-content {
+        padding: 20px;
+    }
+
+    .property-title {
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 8px;
+        line-height: 1.4;
+    }
+
+    .property-title a {
         color: var(--color-text-main);
     }
 
-    .search-input-group input:focus, .search-input-group select:focus {
-        outline: none;
+    .property-title a:hover {
+        color: var(--color-primary);
     }
 
-    /* About Section */
+    .property-price {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--color-primary);
+        margin-bottom: 8px;
+    }
+
+    .property-location {
+        color: var(--color-text-muted);
+        font-size: 0.875rem;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .property-specs {
+        display: flex;
+        gap: 14px;
+        padding-top: 12px;
+        border-top: 1px solid var(--color-border);
+    }
+
+    .property-spec {
+        font-size: 0.85rem;
+        color: var(--color-text-muted);
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    /* ── Portfolio Highlight ─────────────────── */
+    .portfolio-grid-home {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+    }
+
+    .portfolio-card-home {
+        border-radius: var(--border-radius-lg);
+        overflow: hidden;
+        position: relative;
+        aspect-ratio: 4/3;
+        box-shadow: var(--shadow-sm);
+        transition: all 0.35s ease;
+    }
+
+    .portfolio-card-home:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .portfolio-card-home img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .portfolio-card-home:hover img {
+        transform: scale(1.06);
+    }
+
+    .portfolio-card-home-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(29, 78, 109, 0.88) 0%, transparent 55%);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 24px;
+        transition: all 0.3s ease;
+    }
+
+    .portfolio-card-home-badge {
+        display: inline-block;
+        background: rgba(255,255,255,0.2);
+        border: 1px solid rgba(255,255,255,0.3);
+        color: white;
+        padding: 3px 12px;
+        border-radius: 50px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+        align-self: flex-start;
+    }
+
+    .portfolio-card-home h3 {
+        color: white;
+        font-size: 1.05rem;
+        font-weight: 700;
+        margin-bottom: 4px;
+    }
+
+    .portfolio-card-home p {
+        color: rgba(255,255,255,0.75);
+        font-size: 0.8rem;
+    }
+
+    /* ── CTA WhatsApp ────────────────────────── */
+    .cta-whatsapp-section {
+        background: linear-gradient(135deg, #1d4e6d 0%, #26658c 50%, #173b52 100%);
+        color: white;
+        padding: 80px 0;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .cta-whatsapp-section::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -10%;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+        border-radius: 50%;
+    }
+
+    .cta-whatsapp-section::after {
+        content: '';
+        position: absolute;
+        bottom: -30%;
+        right: 5%;
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+        border-radius: 50%;
+    }
+
+    .cta-wa-title {
+        font-size: 2.75rem;
+        font-weight: 700;
+        margin-bottom: 16px;
+        line-height: 1.2;
+        position: relative;
+        z-index: 1;
+    }
+
+    .cta-wa-subtitle {
+        font-size: 1.1rem;
+        opacity: 0.85;
+        margin-bottom: 36px;
+        max-width: 560px;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+        z-index: 1;
+    }
+
+    .btn-whatsapp {
+        background: #25D366;
+        color: white;
+        padding: 16px 40px;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: 1.1rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        transition: all 0.3s ease;
+        position: relative;
+        z-index: 1;
+        box-shadow: 0 8px 25px rgba(37, 211, 102, 0.35);
+    }
+
+    .btn-whatsapp:hover {
+        background: #1EBE5D;
+        transform: translateY(-3px);
+        box-shadow: 0 12px 30px rgba(37, 211, 102, 0.5);
+        color: white;
+    }
+
+    /* ── About Section ───────────────────────── */
     .about-section {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 60px;
         align-items: center;
     }
-    
+
     .about-image {
         border-radius: var(--border-radius-lg);
         overflow: hidden;
         box-shadow: var(--shadow-lg);
     }
-    
+
     .about-features {
         margin-top: 30px;
     }
-    
+
     .about-feature {
         display: flex;
         align-items: flex-start;
         gap: 15px;
         margin-bottom: 20px;
     }
-    
-    .about-feature i {
-        color: var(--color-accent);
-        font-size: 1.5rem;
-        margin-top: 5px;
+
+    .about-feature-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        flex-shrink: 0;
     }
 
-    /* Stats */
-    .stats-container {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 30px;
-        background: white;
-        padding: 40px;
-        border-radius: var(--border-radius-lg);
-        box-shadow: var(--shadow-lg);
-        margin-top: 40px;
-        text-align: center;
-    }
-    
-    .stat-item h3 {
-        font-size: 2.5rem;
-        color: var(--color-primary);
-        margin-bottom: 5px;
-    }
-    
-    .stat-item p {
-        color: var(--color-text-muted);
-        font-weight: 500;
-    }
-
-    /* Category Grid */
-    .category-grid {
-        grid-template-columns: repeat(6, 1fr);
-        gap: 20px;
-        padding-top: 10px;
-        padding-bottom: 10px;
-        margin-top: -10px;
-    }
-
-    /* Tablet Responsive (max-width: 991px) */
+    /* ── Responsive ──────────────────────────── */
     @media (max-width: 991px) {
-        .hero-section {
-            padding: 80px 0;
-            margin-bottom: 60px;
-        }
-        .hero-title {
-            font-size: 2.75rem;
-        }
-        .hero-subtitle {
-            font-size: 1rem;
-            margin-bottom: 30px;
-        }
-        .about-section {
-            grid-template-columns: 1fr;
-            gap: 40px;
-        }
-        .stats-container {
-            grid-template-columns: repeat(2, 1fr);
-            padding: 30px;
-            gap: 25px;
-        }
-        .search-box {
-            margin: -60px 20px 60px;
-            padding: 20px;
-        }
-        .search-form {
-            grid-template-columns: 1fr 1fr;
-        }
-        .search-tabs {
-            gap: 15px;
-        }
-        .category-grid {
-            grid-template-columns: repeat(3, 1fr);
-        }
+        /* body padding-top stays 76px at this breakpoint */
+        .hero-section { margin-top: -76px; padding: calc(76px + 50px) 0 60px; }
+        .hero-title { font-size: 2.75rem; }
+        .hero-stats { gap: 25px; }
+        .service-highlight-grid { grid-template-columns: 1fr; gap: 20px; }
+        .portfolio-grid-home { grid-template-columns: 1fr 1fr; }
+        .about-section { grid-template-columns: 1fr; gap: 40px; }
+        .cta-wa-title { font-size: 2.25rem; }
     }
 
-    /* Mobile Responsive (max-width: 767px) */
     @media (max-width: 767px) {
-        .hero-section {
-            padding: 60px 0;
-            margin-bottom: 50px;
-            border-radius: 0 0 20px 20px;
-        }
-        .hero-overlay {
-            border-radius: 0 0 20px 20px;
-        }
-        .hero-title {
-            font-size: 2rem;
-        }
-        .hero-subtitle {
-            font-size: 0.95rem;
-            margin-bottom: 25px;
-        }
-        .hero-content {
-            max-width: 100%;
-        }
-        .search-box {
-            margin: -40px 16px 40px;
-            padding: 18px;
-        }
-        .search-form {
-            grid-template-columns: 1fr;
-        }
-        .search-tabs {
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        .search-tab {
-            font-size: 0.9rem;
-        }
-        .stats-container {
-            grid-template-columns: 1fr 1fr;
-            padding: 25px 20px;
-            gap: 20px;
-        }
-        .stat-item h3 {
-            font-size: 1.8rem;
-        }
-        .stat-item p {
-            font-size: 0.85rem;
-        }
-        .about-section {
-            gap: 30px;
-        }
-        .category-grid {
-            grid-template-columns: repeat(2, 1fr);
-        }
+        /* body padding-top changes to 64px at this breakpoint */
+        .hero-section { margin-top: -64px; padding: calc(64px + 40px) 0 50px; }
+        .hero-title { font-size: 2rem; }
+        .hero-subtitle { font-size: 1rem; margin-bottom: 30px; }
+        .hero-content { max-width: 100%; }
+        .hero-stats { gap: 20px; margin-top: 35px; padding-top: 30px; }
+        .hero-stat h4 { font-size: 1.5rem; }
+        .service-highlight-card { padding: 30px 20px; }
+        .portfolio-grid-home { grid-template-columns: 1fr; }
+        .cta-wa-title { font-size: 1.75rem; }
+        .btn-whatsapp { padding: 14px 30px; font-size: 1rem; }
+        .cta-whatsapp-section { padding: 60px 20px; }
     }
 
-    /* Small Mobile Responsive (max-width: 480px) */
     @media (max-width: 480px) {
-        .hero-section {
-            padding: 45px 0;
-            margin-bottom: 40px;
-            border-radius: 0 0 16px 16px;
-        }
-        .hero-overlay {
-            border-radius: 0 0 16px 16px;
-        }
-        .hero-title {
-            font-size: 1.65rem;
-            margin-bottom: 15px;
-        }
-        .hero-subtitle {
-            font-size: 0.9rem;
-            margin-bottom: 20px;
-        }
-        .search-box {
-            margin: -30px 12px 30px;
-            padding: 15px;
-        }
-        .stats-container {
-            grid-template-columns: 1fr;
-            padding: 20px 15px;
-            gap: 15px;
-        }
-        .stat-item h3 {
-            font-size: 1.5rem;
-        }
-        .category-grid {
-            grid-template-columns: 1fr;
-        }
+        .hero-section { margin-top: -64px; padding: calc(64px + 30px) 0 40px; }
+        .hero-title { font-size: 1.7rem; }
+        .hero-subtitle { font-size: 0.95rem; }
+        .hero-stats { flex-direction: column; gap: 15px; }
+        .hero-cta { flex-direction: column; }
+        .hero-cta .btn { text-align: center; }
+        .service-highlight-icon { width: 65px; height: 65px; font-size: 1.6rem; }
     }
 </style>
 @endpush
 
 @section('content')
-    <!-- Hero Section -->
-    <section class="hero-section" aria-label="Banner Utama Pencarian Properti">
-        <div class="hero-overlay"></div>
-        <div class="container hero-content" data-scroll>
-            <h1 class="hero-title">{{ $settings['hero_title'] ?? 'Temukan Properti Impian Anda di Yogyakarta' }}</h1>
-            <p class="hero-subtitle">{{ $settings['hero_subtitle'] ?? 'Jelajahi ribuan listing rumah, apartemen, dan tanah terpercaya. Proses mudah, transparan, dan didampingi agen profesional.' }}</p>
-        </div>
-    </section>
 
+{{-- ──────────────────────────────────────────────── --}}
+{{-- 1. HERO SECTION                                  --}}
+{{-- ──────────────────────────────────────────────── --}}
+<section class="hero-section" aria-label="Halaman Utama DJM">
+    <div class="hero-overlay"></div>
+    <div class="container">
+        <div class="hero-content" data-scroll>
 
-
-    <!-- Browse By Category -->
-    <section class="section section-light" aria-labelledby="judul-kategori">
-        <div class="container">
-            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px;">
-                <div data-scroll>
-                    <h2 class="section-title" id="judul-kategori" style="margin-bottom: 5px;">Kategori Properti di Yogyakarta</h2>
-                    <p class="section-subtitle">Temukan properti sesuai kebutuhan dan anggaran Anda</p>
-                </div>
-            </div>
-            
-            <div class="grid category-grid">
-                @foreach($categories as $category)
-                    <a href="{{ route('properties.index', ['category' => $category->slug]) }}" class="category-card" data-scroll title="{{ $category->name }} di Yogyakarta - {{ $category->properties_count }} Properti Tersedia">
-                        <div class="category-icon">
-                            <i class="fa-solid {{ $category->icon ?? 'fa-house' }}" aria-hidden="true"></i>
-                        </div>
-                        <h3 class="category-title">{{ $category->name }}</h3>
-                        <p class="category-count">{{ $category->properties_count }} Properti</p>
-                    </a>
-                @endforeach
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="section section-muted" aria-labelledby="judul-tentang">
-        <div class="container about-section">
-            <div class="about-image" data-scroll>
-                <img src="{{ $settings['about_image'] ?? 'https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800&q=80' }}" alt="Tim agen properti profesional DJM Property Yogyakarta" loading="lazy" width="600" height="450">
-            </div>
-            <div class="about-content" data-scroll>
-                <h2 class="section-title" id="judul-tentang" style="font-size: 2.5rem;">{{ $settings['about_title'] ?? 'Mitra Terpercaya dalam Investasi Properti Yogyakarta' }}</h2>
-                <p style="color: var(--color-text-muted); font-size: 1.1rem; margin-bottom: 30px;">
-                    {{ $settings['about_description'] ?? 'Kami membantu Anda menemukan, membeli, dan mengelola properti dengan proses yang mudah, transparan, dan terpercaya bersama agen berpengalaman.' }}
-                </p>
-                
-                <div class="about-features">
-                    <div class="about-feature">
-                        <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
-                        <div>
-                            <h4 style="font-size: 1.1rem; margin-bottom: 5px;">Bimbingan Agen Ahli</h4>
-                            <p style="color: var(--color-text-muted);">Didampingi oleh agen properti profesional dan berpengalaman di Yogyakarta.</p>
-                        </div>
-                    </div>
-                    <div class="about-feature">
-                        <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
-                        <div>
-                            <h4 style="font-size: 1.1rem; margin-bottom: 5px;">Proses Transaksi Transparan</h4>
-                            <p style="color: var(--color-text-muted);">Proses jual beli dan sewa yang jelas, aman, dan tanpa biaya tersembunyi.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <a href="{{ route('about.index') }}" class="btn btn-primary" style="margin-top: 20px;" title="Pelajari lebih lanjut tentang DJM Property">Pelajari Lebih Lanjut</a>
-            </div>
-        </div>
-        
-        <div class="container">
-            <div class="stats-container" aria-label="Statistik pencapaian DJM Property">
-                <div class="stat-item" data-scroll>
-                    <h3>{{ $stats['total_properties'] }}+</h3>
-                    <p>Properti Terdaftar</p>
-                </div>
-                <div class="stat-item" data-scroll>
-                    <h3>{{ $stats['total_clients'] }}</h3>
-                    <p>Klien Puas</p>
-                </div>
-                <div class="stat-item" data-scroll>
-                    <h3>{{ $stats['total_agents'] }}+</h3>
-                    <p>Agen Profesional</p>
-                </div>
-                <div class="stat-item" data-scroll>
-                    <h3>{{ $stats['support'] }}</h3>
-                    <p>Layanan Pelanggan</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Featured Properties -->
-    <section class="section section-light" aria-labelledby="judul-unggulan">
-        <div class="container">
-            <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; gap: 15px;">
-                <div data-scroll>
-                    <h2 class="section-title" id="judul-unggulan" style="margin-bottom: 5px;">Properti Unggulan di Yogyakarta</h2>
-                    <p class="section-subtitle" style="margin:0;">Pilihan properti terbaik yang dikurasi khusus untuk Anda</p>
-                </div>
-                <a href="{{ route('properties.index') }}" style="font-weight: 600; display: flex; align-items: center; gap: 5px; white-space: nowrap;" title="Lihat semua properti di Yogyakarta">
-                    Lihat Semua Properti <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            <h1 class="hero-title">{{ $settings['hero_title'] ?? 'Solusi Properti, Perizinan & Konstruksi Terpercaya' }}</h1>
+            <p class="hero-subtitle">{{ $settings['hero_subtitle'] ?? 'Membantu memenuhi kebutuhan properti, perizinan, dan konstruksi Anda di Yogyakarta dan sekitarnya.' }}</p>
+            <div class="hero-cta">
+                <a href="{{ route('services.index') }}" class="btn btn-white" style="padding: 14px 32px; font-weight: 700;">
+                    <i class="fa-solid fa-list-check" aria-hidden="true"></i> Lihat Layanan
+                </a>
+                <a href="{{ route('properties.index') }}" class="btn btn-outline" style="border-color: white; color: white; padding: 14px 32px; font-weight: 700;">
+                    <i class="fa-solid fa-building" aria-hidden="true"></i> Lihat Properti
                 </a>
             </div>
-            
+
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <h4>{{ $stats['total_properties'] }}+</h4>
+                    <p>Properti Terdaftar</p>
+                </div>
+                <div class="hero-stat">
+                    <h4>{{ $stats['total_clients'] }}</h4>
+                    <p>Klien Puas</p>
+                </div>
+                <div class="hero-stat">
+                    <h4>5+</h4>
+                    <p>Tahun Pengalaman</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{{-- ──────────────────────────────────────────────── --}}
+{{-- 2. SERVICE HIGHLIGHT                             --}}
+{{-- ──────────────────────────────────────────────── --}}
+<section class="section section-light" aria-labelledby="judul-layanan">
+    <div class="container">
+        <div style="text-align: center; max-width: 600px; margin: 0 auto 50px;" data-scroll>
+            <h2 class="section-title" id="judul-layanan">Layanan Kami</h2>
+            <p class="section-subtitle">Tiga bidang utama yang DJM kerjakan untuk memenuhi kebutuhan Anda</p>
+        </div>
+
+        <div class="service-highlight-grid">
+            {{-- Perizinan --}}
+            <div class="service-highlight-card" data-scroll>
+                <div class="service-highlight-icon">
+                    <i class="fa-solid fa-file-shield" aria-hidden="true"></i>
+                </div>
+                <h3 class="service-highlight-title">Perizinan</h3>
+                <p class="service-highlight-desc">
+                    Pengurusan perizinan bangunan dan lahan yang cepat dan terpercaya, meliputi PBG/IMB, pengeringan lahan, dan pecah sertifikat.
+                </p>
+                <a href="{{ route('services.index') }}" class="btn btn-primary" title="Lihat layanan perizinan DJM">
+                    Lihat Detail <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                </a>
+            </div>
+
+            {{-- Properti --}}
+            <div class="service-highlight-card" data-scroll>
+                <div class="service-highlight-icon">
+                    <i class="fa-solid fa-house-chimney" aria-hidden="true"></i>
+                </div>
+                <h3 class="service-highlight-title">Properti</h3>
+                <p class="service-highlight-desc">
+                    Katalog properti pilihan — rumah, tanah, ruko, dan villa di Yogyakarta. Proses jual beli dan sewa yang mudah, transparan, dan aman.
+                </p>
+                <a href="{{ route('properties.index') }}" class="btn btn-primary" title="Lihat katalog properti DJM">
+                    Lihat Detail <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                </a>
+            </div>
+
+            {{-- Konstruksi --}}
+            <div class="service-highlight-card" data-scroll>
+                <div class="service-highlight-icon">
+                    <i class="fa-solid fa-helmet-safety" aria-hidden="true"></i>
+                </div>
+                <h3 class="service-highlight-title">Konstruksi</h3>
+                <p class="service-highlight-desc">
+                    Layanan pembangunan dan renovasi bangunan oleh tim berpengalaman — dari desain hingga selesai dengan hasil yang memuaskan.
+                </p>
+                <a href="{{ route('services.index') }}" class="btn btn-primary" title="Lihat layanan konstruksi DJM">
+                    Lihat Detail <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{{-- ──────────────────────────────────────────────── --}}
+{{-- 3. PROPERTY HIGHLIGHT                            --}}
+{{-- ──────────────────────────────────────────────── --}}
+<section class="section section-muted" aria-labelledby="judul-properti">
+    <div class="container">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; gap: 15px;">
+            <div data-scroll>
+                <h2 class="section-title" id="judul-properti" style="margin-bottom: 5px;">Properti Terbaru</h2>
+                <p class="section-subtitle" style="margin: 0;">Pilihan properti unggulan di Yogyakarta</p>
+            </div>
+            <a href="{{ route('properties.index') }}" style="font-weight: 600; display: flex; align-items: center; gap: 5px; white-space: nowrap;" title="Lihat semua properti DJM">
+                Lihat Semua <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        @if($featuredProperties->count() > 0)
             <div class="grid grid-cols-4" style="grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));">
                 @foreach($featuredProperties as $property)
                     <article class="property-card" data-scroll>
@@ -430,7 +583,7 @@
                                 @endif
                             </div>
                             <a href="{{ route('properties.show', $property->slug) }}" title="{{ $property->title }}">
-                                <img src="{{ $property->thumbnail_url }}" alt="{{ $property->title }} - {{ $property->location_string }}" loading="lazy">
+                                <img src="{{ $property->thumbnail_url }}" alt="{{ $property->title }}" loading="lazy">
                             </a>
                         </div>
                         <div class="property-card-content">
@@ -462,9 +615,77 @@
                     </article>
                 @endforeach
             </div>
+        @else
+            <div style="text-align: center; padding: 60px 20px; color: var(--color-text-muted);">
+                <i class="fa-solid fa-house-circle-xmark" style="font-size: 3rem; color: var(--color-border); display: block; margin-bottom: 20px;"></i>
+                <p>Belum ada properti tersedia. Silakan cek kembali nanti.</p>
+            </div>
+        @endif
+    </div>
+</section>
+
+
+{{-- ──────────────────────────────────────────────── --}}
+{{-- 4. PORTFOLIO HIGHLIGHT                           --}}
+{{-- ──────────────────────────────────────────────── --}}
+<section class="section section-light" aria-labelledby="judul-portfolio">
+    <div class="container">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; gap: 15px;">
+            <div data-scroll>
+                <h2 class="section-title" id="judul-portfolio" style="margin-bottom: 5px;">Portfolio Kami</h2>
+                <p class="section-subtitle" style="margin: 0;">Proyek yang telah berhasil diselesaikan DJM</p>
+            </div>
+            <a href="{{ route('portfolio.index') }}" style="font-weight: 600; display: flex; align-items: center; gap: 5px; white-space: nowrap;" title="Lihat semua portfolio DJM">
+                Lihat Semua <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            </a>
         </div>
-    </section>
+
+        <div class="portfolio-grid-home">
+            @php
+            $portfolioItems = [
+                ['title' => 'Pengurusan PBG / IMB', 'cat' => 'Perizinan', 'loc' => 'Sleman', 'img' => 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80'],
+                ['title' => 'Pembangunan Rumah Modern', 'cat' => 'Konstruksi', 'loc' => 'Bantul', 'img' => 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&q=80'],
+                ['title' => 'Penjualan Kavling Strategis', 'cat' => 'Properti', 'loc' => 'Godean', 'img' => 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&q=80'],
+            ];
+            @endphp
+
+            @foreach($portfolioItems as $item)
+                <div class="portfolio-card-home" data-scroll>
+                    <img src="{{ $item['img'] }}" alt="{{ $item['title'] }}" loading="lazy">
+                    <div class="portfolio-card-home-overlay">
+                        <span class="portfolio-card-home-badge">{{ $item['cat'] }}</span>
+                        <h3>{{ $item['title'] }}</h3>
+                        <p><i class="fa-solid fa-location-dot" style="margin-right: 4px;"></i>{{ $item['loc'] }}, Yogyakarta</p>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+
+        <div style="text-align: center; margin-top: 40px;" data-scroll>
+            <a href="{{ route('portfolio.index') }}" class="btn btn-primary" style="padding: 14px 36px;" title="Lihat semua portfolio DJM">
+                Lihat Semua Portfolio <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            </a>
+        </div>
+    </div>
+</section>
 
 
+{{-- ──────────────────────────────────────────────── --}}
+{{-- 5. CTA WHATSAPP                                  --}}
+{{-- ──────────────────────────────────────────────── --}}
+<section class="cta-whatsapp-section" aria-label="Hubungi DJM via WhatsApp">
+    <div class="container" data-scroll>
+        <h2 class="cta-wa-title">Siap Membantu Kebutuhan Anda</h2>
+        <p class="cta-wa-subtitle">Konsultasikan kebutuhan perizinan, properti, atau konstruksi Anda langsung bersama tim ahli DJM — tanpa biaya awal.</p>
+        <a href="https://wa.me/6281234567890?text=Halo%20DJM%2C%20saya%20ingin%20berkonsultasi%20mengenai%20layanan%20DJM."
+           target="_blank"
+           rel="noopener noreferrer"
+           class="btn-whatsapp"
+           title="Hubungi DJM via WhatsApp">
+            <i class="fa-brands fa-whatsapp" style="font-size: 1.4rem;"></i>
+            Konsultasi via WhatsApp
+        </a>
+    </div>
+</section>
 
 @endsection

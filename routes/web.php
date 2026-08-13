@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PropertyController;
-use App\Http\Controllers\AgentController;
+use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
@@ -31,13 +31,13 @@ Route::put('/properties/update/{property}', [PropertyController::class, 'update'
 Route::delete('/properties/destroy/{property}', [PropertyController::class, 'destroy'])->name("properties.destroy");
 Route::delete('/properties/images/{image}', [PropertyController::class, 'destroyImage'])->name("properties.images.destroy");
 
-// Agents
-Route::prefix('agen')->name('agents.')->group(function () {
-    Route::get('/',       [AgentController::class, 'index'])->name('index');
-    Route::get('/{slug}', [AgentController::class, 'show'])->name('show');
+// Portfolio (menggantikan Agents)
+Route::prefix('portfolio')->name('portfolio.')->group(function () {
+    Route::get('/',       [PortfolioController::class, 'index'])->name('index');
+    Route::get('/{slug}', [PortfolioController::class, 'show'])->name('show');
 });
 
-// Services
+// Services / Layanan
 Route::prefix('layanan')->name('services.')->group(function () {
     Route::get('/',       [ServiceController::class, 'index'])->name('index');
     Route::get('/{slug}', [ServiceController::class, 'show'])->name('show');

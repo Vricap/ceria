@@ -56,17 +56,26 @@ class SiteSeeder extends Seeder
         }
 
         // ─── Services ──────────────────────────────────────────────────────────────
+        // Layanan asli DJM (Desty Jaya Mandiri): Perizinan & Konstruksi.
+        // Konfirmasi daftar final dengan client sesuai PRD.
         $services = [
-            ['name' => 'Buy Property',         'slug' => 'buy-property',         'icon' => 'fa-house-circle-check', 'short_description' => 'Kami membantu Anda menemukan dan membeli properti impian dengan panduan ahli kami.', 'sort_order' => 1],
-            ['name' => 'Sell Property',        'slug' => 'sell-property',        'icon' => 'fa-hand-holding-dollar','short_description' => 'Pasarkan properti Anda kepada calon pembeli yang tepat dengan harga terbaik.', 'sort_order' => 2],
-            ['name' => 'Rent Property',        'slug' => 'rent-property',        'icon' => 'fa-key',                'short_description' => 'Temukan properti sewa yang sesuai kebutuhan dan anggaran Anda.', 'sort_order' => 3],
-            ['name' => 'Property Management',  'slug' => 'property-management',  'icon' => 'fa-gears',              'short_description' => 'Kami mengelola properti Anda agar tetap produktif dan terawat.', 'sort_order' => 4],
-            ['name' => 'Property Investment',  'slug' => 'property-investment',  'icon' => 'fa-chart-line',         'short_description' => 'Konsultasi investasi properti untuk portofolio yang menguntungkan.', 'sort_order' => 5],
-            ['name' => 'Property Consultation','slug' => 'property-consultation','icon' => 'fa-comments',           'short_description' => 'Konsultasi gratis untuk kebutuhan properti Anda bersama tim ahli kami.', 'sort_order' => 6],
+            // Kategori: Perizinan
+            ['name' => 'PBG / IMB',              'slug' => 'pbg-imb',              'category' => 'perizinan', 'icon' => 'fa-file-signature',      'short_description' => 'Pengurusan Persetujuan Bangunan Gedung (PBG) dan Izin Mendirikan Bangunan (IMB) secara cepat dan resmi.', 'sort_order' => 1],
+            ['name' => 'Pengeringan',            'slug' => 'pengeringan',           'category' => 'perizinan', 'icon' => 'fa-water',              'short_description' => 'Jasa pengeringan lahan untuk menyiapkan tanah yang siap dibangun.', 'sort_order' => 2],
+            ['name' => 'Pecah Sertifikat',       'slug' => 'pecah-sertifikat',      'category' => 'perizinan', 'icon' => 'fa-file-invoice',       'short_description' => 'Pemecahan sertifikat tanah sesuai kebutuhan legal dan peruntukan lahan.', 'sort_order' => 3],
+
+            // Kategori: Konstruksi
+            ['name' => 'Pembangunan',            'slug' => 'pembangunan',           'category' => 'konstruksi', 'icon' => 'fa-building-construction', 'short_description' => 'Jasa pembangunan bangunan dari fondasi hingga selesai oleh tim berpengalaman.', 'sort_order' => 4],
+            ['name' => 'Renovasi',               'slug' => 'renovasi',              'category' => 'konstruksi', 'icon' => 'fa-hammer',            'short_description' => 'Renovasi dan perbaikan bangunan untuk meningkatkan kenyamanan dan nilai properti.', 'sort_order' => 5],
+            ['name' => 'Jasa Konstruksi',        'slug' => 'jasa-konstruksi',       'category' => 'konstruksi', 'icon' => 'fa-helmet-safety',     'short_description' => 'Layanan konstruksi umum untuk kebutuhan pembangunan Anda.', 'sort_order' => 6],
         ];
 
         foreach ($services as $service) {
             Service::updateOrCreate(['slug' => $service['slug']], array_merge($service, ['is_active' => true]));
         }
+
+        // Hapus layanan lama yang tidak lagi sesuai daftar layanan asli DJM
+        $activeSlugs = collect($services)->pluck('slug')->all();
+        Service::whereNotIn('slug', $activeSlugs)->delete();
     }
 }

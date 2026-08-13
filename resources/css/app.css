@@ -8,11 +8,11 @@
 
 :root {
     /* Color Palette - Blue Theme */
-    --color-primary: #316DE3; /* PRIMARY BLUE */
-    --color-primary-light: #5B8DF0;
-    --color-primary-dark: #2154A1; /* DARK BLUE */
-    --color-secondary: #EAF2FF; /* LIGHT BLUE */
-    --color-accent: #316DE3;
+    --color-primary: #26658c; /* PRIMARY BLUE */
+    --color-primary-light: #4982a5;
+    --color-primary-dark: #1d4e6d; /* DARK BLUE */
+    --color-secondary: #e6eff5; /* LIGHT BLUE */
+    --color-accent: #26658c;
     --color-text-main: #172B4D; /* NAVY TEXT */
     --color-text-muted: #4A5C7A;
     --color-text-light: #8090A8;

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio — DJM Desty Jaya Mandiri | Dokumentasi Pekerjaan</title>
+  <meta name="description" content="Portfolio pekerjaan DJM Desty Jaya Mandiri di bidang perizinan, konstruksi, dan properti di Yogyakarta.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="portofolio">
+
+  <section class="page-header">
+    <div class="container">
+      <p class="breadcrumb"><a href="index.html">Beranda</a> / Portfolio</p>
+      <h1>Portfolio</h1>
+      <p>Dokumentasi sebagian pekerjaan dan proyek yang pernah dikerjakan DJM.</p>
+    </div>
+  </section>
+
+  <section class="section section-tight" style="padding-top:0;">
+    <div class="container">
+      <div class="filter-bar">
+        <div class="filter-grid">
+          <div class="filter-group">
+            <label for="p-cat">Kategori</label>
+            <select id="p-cat">
+              <option value="">Semua Kategori</option>
+              <option value="perizinan">Perizinan</option>
+              <option value="konstruksi">Konstruksi</option>
+              <option value="property">Property</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-3" id="portfolio-list"></div>
+    </div>
+  </section>
+
+  <footer id="app-footer"></footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

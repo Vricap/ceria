@@ -9,14 +9,19 @@ class ServiceController extends Controller
 {
     public function index(): View
     {
-        $services = Service::where('is_active', true)->orderBy('sort_order')->get();
+        $services = Service::where('is_active', true)->orderBy('sort_order')->get()->groupBy('category');
+
         return view('services.index', compact('services'));
     }
 
     public function show(string $slug): View
     {
         $service  = Service::where('slug', $slug)->where('is_active', true)->firstOrFail();
-        $services = Service::where('is_active', true)->orderBy('sort_order')->get();
+        $services = Service::where('is_active', true)
+            ->where('id', '!=', $service->id)
+            ->orderBy('sort_order')
+            ->get();
+
         return view('services.show', compact('service', 'services'));
     }
 }

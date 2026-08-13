@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kontak — DJM Desty Jaya Mandiri</title>
+  <meta name="description" content="Hubungi DJM Desty Jaya Mandiri — alamat, telepon, WhatsApp, dan email di Yogyakarta.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="kontak">
+
+  <section class="page-header">
+    <div class="container">
+      <p class="breadcrumb"><a href="index.html">Beranda</a> / Kontak</p>
+      <h1>Hubungi Kami</h1>
+      <p>Konsultasi gratis via WhatsApp atau kirim pesan Anda — tim DJM siap membantu.</p>
+    </div>
+  </section>
+
+  <section class="section section-tight" style="padding-top:0;">
+    <div class="container">
+      <div class="contact-grid">
+
+        <!-- Info kontak -->
+        <div class="contact-info-card" id="contact-list"></div>
+
+        <!-- Formulir -->
+        <div class="form-card">
+          <h2 class="section-title" style="font-size:1.4rem; margin-bottom:6px;">Kirim Pesan</h2>
+          <p style="color:var(--text-muted); font-size:.92rem; margin-bottom:20px;">Pesan akan diteruskan ke WhatsApp DJM.</p>
+          <form id="contact-form">
+            <div class="form-group">
+              <label for="cf-name">Nama Anda</label>
+              <input type="text" id="cf-name" placeholder="Nama lengkap" required>
+            </div>
+            <div class="form-group">
+              <label for="cf-subject">Topik</label>
+              <select id="cf-subject">
+                <option value="Perizinan">Perizinan (PBG/IMB, Pengeringan, Pecah Sertifikat)</option>
+                <option value="Properti">Properti (Beli / Sewa)</option>
+                <option value="Konstruksi">Konstruksi (Pembangunan / Renovasi)</option>
+                <option value="Lainnya">Lainnya</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="cf-message">Pesan</label>
+              <textarea id="cf-message" rows="4" placeholder="Tulis kebutuhan atau pertanyaan Anda..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-wa btn-block"><i class="fa-brands fa-whatsapp"></i> Kirim via WhatsApp</button>
+          </form>
+        </div>
+
+        <!-- Lokasi -->
+        <div class="map-embed" style="grid-column:1/-1; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:12px; color:var(--text-muted);">
+          <i class="fa-solid fa-map-location-dot" style="font-size:2.6rem; color:var(--primary);"></i>
+          <p style="text-align:center;">Jl. Kaliurang KM 7, Sleman, Yogyakarta<br><small>Google Maps embed dapat ditambahkan di sini.</small></p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer id="app-footer"></footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

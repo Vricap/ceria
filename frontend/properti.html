@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Properti — DJM Desty Jaya Mandiri | Katalog Jual &amp; Sewa</title>
+  <meta name="description" content="Katalog properti dijual dan disewakan di Yogyakarta oleh DJM Desty Jaya Mandiri. Rumah, tanah, ruko, dan villa dengan filter mudah.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="properti">
+
+  <section class="page-header">
+    <div class="container">
+      <p class="breadcrumb"><a href="index.html">Beranda</a> / Properti</p>
+      <h1>Katalog Properti</h1>
+      <p>Rumah, tanah, ruko, dan villa yang dijual atau disewakan. Cari sesuai kebutuhan, lalu tanyakan langsung via WhatsApp.</p>
+    </div>
+  </section>
+
+  <section class="section section-tight" style="padding-top:0;">
+    <div class="container">
+
+      <div class="filter-bar">
+        <div class="filter-grid">
+          <div class="filter-group">
+            <label for="f-status">Status</label>
+            <select id="f-status">
+              <option value="">Semua Status</option>
+              <option value="dijual">Dijual</option>
+              <option value="disewakan">Disewakan</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="f-type">Jenis Properti</label>
+            <select id="f-type">
+              <option value="">Semua Jenis</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="f-min">Harga Min (Rp)</label>
+            <input type="text" id="f-min" inputmode="numeric" placeholder="cth. 500.000.000">
+          </div>
+          <div class="filter-group">
+            <label for="f-max">Harga Maks (Rp)</label>
+            <input type="text" id="f-max" inputmode="numeric" placeholder="cth. 1.000.000.000">
+          </div>
+          <div class="filter-actions">
+            <button class="btn btn-outline" id="f-reset" type="button">Reset</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-3" id="property-list"></div>
+    </div>
+  </section>
+
+  <section class="section section-tight">
+    <div class="container">
+      <div class="wa-panel">
+        <h2>Tidak menemukan yang Anda cari?</h2>
+        <p>Hubungi DJM — kami bisa membantu mencari properti sesuai kriteria Anda.</p>
+        <a class="btn btn-white" href="kontak.html"><i class="fa-solid fa-comments"></i> Konsultasikan Kebutuhan</a>
+      </div>
+    </div>
+  </section>
+
+  <footer id="app-footer"></footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
