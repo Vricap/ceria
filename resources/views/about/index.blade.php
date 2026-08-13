@@ -51,7 +51,7 @@
     }
 
     .value-card {
-        background: rgba(255, 255, 255, 0.1);
+        background: #FFFFFF;
         padding: 40px 30px;
         border-radius: var(--border-radius-lg);
         text-align: center;
@@ -59,13 +59,14 @@
 
     .value-icon {
         font-size: 2.5rem;
-        color: var(--color-accent);
+        color: #A7EBF2;
         margin-bottom: 20px;
     }
 
     .value-title {
         font-size: 1.25rem;
         font-weight: 600;
+        color: var(--color-text-main);
         margin-bottom: 15px;
     }
 
@@ -181,17 +182,17 @@
                 <div class="value-card" data-scroll>
                     <div class="value-icon"><i class="fa-solid fa-handshake"></i></div>
                     <h3 class="value-title">Integritas</h3>
-                    <p style="opacity: 0.8; line-height: 1.6;">Kami menjunjung tinggi kejujuran, transparansi, dan standar etika tertinggi dalam setiap transaksi.</p>
+                    <p style="color: var(--color-text-muted); line-height: 1.6;">Kami menjunjung tinggi kejujuran, transparansi, dan standar etika tertinggi dalam setiap transaksi.</p>
                 </div>
                 <div class="value-card" data-scroll>
                     <div class="value-icon"><i class="fa-solid fa-lightbulb"></i></div>
                     <h3 class="value-title">Inovasi</h3>
-                    <p style="opacity: 0.8; line-height: 1.6;">Terus berinovasi mengembangkan solusi teknologi untuk menyederhanakan pengalaman properti Anda.</p>
+                    <p style="color: var(--color-text-muted); line-height: 1.6;">Terus berinovasi mengembangkan solusi teknologi untuk menyederhanakan pengalaman properti Anda.</p>
                 </div>
                 <div class="value-card" data-scroll>
                     <div class="value-icon"><i class="fa-solid fa-heart"></i></div>
                     <h3 class="value-title">Fokus Klien</h3>
-                    <p style="opacity: 0.8; line-height: 1.6;">Keberhasilan kami diukur dari kepuasan dan pencapaian tujuan properti setiap klien kami.</p>
+                    <p style="color: var(--color-text-muted); line-height: 1.6;">Keberhasilan kami diukur dari kepuasan dan pencapaian tujuan properti setiap klien kami.</p>
                 </div>
             </div>
         </div>

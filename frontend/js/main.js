@@ -13,10 +13,10 @@
   }
 
   var palettes = [
-    "linear-gradient(135deg,#FDF6EA 0%,#F6E7C9 100%)",
+    "linear-gradient(135deg,#EAF7FB 0%,#C8E9F2 100%)",
     "linear-gradient(135deg,#E6F4EF 0%,#C9E8DC 100%)",
     "linear-gradient(135deg,#F1EBFA 0%,#DED0F0 100%)",
-    "linear-gradient(135deg,#FFF1F1 0%,#F7D5D5 100%)",
+    "linear-gradient(135deg,#E4F5F7 0%,#C0E6ED 100%)",
   ];
   function phColor(i) { return palettes[i % palettes.length]; }
 
@@ -219,7 +219,7 @@
       html +=
         '<div class="cat-block">' +
         '<div class="section-head">' +
-        '<i class="fa-solid ' + icon + '" style="font-size:1.8rem;color:var(--primary);margin-bottom:10px;display:inline-block;"></i>' +
+        '<i class="fa-solid ' + icon + '" style="font-size:1.8rem;color:var(--cyan);margin-bottom:10px;display:inline-block;"></i>' +
         '<h2 class="section-title">' + C.categories[key] + "</h2>" +
         '<p class="section-subtitle">' +
         (key === "perizinan"
@@ -425,7 +425,7 @@
       "<p><i class=\"fa-solid fa-location-dot\"></i> " + p.location + "</p></div></div>" +
       '<div class="container"><div class="detail-grid">' +
       '<div class="detail-media" style="background:' + phColor(p.slug.length) +
-      ';display:flex;align-items:center;justify-content:center;color:rgba(38,101,140,.6);font-size:4rem;">' +
+      ';display:flex;align-items:center;justify-content:center;color:rgba(84,172,191,.6);font-size:4rem;">' +
       '<i class="fa-solid fa-house-chimney"></i></div>' +
       '<div class="detail-info">' +
       '<div class="d-title">' + p.title + "</div>" +
