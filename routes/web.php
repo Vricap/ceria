@@ -20,8 +20,8 @@ Route::prefix('properti')->name('properties.')->group(function () {
 });
 
 Route::get('/dashboard', function () {
-    $properties = Property::all();
-    return view('dashboard', ['properties' => $properties]);
+    $properties = Property::with(['category', 'propertyType', 'city', 'agent'])->latest()->get();
+    return view('dashboard.index', ['properties' => $properties]);
 })->name("dashboard");
 
 Route::get('/properties/create', [PropertyController::class, 'create'])->name("properties.create");
@@ -29,6 +29,7 @@ Route::post('/properties/store', [PropertyController::class, 'store'])->name("pr
 Route::get('/properties/edit/{property}', [PropertyController::class, 'edit'])->name("properties.edit");
 Route::put('/properties/update/{property}', [PropertyController::class, 'update'])->name("properties.update");
 Route::delete('/properties/destroy/{property}', [PropertyController::class, 'destroy'])->name("properties.destroy");
+Route::delete('/properties/images/{image}', [PropertyController::class, 'destroyImage'])->name("properties.images.destroy");
 
 // Agents
 Route::prefix('agen')->name('agents.')->group(function () {

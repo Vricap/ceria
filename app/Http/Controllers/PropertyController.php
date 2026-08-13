@@ -7,11 +7,15 @@ use App\Models\Category;
 use App\Models\PropertyType;
 use App\Models\City;
 use App\Models\District;
+use App\Models\Agent;
+use App\Models\PropertyImage;
+use App\Models\PropertyFacility;
 use App\Models\Inquiry;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class PropertyController extends Controller
 {
@@ -149,106 +153,295 @@ class PropertyController extends Controller
     }
 
     // ==========================================
-    // Dashboard Admin CRUD Methods (From Upstream)
+    // Dashboard Admin CRUD Methods
     // ==========================================
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): View
     {
-        return view('properties.create');
+        $categories    = Category::where('is_active', true)->orderBy('sort_order')->orderBy('name')->get();
+        $propertyTypes = PropertyType::where('is_active', true)->orderBy('sort_order')->orderBy('name')->get();
+        $cities        = City::where('is_active', true)->orderBy('name')->get();
+        $districts     = District::where('is_active', true)->orderBy('name')->get();
+        $agents        = Agent::where('is_active', true)->orderBy('name')->get();
+
+        return view('dashboard.create', compact('categories', 'propertyTypes', 'cities', 'districts', 'agents'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-        // TODO: BUG. return php file upload error 7 if image size bigger than 800kb
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'address' => 'required|string|max:255',
-            'thumbnail' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        $validated = $request->validate([
+            'title'              => 'required|string|max:255',
+            'property_id_code'   => 'nullable|string|max:50',
+            'category_id'        => 'nullable|exists:categories,id',
+            'property_type_id'   => 'nullable|exists:property_types,id',
+            'agent_id'           => 'nullable|exists:agents,id',
+            'transaction_type'   => 'required|in:dijual,disewa',
+            'price'              => 'nullable|numeric|min:0',
+            'price_rent_monthly' => 'nullable|numeric|min:0',
+            'price_note'         => 'nullable|string|max:255',
+            'land_area'          => 'nullable|numeric|min:0',
+            'building_area'      => 'nullable|numeric|min:0',
+            'bedrooms'           => 'nullable|integer|min:0',
+            'bathrooms'          => 'nullable|integer|min:0',
+            'garage'             => 'nullable|integer|min:0',
+            'floors'             => 'nullable|integer|min:0',
+            'certificate'        => 'nullable|string|max:100',
+            'year_built'         => 'nullable|integer|min:1900|max:' . (date('Y') + 1),
+            'electric_power'     => 'nullable|string|max:50',
+            'city_id'            => 'nullable|exists:cities,id',
+            'district_id'        => 'nullable|exists:districts,id',
+            'address'            => 'required|string|max:500',
+            'short_description'  => 'nullable|string|max:500',
+            'description'        => 'nullable|string',
+            'status'             => 'required|in:published,draft,pending,featured,sold,rented',
+            'is_featured'        => 'nullable|boolean',
+            'thumbnail'          => 'required|image|mimes:jpeg,png,jpg,webp|max:5120',
+            'gallery_images.*'   => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
+            'facilities'         => 'nullable|array',
+            'facilities.*'       => 'string|max:100',
         ], [
-        'title.max' => 'Nama terlalu panjang.',
-        'address.max' => 'Alamat terlalu panjang.',
-        'thumbnail.max' => 'Ukuran gambar terlalu besar.',
+            'title.required'     => 'Nama properti wajib diisi.',
+            'title.max'          => 'Nama properti maksimal 255 karakter.',
+            'address.required'   => 'Alamat wajib diisi.',
+            'thumbnail.required' => 'Foto utama wajib diunggah.',
+            'thumbnail.max'      => 'Ukuran foto utama maksimal 5MB.',
         ]);
 
-        $path = $request->file('thumbnail')->store('properties', 'public');
+        $thumbnailPath = $request->file('thumbnail')->store('properties', 'public');
 
-        Property::create([
-            'title' => $request->input('title'),
-            'address' => $request->input('address'),
-            'thumbnail' => $path,
-            'slug' => \Illuminate\Support\Str::slug($request->input('title')) . '-' . uniqid(), // Auto generate slug so it doesn't fail
-            'status' => 'published',
-            'is_featured' => true,
-            'published_at' => now(),
+        $slug = Str::slug($validated['title']) . '-' . Str::random(5);
+        $code = !empty($validated['property_id_code']) ? $validated['property_id_code'] : 'PROP-' . rand(100, 999);
+
+        $property = Property::create([
+            'title'              => $validated['title'],
+            'slug'               => $slug,
+            'property_id_code'   => $code,
+            'category_id'        => $validated['category_id'] ?? null,
+            'property_type_id'   => $validated['property_type_id'] ?? null,
+            'agent_id'           => $validated['agent_id'] ?? null,
+            'city_id'            => $validated['city_id'] ?? null,
+            'district_id'        => $validated['district_id'] ?? null,
+            'transaction_type'   => $validated['transaction_type'],
+            'price'              => $validated['price'] ?? null,
+            'price_rent_monthly' => $validated['price_rent_monthly'] ?? null,
+            'price_note'         => $validated['price_note'] ?? null,
+            'land_area'          => $validated['land_area'] ?? null,
+            'building_area'      => $validated['building_area'] ?? null,
+            'bedrooms'           => $validated['bedrooms'] ?? null,
+            'bathrooms'          => $validated['bathrooms'] ?? null,
+            'garage'             => $validated['garage'] ?? null,
+            'floors'             => $validated['floors'] ?? null,
+            'certificate'        => $validated['certificate'] ?? null,
+            'year_built'         => $validated['year_built'] ?? null,
+            'electric_power'     => $validated['electric_power'] ?? null,
+            'address'            => $validated['address'],
+            'short_description'  => $validated['short_description'] ?? null,
+            'description'        => $validated['description'] ?? null,
+            'thumbnail'          => $thumbnailPath,
+            'status'             => $validated['status'],
+            'is_featured'        => $request->has('is_featured'),
+            'published_at'       => $validated['status'] === 'published' ? now() : null,
         ]);
 
-        return redirect()->route('dashboard');
+        // Gallery images
+        if ($request->hasFile('gallery_images')) {
+            foreach ($request->file('gallery_images') as $idx => $file) {
+                $path = $file->store('properties/gallery', 'public');
+                PropertyImage::create([
+                    'property_id' => $property->id,
+                    'image_url'   => $path,
+                    'alt_text'    => $property->title,
+                    'sort_order'  => $idx + 1,
+                    'is_primary'  => false,
+                ]);
+            }
+        }
+
+        // Facilities
+        if (!empty($validated['facilities'])) {
+            foreach ($validated['facilities'] as $facilityName) {
+                PropertyFacility::create([
+                    'property_id' => $property->id,
+                    'name'        => $facilityName,
+                ]);
+            }
+        }
+
+        return redirect()->route('dashboard')->with('success', 'Properti berhasil ditambahkan!');
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Property $property)
+    public function edit(Property $property): View
     {
-        return view("properties.edit", ['property' => $property]);
+        $property->load(['images', 'facilities']);
+
+        $categories    = Category::where('is_active', true)->orderBy('sort_order')->orderBy('name')->get();
+        $propertyTypes = PropertyType::where('is_active', true)->orderBy('sort_order')->orderBy('name')->get();
+        $cities        = City::where('is_active', true)->orderBy('name')->get();
+        $districts     = District::where('is_active', true)->orderBy('name')->get();
+        $agents        = Agent::where('is_active', true)->orderBy('name')->get();
+
+        return view('dashboard.edit', compact('property', 'categories', 'propertyTypes', 'cities', 'districts', 'agents'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Property $property)
+    public function update(Request $request, Property $property): RedirectResponse
     {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'address' => 'required|string|max:255',
+        $validated = $request->validate([
+            'title'              => 'required|string|max:255',
+            'property_id_code'   => 'nullable|string|max:50',
+            'category_id'        => 'nullable|exists:categories,id',
+            'property_type_id'   => 'nullable|exists:property_types,id',
+            'agent_id'           => 'nullable|exists:agents,id',
+            'transaction_type'   => 'required|in:dijual,disewa',
+            'price'              => 'nullable|numeric|min:0',
+            'price_rent_monthly' => 'nullable|numeric|min:0',
+            'price_note'         => 'nullable|string|max:255',
+            'land_area'          => 'nullable|numeric|min:0',
+            'building_area'      => 'nullable|numeric|min:0',
+            'bedrooms'           => 'nullable|integer|min:0',
+            'bathrooms'          => 'nullable|integer|min:0',
+            'garage'             => 'nullable|integer|min:0',
+            'floors'             => 'nullable|integer|min:0',
+            'certificate'        => 'nullable|string|max:100',
+            'year_built'         => 'nullable|integer|min:1900|max:' . (date('Y') + 1),
+            'electric_power'     => 'nullable|string|max:50',
+            'city_id'            => 'nullable|exists:cities,id',
+            'district_id'        => 'nullable|exists:districts,id',
+            'address'            => 'required|string|max:500',
+            'short_description'  => 'nullable|string|max:500',
+            'description'        => 'nullable|string',
+            'status'             => 'required|in:published,draft,pending,featured,sold,rented',
+            'is_featured'        => 'nullable|boolean',
+            'thumbnail'          => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
+            'gallery_images.*'   => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
+            'facilities'         => 'nullable|array',
+            'facilities.*'       => 'string|max:100',
         ], [
-        'title.max' => 'Nama terlalu panjang.',
-        'address.max' => 'Alamat terlalu panjang.',
+            'title.required'   => 'Nama properti wajib diisi.',
+            'title.max'        => 'Nama properti maksimal 255 karakter.',
+            'address.required' => 'Alamat wajib diisi.',
+            'thumbnail.max'    => 'Ukuran foto utama maksimal 5MB.',
         ]);
 
-        if($request->file("thumbnail")) {
-            $request->validate([
-                'thumbnail' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            ], [
-            'thumbnail.max' => 'Ukuran gambar terlalu besar.',
-            ]);
-
-            if ($property->thumbnail) {
+        if ($request->hasFile('thumbnail')) {
+            if ($property->thumbnail && !str_starts_with($property->thumbnail, 'http')) {
                 Storage::disk('public')->delete($property->thumbnail);
             }
+            $property->thumbnail = $request->file('thumbnail')->store('properties', 'public');
         }
 
         $property->update([
-            'title' => $request->input("title"),
-            'address' => $request->input("address"),
+            'title'              => $validated['title'],
+            'property_id_code'   => $validated['property_id_code'] ?? $property->property_id_code,
+            'category_id'        => $validated['category_id'] ?? null,
+            'property_type_id'   => $validated['property_type_id'] ?? null,
+            'agent_id'           => $validated['agent_id'] ?? null,
+            'city_id'            => $validated['city_id'] ?? null,
+            'district_id'        => $validated['district_id'] ?? null,
+            'transaction_type'   => $validated['transaction_type'],
+            'price'              => $validated['price'] ?? null,
+            'price_rent_monthly' => $validated['price_rent_monthly'] ?? null,
+            'price_note'         => $validated['price_note'] ?? null,
+            'land_area'          => $validated['land_area'] ?? null,
+            'building_area'      => $validated['building_area'] ?? null,
+            'bedrooms'           => $validated['bedrooms'] ?? null,
+            'bathrooms'          => $validated['bathrooms'] ?? null,
+            'garage'             => $validated['garage'] ?? null,
+            'floors'             => $validated['floors'] ?? null,
+            'certificate'        => $validated['certificate'] ?? null,
+            'year_built'         => $validated['year_built'] ?? null,
+            'electric_power'     => $validated['electric_power'] ?? null,
+            'address'            => $validated['address'],
+            'short_description'  => $validated['short_description'] ?? null,
+            'description'        => $validated['description'] ?? null,
+            'status'             => $validated['status'],
+            'is_featured'        => $request->has('is_featured'),
         ]);
 
-        if ($request->file("thumbnail")) {
-            $path = $request->file('thumbnail')->store('properties', 'public');
-            $property->update([
-                'thumbnail' => $path,
-            ]);
+        // Upload additional gallery images
+        if ($request->hasFile('gallery_images')) {
+            $lastOrder = $property->images()->max('sort_order') ?? 0;
+            foreach ($request->file('gallery_images') as $idx => $file) {
+                $path = $file->store('properties/gallery', 'public');
+                PropertyImage::create([
+                    'property_id' => $property->id,
+                    'image_url'   => $path,
+                    'alt_text'    => $property->title,
+                    'sort_order'  => $lastOrder + $idx + 1,
+                    'is_primary'  => false,
+                ]);
+            }
         }
 
-        return redirect()->route('dashboard');
+        // Delete selected gallery images
+        if ($request->has('delete_images') && is_array($request->delete_images)) {
+            $imagesToDelete = PropertyImage::where('property_id', $property->id)
+                ->whereIn('id', $request->delete_images)
+                ->get();
+
+            foreach ($imagesToDelete as $img) {
+                if ($img->image_url && !str_starts_with($img->image_url, 'http')) {
+                    Storage::disk('public')->delete($img->image_url);
+                }
+                $img->delete();
+            }
+        }
+
+        // Sync facilities
+        $property->facilities()->delete();
+        if (!empty($validated['facilities'])) {
+            foreach ($validated['facilities'] as $facilityName) {
+                PropertyFacility::create([
+                    'property_id' => $property->id,
+                    'name'        => $facilityName,
+                ]);
+            }
+        }
+
+        return redirect()->route('dashboard')->with('success', 'Properti berhasil diperbarui!');
+    }
+
+    /**
+     * Remove individual gallery image.
+     */
+    public function destroyImage(PropertyImage $image): RedirectResponse
+    {
+        if ($image->image_url && !str_starts_with($image->image_url, 'http')) {
+            Storage::disk('public')->delete($image->image_url);
+        }
+        $image->delete();
+
+        return back()->with('success', 'Foto galeri berhasil dihapus!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Property $property)
+    public function destroy(Property $property): RedirectResponse
     {
-        if ($property->thumbnail) {
+        if ($property->thumbnail && !str_starts_with($property->thumbnail, 'http')) {
             Storage::disk('public')->delete($property->thumbnail);
         }
+        foreach ($property->images as $img) {
+            if ($img->image_url && !str_starts_with($img->image_url, 'http')) {
+                Storage::disk('public')->delete($img->image_url);
+            }
+        }
+        $property->facilities()->delete();
+        $property->images()->delete();
         $property->delete();
 
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard')->with('success', 'Properti berhasil dihapus!');
     }
 }
