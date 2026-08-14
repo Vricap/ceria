@@ -178,9 +178,9 @@
             }">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                     <h3 style="font-size: 1.2rem; color: var(--color-bronze);">Filter Pencarian</h3>
-                    <button type="button" class="btn btn-outline d-lg-none" style="padding: 5px 10px;" @click="expanded = !expanded">
+                    <!-- <button type="button" class="btn btn-outline d-lg-none" style="padding: 5px 10px;" @click="expanded = !expanded">
                         <i class="fa-solid fa-filter"></i> <span x-text="expanded ? 'Tutup Filter' : 'Tampilkan Filter'"></span>
-                    </button>
+                    </button> -->
                 </div>
                 
                 <form action="{{ route('properties.index') }}" method="GET" class="top-filter-form" x-show="expanded || window.innerWidth > 991">

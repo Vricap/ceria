@@ -145,14 +145,7 @@ class Property extends Model
     public function getFormattedPriceAttribute(): string
     {
         if (!$this->price) return 'Harga Nego';
-        $price = $this->price;
-        if ($price >= 1_000_000_000) {
-            return 'Rp ' . number_format($price / 1_000_000_000, 1, ',', '.') . ' M';
-        }
-        if ($price >= 1_000_000) {
-            return 'Rp ' . number_format($price / 1_000_000, 0, ',', '.') . ' Jt';
-        }
-        return 'Rp ' . number_format($price, 0, ',', '.');
+        return 'Rp ' . number_format($this->price, 0, ',', '.');
     }
 
     public function getFormattedPriceFullAttribute(): string
