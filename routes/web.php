@@ -24,6 +24,11 @@ Route::get('/dashboard', function () {
     return view('dashboard.index', ['properties' => $properties]);
 })->name("dashboard");
 
+Route::get('/dashboard/properti', function () {
+    $properties = Property::with(['category', 'propertyType', 'city', 'agent'])->latest()->get();
+    return view('dashboard.properties', ['properties' => $properties]);
+})->name("dashboard.properties");
+
 Route::get('/properties/create', [PropertyController::class, 'create'])->name("properties.create");
 Route::post('/properties/store', [PropertyController::class, 'store'])->name("properties.store");
 Route::get('/properties/edit/{property}', [PropertyController::class, 'edit'])->name("properties.edit");
