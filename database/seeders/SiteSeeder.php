@@ -33,8 +33,8 @@ class SiteSeeder extends Seeder
             ['key' => 'social_tiktok',    'value' => '',                                      'type' => 'text', 'group' => 'social', 'label' => 'TikTok'],
 
             // SEO
-            ['key' => 'seo_title',        'value' => 'DJM Property – Jual Beli Sewa Properti di Yogyakarta', 'type' => 'text',     'group' => 'seo', 'label' => 'SEO Title'],
-            ['key' => 'seo_description',  'value' => 'DJM Property adalah platform properti terpercaya di Yogyakarta. Cari rumah, tanah, apartemen, villa, dan investasi properti terbaik.', 'type' => 'textarea', 'group' => 'seo', 'label' => 'SEO Description'],
+            ['key' => 'seo_title',        'value' => 'DJM Property – Solusi Properti & Konstruksi di Yogyakarta', 'type' => 'text',     'group' => 'seo', 'label' => 'SEO Title'],
+            ['key' => 'seo_description',  'value' => 'DJM Property menyediakan informasi dan layanan properti, konstruksi, serta jasa pendukung kebutuhan properti di Yogyakarta. Temukan properti dan solusi properti yang sesuai dengan kebutuhan Anda.', 'type' => 'textarea', 'group' => 'seo', 'label' => 'SEO Description'],
 
             // Homepage
             ['key' => 'hero_title',       'value' => 'Find Your Dream Property, Easy & Fast',                        'type' => 'text',     'group' => 'homepage', 'label' => 'Hero Title'],

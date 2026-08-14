@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'DJM Property - Your Trusted Property Partner')</title>
-    <meta name="description" content="@yield('meta_description', 'DJM Property adalah platform properti terpercaya di Yogyakarta.')">
+    <title>@yield('title', 'DJM Property – Solusi Properti & Konstruksi di Yogyakarta')</title>
+    <link rel="icon" type="image/png" href="{{ asset('images/logodjm1.png') }}">
+    <meta name="description" content="@yield('meta_description', 'DJM Property menyediakan informasi dan layanan properti, konstruksi, serta jasa pendukung kebutuhan properti di Yogyakarta. Temukan properti dan solusi properti yang sesuai dengan kebutuhan Anda.')">
     
     <!-- Open Graph -->
     <meta property="og:title" content="@yield('title', 'DJM Property')">
@@ -47,7 +48,7 @@
         }
 
         body {
-            padding-top: 76px;
+            padding-top: 0;
         }
 
         /* Base header styles */
@@ -223,6 +224,22 @@
             color: rgba(249, 240, 214, 0.55);
         }
 
+        /* Sticky footer: pastikan footer selalu di bawah, termasuk halaman konten pendek */
+        #scroll-wrapper {
+            display: flex;
+            flex-direction: column;
+            padding-top: 76px;
+            min-height: 100vh;
+        }
+
+        #scroll-wrapper main {
+            flex: 1 0 auto;
+        }
+
+        #scroll-wrapper .site-footer {
+            flex-shrink: 0;
+        }
+
         /* Page Header (Global for pages like About, Services, Contact, Properties, Agents) */
         .page-header {
             background-color: var(--color-surface);
@@ -261,7 +278,11 @@
 
         @media (max-width: 767px) {
             body {
+                padding-top: 0;
+            }
+            #scroll-wrapper {
                 padding-top: 64px;
+                min-height: 100vh;
             }
             .site-header {
                 padding: 12px 0;
@@ -433,7 +454,7 @@
                         <li><a href="{{ route('services.show', 'pengeringan') }}">Pengeringan Lahan</a></li>
                         <li><a href="{{ route('services.show', 'pecah-sertifikat') }}">Pecah Sertifikat</a></li>
                         <li><a href="{{ route('services.show', 'pembangunan') }}">Konstruksi & Renovasi</a></li>
-                        <li><a href="{{ route('properties.index') }}">Jual & Sewa Properti</a></li>
+                        <li><a href="{{ route('properties.index') }}">Beli & Sewa Properti</a></li>
                     </ul>
                 </div>
 

@@ -149,7 +149,7 @@
 @endpush
 
 @section('content')
-    <div class="page-header" style="background: var(--color-champagne);">
+    <div class="page-header" style="background: linear-gradient(rgba(251, 244, 228, 0.88), rgba(251, 244, 228, 0.88)), url('{{ asset('images/headermenu/gambar2.jpg') }}') center / cover no-repeat var(--color-champagne);">
         <div class="container" style="max-width: 800px;">
             <h1 class="page-title">Layanan Kami</h1>
             <p style="color: var(--color-text-muted); font-size: 1.125rem;">

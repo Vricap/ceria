@@ -52,6 +52,18 @@
         color: var(--color-text-main);
     }
 
+    .filter-toggle {
+        display: none;
+    }
+
+    @media (max-width: 991px) {
+        .filter-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+    }
+
     .sorting-bar {
         display: flex;
         justify-content: space-between;
@@ -141,7 +153,7 @@
 @endpush
 
 @section('content')
-    <div class="page-header" style="background: var(--color-champagne);">
+    <div class="page-header" style="background: linear-gradient(rgba(251, 244, 228, 0.88), rgba(251, 244, 228, 0.88)), url('{{ asset('images/headermenu/gambar3.jpg') }}') center / cover no-repeat var(--color-champagne);">
         <div class="container" style="max-width: 800px;">
             <h1 class="page-title">Cari Properti</h1>
             <p style="color: var(--color-text-muted); font-size: 1.125rem;">
@@ -156,6 +168,7 @@
             <!-- Top Filter -->
             <div class="top-filter" x-data="{ 
                 expanded: false,
+                isDesktop: window.innerWidth > 991,
                 selectedCity: '{{ request('city') }}',
                 selectedDistrict: '{{ request('district') }}',
                 cities: [
@@ -175,15 +188,15 @@
                     let city = this.cities.find(c => c.slug === this.selectedCity);
                     return city ? city.districts : [];
                 }
-            }">
+            }" @resize.window="isDesktop = window.innerWidth > 991">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                     <h3 style="font-size: 1.2rem; color: var(--color-bronze);">Filter Pencarian</h3>
-                    <!-- <button type="button" class="btn btn-outline d-lg-none" style="padding: 5px 10px;" @click="expanded = !expanded">
+                    <button type="button" class="btn btn-outline filter-toggle" style="padding: 5px 10px;" @click="expanded = !expanded">
                         <i class="fa-solid fa-filter"></i> <span x-text="expanded ? 'Tutup Filter' : 'Tampilkan Filter'"></span>
-                    </button> -->
+                    </button>
                 </div>
                 
-                <form action="{{ route('properties.index') }}" method="GET" class="top-filter-form" x-show="expanded || window.innerWidth > 991">
+                <form action="{{ route('properties.index') }}" method="GET" class="top-filter-form" x-show="expanded || isDesktop">
                     <!-- Preserve sort parameter if exists -->
                     @if(request('sort'))
                         <input type="hidden" name="sort" value="{{ request('sort') }}">
