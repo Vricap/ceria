@@ -96,6 +96,14 @@ class Property extends Model
         return $query->whereIn('status', ['published', 'featured']);
     }
 
+    /**
+     * Visible scope: tampilkan ke publik termasuk sold & rented.
+     */
+    public function scopeVisible(Builder $query): Builder
+    {
+        return $query->whereIn('status', ['published', 'featured', 'sold', 'rented']);
+    }
+
     public function scopeFeatured(Builder $query): Builder
     {
         return $query->where('is_featured', true)->whereIn('status', ['published', 'featured']);
@@ -155,6 +163,8 @@ class Property extends Model
 
     public function getStatusLabelAttribute(): string
     {
+        if ($this->status === 'sold') return 'Sold Out';
+        if ($this->status === 'rented') return 'Disewa';
         return match($this->transaction_type) {
             'dijual' => 'For Sale',
             'disewa' => 'For Rent',
@@ -164,6 +174,8 @@ class Property extends Model
 
     public function getStatusColorAttribute(): string
     {
+        if ($this->status === 'sold') return 'badge-sold';
+        if ($this->status === 'rented') return 'badge-rented';
         return match($this->transaction_type) {
             'dijual' => 'badge-sale',
             'disewa' => 'badge-rent',

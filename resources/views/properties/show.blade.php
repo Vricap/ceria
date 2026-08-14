@@ -59,6 +59,11 @@
 
         <div class="property-slider" data-slider data-count="{{ $totalSlides }}" style="margin-bottom: 40px;">
             <div class="property-slider-viewport" id="sliderViewport">
+                @if($property->status == 'sold')
+                    <div class="sold-out-overlay" style="z-index: 20;">
+                        <div class="sold-out-stamp" style="font-size: 3rem; padding: 15px 40px; border-width: 6px;">Sold Out</div>
+                    </div>
+                @endif
                 <div class="property-slider-track" id="sliderTrack">
                     @foreach($gallerySlides as $slide)
                         <div class="property-slider-slide">
@@ -132,12 +137,50 @@
             <!-- Right column: Inquiry / Contact -->
             <div style="grid-column: span 1;">
                 <div style="background: white; padding: 25px; border-radius: 12px; box-shadow: var(--shadow-sm); border: 1px solid var(--color-border); position: sticky; top: 20px;">
-                    <h3 style="font-size: 1.3rem; margin-bottom: 20px;">Tertarik dengan properti ini?</h3>
-                    <p style="color: var(--color-text-muted); margin-bottom: 20px;">Hubungi kami sekarang juga untuk informasi lebih lanjut atau mengatur jadwal kunjungan.</p>
-                    
-                    <a href="https://wa.me/6281234567890?text=Halo%20Ceria%20Property,%20saya%20tertarik%20dengan%20properti%20{{ urlencode($property->title) }}" target="_blank" class="btn btn-primary" style="display: block; text-align: center; width: 100%; margin-bottom: 15px;">
-                        <i class="fa-brands fa-whatsapp"></i> Hubungi via WhatsApp
-                    </a>
+
+                    @if($property->status === 'sold')
+                        {{-- SOLD OUT Panel --}}
+                        <div style="text-align: center; padding: 10px 0 20px;">
+                            <div style="width: 72px; height: 72px; background: #fdecea; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">
+                                <i class="fa-solid fa-ban" style="font-size: 2rem; color: #c0392b;"></i>
+                            </div>
+                            <h3 style="font-size: 1.3rem; color: #c0392b; margin-bottom: 8px;">Properti Sudah Terjual</h3>
+                            <p style="color: var(--color-text-muted); margin-bottom: 20px; font-size: 0.95rem;">
+                                Properti ini sudah tidak tersedia. Temukan properti lain yang serupa di bawah ini.
+                            </p>
+                            <a href="{{ route('properties.index', ['city' => $property->city?->slug]) }}" class="btn btn-primary" style="display: block; text-align: center; width: 100%; margin-bottom: 10px;">
+                                <i class="fa-solid fa-search"></i> Cari Properti Serupa
+                            </a>
+                            <a href="{{ route('properties.index') }}" class="btn btn-outline" style="display: block; text-align: center; width: 100%;">
+                                Lihat Semua Properti
+                            </a>
+                        </div>
+
+                    @elseif($property->status === 'rented')
+                        {{-- RENTED Panel --}}
+                        <div style="text-align: center; padding: 10px 0 20px;">
+                            <div style="width: 72px; height: 72px; background: #f0f0f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">
+                                <i class="fa-solid fa-key" style="font-size: 2rem; color: #7f8c8d;"></i>
+                            </div>
+                            <h3 style="font-size: 1.3rem; color: #7f8c8d; margin-bottom: 8px;">Properti Sudah Disewa</h3>
+                            <p style="color: var(--color-text-muted); margin-bottom: 20px; font-size: 0.95rem;">
+                                Properti ini sudah tidak tersedia. Temukan properti sewa lainnya.
+                            </p>
+                            <a href="{{ route('properties.index', ['transaction' => 'disewa']) }}" class="btn btn-primary" style="display: block; text-align: center; width: 100%;">
+                                <i class="fa-solid fa-search"></i> Cari Properti Sewa Lain
+                            </a>
+                        </div>
+
+                    @else
+                        {{-- AVAILABLE: Tampilkan kontak normal --}}
+                        <h3 style="font-size: 1.3rem; margin-bottom: 20px;">Tertarik dengan properti ini?</h3>
+                        <p style="color: var(--color-text-muted); margin-bottom: 20px;">Hubungi kami sekarang juga untuk informasi lebih lanjut atau mengatur jadwal kunjungan.</p>
+
+                        <a href="https://wa.me/6281234567890?text=Halo%20Ceria%20Property,%20saya%20tertarik%20dengan%20properti%20{{ urlencode($property->title) }}" target="_blank" class="btn btn-primary" style="display: block; text-align: center; width: 100%; margin-bottom: 15px;">
+                            <i class="fa-brands fa-whatsapp"></i> Hubungi via WhatsApp
+                        </a>
+                    @endif
+
                 </div>
             </div>
         </div>

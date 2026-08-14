@@ -25,8 +25,7 @@ class PropertyController extends Controller
     public function index(Request $request): View
     {
         $query = Property::with(['city', 'agent', 'images', 'propertyType', 'category'])
-            ->published()
-            ->latest('published_at');
+            ->visible();
 
         // ─── Filters ──────────────────────────────────────────────────────────────
         if ($request->filled('transaction')) {
@@ -83,7 +82,9 @@ class PropertyController extends Controller
         }
 
         // ─── Sorting ──────────────────────────────────────────────────────────────
+        // Properti sold/rented selalu di akhir, lalu urut berdasarkan pilihan user
         $sort = $request->sort ?? 'latest';
+        $query->orderByRaw("CASE WHEN status IN ('sold','rented') THEN 1 ELSE 0 END ASC");
         match($sort) {
             'price_asc'  => $query->orderBy('price', 'asc'),
             'price_desc' => $query->orderBy('price', 'desc'),
@@ -107,15 +108,16 @@ class PropertyController extends Controller
         $property = Property::with([
             'agent', 'category', 'propertyType', 'city', 'district', 'area',
             'images', 'facilities', 'province'
-        ])->where('slug', $slug)->published()->firstOrFail();
+        ])->where('slug', $slug)->visible()->firstOrFail();
 
         // Increment views
         $property->increment('views');
 
         // Related properties
         $related = Property::with(['city', 'images'])
-            ->published()
+            ->visible()
             ->where('id', '!=', $property->id)
+            ->where('status', '!=', 'sold')
             ->where(function ($q) use ($property) {
                 $q->where('city_id', $property->city_id)
                   ->orWhere('category_id', $property->category_id);
@@ -128,7 +130,12 @@ class PropertyController extends Controller
 
     public function submitInquiry(Request $request, string $slug): RedirectResponse
     {
-        $property = Property::where('slug', $slug)->published()->firstOrFail();
+        $property = Property::where('slug', $slug)->visible()->firstOrFail();
+
+        // Tidak bisa inquiry ke properti yang sudah sold/rented
+        if (in_array($property->status, ['sold', 'rented'])) {
+            return back()->with('error', 'Properti ini sudah tidak tersedia untuk inquiry.');
+        }
 
         $validated = $request->validate([
             'name'     => 'required|string|max:255',
