@@ -59,7 +59,7 @@
                 </div>
 
                 {{-- Agen --}}
-                <div>
+                <!-- <div>
                     <label for="agent_id" class="field-label">Agen Penanggung Jawab</label>
                     <select id="agent_id" name="agent_id" class="field-input">
                         <option value="">-- Pilih Agen --</option>
@@ -69,10 +69,10 @@
                             </option>
                         @endforeach
                     </select>
-                </div>
+                </div> -->
 
                 {{-- Kategori --}}
-                <div>
+                <!-- <div>
                     <label for="category_id" class="field-label">Kategori Properti</label>
                     <select id="category_id" name="category_id" class="field-input">
                         <option value="">-- Pilih Kategori --</option>
@@ -82,7 +82,7 @@
                             </option>
                         @endforeach
                     </select>
-                </div>
+                </div> -->
 
                 {{-- Tipe Properti --}}
                 <div>
@@ -119,7 +119,7 @@
                 </div>
 
                 {{-- Harga Jual / Total --}}
-                <div>
+                <div id="price_group">
                     <label for="price" class="field-label">Harga (Rp)</label>
                     <input type="number" id="price" name="price" value="{{ old('price') }}" step="100000" min="0"
                         placeholder="Contoh: 1500000000" class="field-input">
@@ -238,7 +238,7 @@
                 </div>
 
                 {{-- Kecamatan --}}
-                <div>
+                <!-- <div>
                     <label for="district_id" class="field-label">Kecamatan</label>
                     <select id="district_id" name="district_id" class="field-input">
                         <option value="">-- Pilih Kecamatan --</option>
@@ -248,7 +248,7 @@
                             </option>
                         @endforeach
                     </select>
-                </div>
+                </div> -->
 
                 {{-- Alamat --}}
                 <div class="md:col-span-2">
@@ -273,11 +273,11 @@
 
             <div class="space-y-6">
                 {{-- Deskripsi Singkat --}}
-                <div>
+                <!-- <div>
                     <label for="short_description" class="field-label">Deskripsi Singkat / Ringkasan</label>
                     <input type="text" id="short_description" name="short_description" value="{{ old('short_description') }}"
                         placeholder="Contoh: Rumah 2 lantai siap huni, bebas banjir, akses jalan 2 mobil." class="field-input">
-                </div>
+                </div> -->
 
                 {{-- Deskripsi Lengkap --}}
                 <div>
@@ -493,6 +493,31 @@
         if (citySelect) {
             citySelect.addEventListener('change', filterDistricts);
             filterDistricts();
+        }
+
+        // 4. Toggle Price Inputs by Transaction Type
+        const transactionTypeSelect = document.getElementById('transaction_type');
+        const priceGroup = document.getElementById('price_group');
+        const priceRentGroup = document.getElementById('price_rent_group');
+
+        function togglePriceInputs() {
+            if (!transactionTypeSelect || !priceGroup || !priceRentGroup) return;
+            const val = transactionTypeSelect.value;
+            if (val === 'dijual') {
+                priceGroup.classList.remove('hidden');
+                priceRentGroup.classList.add('hidden');
+            } else if (val === 'disewa') {
+                priceGroup.classList.add('hidden');
+                priceRentGroup.classList.remove('hidden');
+            } else {
+                priceGroup.classList.remove('hidden');
+                priceRentGroup.classList.remove('hidden');
+            }
+        }
+
+        if (transactionTypeSelect) {
+            transactionTypeSelect.addEventListener('change', togglePriceInputs);
+            togglePriceInputs();
         }
     });
 </script>

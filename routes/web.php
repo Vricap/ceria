@@ -5,6 +5,7 @@ use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Property;
 
@@ -19,22 +20,32 @@ Route::prefix('properti')->name('properties.')->group(function () {
     Route::post('/{slug}/inquiry', [PropertyController::class, 'submitInquiry'])->name('inquiry');
 });
 
-Route::get('/dashboard', function () {
-    $properties = Property::with(['category', 'propertyType', 'city', 'agent'])->latest()->get();
-    return view('dashboard.index', ['properties' => $properties]);
-})->name("dashboard");
+// Authentication Routes
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+    Route::post('/login', [AuthController::class, 'login']);
+});
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
-Route::get('/dashboard/properti', function () {
-    $properties = Property::with(['category', 'propertyType', 'city', 'agent'])->latest()->get();
-    return view('dashboard.properties', ['properties' => $properties]);
-})->name("dashboard.properties");
+// Protected Dashboard Routes
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', function () {
+        $properties = Property::with(['category', 'propertyType', 'city', 'agent'])->latest()->get();
+        return view('dashboard.index', ['properties' => $properties]);
+    })->name("dashboard");
 
-Route::get('/properties/create', [PropertyController::class, 'create'])->name("properties.create");
-Route::post('/properties/store', [PropertyController::class, 'store'])->name("properties.store");
-Route::get('/properties/edit/{property}', [PropertyController::class, 'edit'])->name("properties.edit");
-Route::put('/properties/update/{property}', [PropertyController::class, 'update'])->name("properties.update");
-Route::delete('/properties/destroy/{property}', [PropertyController::class, 'destroy'])->name("properties.destroy");
-Route::delete('/properties/images/{image}', [PropertyController::class, 'destroyImage'])->name("properties.images.destroy");
+    Route::get('/dashboard/properti', function () {
+        $properties = Property::with(['category', 'propertyType', 'city', 'agent'])->latest()->get();
+        return view('dashboard.properties', ['properties' => $properties]);
+    })->name("dashboard.properties");
+
+    Route::get('/properties/create', [PropertyController::class, 'create'])->name("properties.create");
+    Route::post('/properties/store', [PropertyController::class, 'store'])->name("properties.store");
+    Route::get('/properties/edit/{property}', [PropertyController::class, 'edit'])->name("properties.edit");
+    Route::put('/properties/update/{property}', [PropertyController::class, 'update'])->name("properties.update");
+    Route::delete('/properties/destroy/{property}', [PropertyController::class, 'destroy'])->name("properties.destroy");
+    Route::delete('/properties/images/{image}', [PropertyController::class, 'destroyImage'])->name("properties.images.destroy");
+});
 
 // Portfolio (menggantikan Agents)
 Route::prefix('portfolio')->name('portfolio.')->group(function () {

@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@gmail.com',
             'password' => '123', // usually hashed, but keeping upstream logic
+            'role' => 'super_admin',
         ]);
 
         $this->call([

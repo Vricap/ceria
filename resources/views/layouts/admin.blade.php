@@ -262,17 +262,22 @@
                 <i class="fa-solid fa-building"></i>
                 Properti
             </a>
+            <div class="px-2 pt-4 pb-2 text-[11px] font-bold uppercase tracking-widest text-[#9C8C77]">Akun</div>
+            <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="sidebar-link text-red-700 hover:bg-red-50 hover:text-red-900 transition-colors">
+                <i class="fa-solid fa-right-from-bracket text-red-700"></i>
+                Keluar
+            </a>
         </nav>
 
         {{-- Footer profile --}}
         <div class="border-t border-[#EADFCB] p-5">
             <div class="flex items-center gap-3">
                 <div class="flex h-10 w-10 items-center justify-center rounded-full bg-[#1F1611] text-sm font-bold text-[#F9F0D6] shadow">
-                    A
+                    {{ strtoupper(substr(auth()->user()->name ?? 'A', 0, 1)) }}
                 </div>
                 <div class="min-w-0">
-                    <div class="truncate text-sm font-bold text-[#1F1611]">Admin</div>
-                    <div class="truncate text-xs text-[#523828]">Administrator</div>
+                    <div class="truncate text-sm font-bold text-[#1F1611]">{{ auth()->user()->name ?? 'Admin' }}</div>
+                    <div class="truncate text-xs text-[#523828]">{{ ucfirst(auth()->user()->role ?? 'Administrator') }}</div>
                 </div>
             </div>
         </div>
@@ -294,8 +299,19 @@
                     <i class="fa-solid fa-arrow-up-right-from-square"></i>
                     <span class="hidden sm:inline"> Lihat Website</span>
                 </a>
-                <div class="flex h-9 w-9 items-center justify-center rounded-full bg-[#D4A569] text-xs font-bold text-[#1F1611] shadow">
-                    A
+                
+                {{-- Logout Form & Trigger --}}
+                <form action="{{ route('logout') }}" method="POST" id="logout-form" class="hidden">
+                    @csrf
+                </form>
+                <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" 
+                   class="text-xs font-semibold text-red-600 transition hover:text-red-800" title="Keluar">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span class="hidden sm:inline"> Keluar</span>
+                </a>
+
+                <div class="flex h-9 w-9 items-center justify-center rounded-full bg-[#D4A569] text-xs font-bold text-[#1F1611] shadow" title="{{ auth()->user()->name ?? 'Admin' }}">
+                    {{ strtoupper(substr(auth()->user()->name ?? 'A', 0, 1)) }}
                 </div>
             </div>
         </header>

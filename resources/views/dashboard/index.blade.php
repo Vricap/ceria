@@ -14,10 +14,10 @@
                 Selamat datang kembali, Admin.
             </p>
         </div>
-        <a href="{{ route('properties.create') }}" class="btn-gilded">
+        <!-- <a href="{{ route('properties.create') }}" class="btn-gilded">
             <i class="fa-solid fa-plus"></i>
             Tambah Properti
-        </a>
+        </a> -->
     </div>
 
     {{-- Stat Cards --}}
@@ -137,10 +137,10 @@
                                     title="Lihat Website">
                                     <i class="fa-solid fa-eye"></i>
                                 </a>
-                                <a href="{{ route('properties.edit', $property) }}"
+                                <!-- <a href="{{ route('properties.edit', $property) }}"
                                     class="rounded-lg border border-[#EADFCB] px-3 py-1.5 text-xs font-medium text-[#946E4B] transition hover:bg-[#F9F0D6]">
                                     <i class="fa-solid fa-pen-to-square"></i> Edit
-                                </a>
+                                </a> -->
                             </div>
                         </td>
                     </tr>
