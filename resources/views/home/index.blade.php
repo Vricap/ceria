@@ -70,25 +70,10 @@
         flex-wrap: wrap;
     }
 
-    .hero-stats {
-        display: flex;
-        gap: 40px;
-        margin-top: 50px;
-        padding-top: 40px;
-        border-top: 1px solid rgba(255,255,255,0.2);
-        flex-wrap: wrap;
-    }
-
-    .hero-stat h4 {
-        font-size: 2rem;
-        font-weight: 700;
-        color: white;
-        margin-bottom: 4px;
-    }
-
-    .hero-stat p {
-        font-size: 0.875rem;
-        color: rgba(255,255,255,0.75);
+    .hero-cta .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
     }
 
     /* ── Service Highlight ───────────────────── */
@@ -433,7 +418,6 @@
         /* body padding-top stays 76px at this breakpoint */
         .hero-section { margin-top: -76px; padding: calc(76px + 50px) 0 60px; }
         .hero-title { font-size: 2.75rem; }
-        .hero-stats { gap: 25px; }
         .service-highlight-grid { grid-template-columns: 1fr; gap: 20px; }
         .portfolio-grid-home { grid-template-columns: 1fr 1fr; }
         .about-section { grid-template-columns: 1fr; gap: 40px; }
@@ -446,8 +430,6 @@
         .hero-title { font-size: 2rem; }
         .hero-subtitle { font-size: 1rem; margin-bottom: 30px; }
         .hero-content { max-width: 100%; }
-        .hero-stats { gap: 20px; margin-top: 35px; padding-top: 30px; }
-        .hero-stat h4 { font-size: 1.5rem; }
         .service-highlight-card { padding: 30px 20px; }
         .portfolio-grid-home { grid-template-columns: 1fr; }
         .cta-wa-title { font-size: 1.75rem; }
@@ -460,7 +442,6 @@
         .hero-section { margin-top: -64px; padding: calc(64px + 30px) 0 40px; }
         .hero-title { font-size: 1.7rem; }
         .hero-subtitle { font-size: 0.95rem; }
-        .hero-stats { flex-direction: column; gap: 15px; }
         .hero-cta { flex-direction: column; }
         .hero-cta .btn { text-align: center; }
         .service-highlight-icon { width: 65px; height: 65px; font-size: 1.6rem; }
@@ -487,21 +468,6 @@
                 <a href="{{ route('properties.index') }}" class="btn btn-outline" style="border-color: white; color: white; padding: 14px 32px; font-weight: 700;">
                     <i class="fa-solid fa-building" aria-hidden="true"></i> Lihat Properti
                 </a>
-            </div>
-
-            <div class="hero-stats">
-                <div class="hero-stat">
-                    <h4>{{ $stats['total_properties'] }}+</h4>
-                    <p>Properti Terdaftar</p>
-                </div>
-                <div class="hero-stat">
-                    <h4>{{ $stats['total_clients'] }}</h4>
-                    <p>Klien Puas</p>
-                </div>
-                <div class="hero-stat">
-                    <h4>5+</h4>
-                    <p>Tahun Pengalaman</p>
-                </div>
             </div>
         </div>
     </div>

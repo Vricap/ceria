@@ -268,8 +268,7 @@
             }
             .header-actions .btn-outline,
             .header-actions .btn-primary {
-                padding: 8px 16px;
-                font-size: 0.85rem;
+                display: none;
             }
             .page-title {
                 font-size: 2.5rem;
@@ -302,10 +301,6 @@
             .site-footer {
                 padding: 40px 0 25px;
                 margin-top: 40px;
-            }
-            .header-actions .btn-outline,
-            .header-actions .btn-primary {
-                display: none;
             }
             .page-header {
                 padding: 40px 0;

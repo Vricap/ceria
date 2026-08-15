@@ -16,7 +16,7 @@ class HomeController extends Controller
         $featuredProperties = Property::with(['city', 'images', 'propertyType'])
             ->featured()
             ->latest('published_at')
-            ->take(8)
+            ->take(3)
             ->get();
 
         $categories = Category::where('is_active', true)
