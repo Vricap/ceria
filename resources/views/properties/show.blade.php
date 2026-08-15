@@ -41,16 +41,80 @@
     .prop-slider-next { right: 16px; }
 
     /* ─── Property Header ────────────────────────── */
-    .prop-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; margin-bottom: 28px; }
-    .prop-title { font-size: 2rem; font-weight: 700; color: var(--color-noir); line-height: 1.25; margin-bottom: 12px;
-        display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-    .prop-location { display: flex; align-items: center; gap: 8px; color: var(--color-text-muted); font-size: 1.05rem; }
-    .prop-location i { color: var(--color-bronze); }
-    .prop-header-side { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-    .prop-icon-btn { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--color-border); background: #fff;
-        color: var(--color-text-muted); display: flex; align-items: center; justify-content: center; cursor: pointer;
-        transition: all 0.2s ease; }
+    .prop-header {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-areas:
+            "title side"
+            "location .";
+        column-gap: 24px;
+        row-gap: 12px;
+        align-items: start;
+        margin-bottom: 28px;
+    }
+    .prop-title {
+        grid-area: title;
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--color-noir);
+        line-height: 1.25;
+        margin-bottom: 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    .prop-location {
+        grid-area: location;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--color-text-muted);
+        font-size: 1.05rem;
+        min-width: 0;
+    }
+    .prop-location i { color: var(--color-bronze); flex-shrink: 0; }
+    .prop-location span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .prop-header-side {
+        grid-area: side;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
+        justify-self: end;
+        align-self: start;
+    }
+    .prop-status-badge {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+        white-space: nowrap;
+    }
+    .prop-icon-btn {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        border: 1px solid var(--color-border);
+        background: #fff;
+        color: var(--color-text-muted);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        flex-shrink: 0;
+    }
     .prop-icon-btn:hover { background: var(--color-gilded); color: var(--color-noir); border-color: var(--color-gilded); }
+
+    .prop-share-wrap { position: relative; }
+    .prop-share-menu { position: absolute; top: calc(100% + 8px); right: 0; background: #fff;
+        border: 1px solid var(--color-border); border-radius: var(--border-radius); box-shadow: var(--shadow-lg);
+        padding: 6px; min-width: 190px; z-index: 60; }
+    .prop-share-item { display: flex; align-items: center; gap: 10px; width: 100%; padding: 10px 12px;
+        border: none; background: none; border-radius: var(--border-radius); color: var(--color-text-main);
+        font-size: 0.9rem; font-weight: 600; cursor: pointer; text-align: left; white-space: nowrap;
+        transition: background 0.2s ease; }
+    .prop-share-item:hover { background: var(--color-surface); }
+    .prop-share-item i { width: 18px; text-align: center; color: var(--color-bronze); font-size: 1rem; }
 
     /* ─── Section ────────────────────────────────── */
     .prop-section { margin-bottom: 48px; }
@@ -154,11 +218,36 @@
     }
 
     @media (max-width: 767px) {
-        .prop-gallery { grid-template-columns: 1fr; }
-        .prop-gallery-thumbs { flex-direction: row; gap: 10px; overflow-x: auto; padding-bottom: 6px; }
-        .prop-thumb { min-width: 130px; }
-        .prop-header { flex-direction: column; gap: 14px; }
-        .prop-title { font-size: 1.6rem; }
+        .prop-gallery { grid-template-columns: 1fr; margin-bottom: 24px; }
+        .prop-gallery-thumbs { display: none !important; }
+        .prop-slider-btn { width: 38px; height: 38px; font-size: 0.9rem; }
+        .prop-slider-prev { left: 10px; }
+        .prop-slider-next { right: 10px; }
+        .prop-header {
+            grid-template-columns: minmax(0, 1fr) auto;
+            grid-template-areas:
+                "title title"
+                "location side";
+            row-gap: 12px;
+            column-gap: 12px;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .prop-title { font-size: 1.5rem; line-height: 1.3; }
+        .prop-location { font-size: 0.95rem; }
+        .prop-header-side {
+            align-self: center;
+            gap: 8px;
+        }
+        .prop-status-badge {
+            font-size: 0.82rem;
+            padding: 6px 12px;
+        }
+        .prop-icon-btn {
+            width: 38px;
+            height: 38px;
+            font-size: 0.9rem;
+        }
         .prop-price { font-size: 1.6rem; }
         .prop-price-card { padding: 22px; }
         .prop-cta { padding: 36px 20px; }
@@ -251,18 +340,32 @@
 
     {{-- Property Header ──────────────────────────────────────────--}}
     <div class="prop-header">
-        <div style="min-width: 0;">
-            <h1 class="prop-title">{{ $property->title }}</h1>
-            <div class="prop-location">
-                <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
-                <span>{{ $property->location_string ?? $property->address }}</span>
-            </div>
+        <h1 class="prop-title">{{ $property->title }}</h1>
+        <div class="prop-location">
+            <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+            <span>{{ $property->location_string ?? $property->address }}</span>
         </div>
         <div class="prop-header-side">
-            <span class="badge {{ $property->status_color }}" style="font-size: 0.9rem; padding: 8px 16px;">{{ $property->status_label }}</span>
-            <button type="button" class="prop-icon-btn" id="propShareBtn" title="Bagikan properti ini" aria-label="Bagikan">
-                <i class="fa-solid fa-share-nodes" aria-hidden="true"></i>
-            </button>
+            <span class="badge {{ $property->status_color }} prop-status-badge">{{ $property->status_label }}</span>
+            <div class="prop-share-wrap">
+                <button type="button" class="prop-icon-btn" id="propShareBtn" title="Bagikan properti ini" aria-label="Bagikan" aria-expanded="false" aria-haspopup="true">
+                    <i class="fa-solid fa-share-nodes" aria-hidden="true"></i>
+                </button>
+                <div class="prop-share-menu" id="propShareMenu" style="display: none;">
+                    <button type="button" class="prop-share-item" data-share="facebook" title="Bagikan ke Facebook">
+                        <i class="fa-brands fa-facebook-f" aria-hidden="true"></i> <span>Facebook</span>
+                    </button>
+                    <button type="button" class="prop-share-item" data-share="instagram" title="Bagikan ke Instagram">
+                        <i class="fa-brands fa-instagram" aria-hidden="true"></i> <span>Instagram</span>
+                    </button>
+                    <button type="button" class="prop-share-item" data-share="whatsapp" title="Bagikan ke WhatsApp">
+                        <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> <span>WhatsApp</span>
+                    </button>
+                    <button type="button" class="prop-share-item" data-share="copy" title="Salin tautan properti">
+                        <i class="fa-solid fa-link" aria-hidden="true"></i> <span>Salin Tautan</span>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -389,27 +492,6 @@
             <button type="button" class="prop-read-more" id="propOverviewToggle">
                 Baca Selengkapnya <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
             </button>
-        </div>
-    @endif
-
-    {{-- Location & Map ───────────────────────────────────────────--}}
-    @if($property->location_string || $property->address || $mapSrc)
-        <div class="prop-section">
-            <h2 class="prop-section-title"><i class="fa-solid fa-map-location-dot" aria-hidden="true"></i> Lokasi</h2>
-            @if($property->location_string)
-                <div class="prop-loc-string">
-                    <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
-                    <span>{{ $property->location_string }}</span>
-                </div>
-            @endif
-            @if($property->address)
-                <div class="prop-loc-address"><i class="fa-solid fa-location-arrow" aria-hidden="true"></i> {{ $property->address }}</div>
-            @endif
-            @if($mapSrc)
-                <div class="prop-map">
-                    <iframe src="{{ $mapSrc }}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Peta lokasi {{ $property->title }}"></iframe>
-                </div>
-            @endif
         </div>
     @endif
 
@@ -571,6 +653,42 @@
             });
         }
 
+        // ─── Touch swipe support for mobile slider ───
+        var touchStartX = 0;
+        var touchStartY = 0;
+        var touchEndX = 0;
+        var touchEndY = 0;
+
+        if (mainLink && total > 1) {
+            mainLink.addEventListener('touchstart', function (e) {
+                if (e.touches && e.touches.length === 1) {
+                    touchStartX = e.touches[0].clientX;
+                    touchStartY = e.touches[0].clientY;
+                    touchEndX = touchStartX;
+                    touchEndY = touchStartY;
+                }
+            }, { passive: true });
+
+            mainLink.addEventListener('touchmove', function (e) {
+                if (e.touches && e.touches.length === 1) {
+                    touchEndX = e.touches[0].clientX;
+                    touchEndY = e.touches[0].clientY;
+                }
+            }, { passive: true });
+
+            mainLink.addEventListener('touchend', function (e) {
+                var diffX = touchEndX - touchStartX;
+                var diffY = touchEndY - touchStartY;
+                if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY) * 1.2) {
+                    if (diffX < 0) {
+                        go(current + 1);
+                    } else {
+                        go(current - 1);
+                    }
+                }
+            }, { passive: true });
+        }
+
         // ─── Detail toggle (expand/collapse) ───
         var detailToggle = document.getElementById('propDetailToggle');
         var detailsWrap = document.getElementById('property-details');
@@ -598,20 +716,92 @@
             });
         }
 
-        // ─── Share (Web Share API + fallback copy URL) ───
+        // ─── Share dropdown (FB / IG / WA / Copy link) ───
         var shareBtn = document.getElementById('propShareBtn');
-        if (shareBtn) {
-            shareBtn.addEventListener('click', function () {
-                var url = window.location.href;
-                var title = @json($property->title);
-                if (navigator.share) {
-                    navigator.share({ title: title, url: url }).catch(function () {});
-                } else if (navigator.clipboard && navigator.clipboard.writeText) {
-                    navigator.clipboard.writeText(url).then(function () {
-                        shareBtn.title = 'Link tersalin!';
-                        setTimeout(function () { shareBtn.title = 'Bagikan properti ini'; }, 2000);
-                    }).catch(function () {});
+        var shareMenu = document.getElementById('propShareMenu');
+        if (shareBtn && shareMenu) {
+            var shareUrl = window.location.href;
+            var shareTitle = @json($property->title);
+
+            shareBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                var isHidden = shareMenu.style.display === 'none' || shareMenu.style.display === '';
+                shareMenu.style.display = isHidden ? 'block' : 'none';
+                shareBtn.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
+            });
+
+            document.addEventListener('click', function (e) {
+                var wrap = shareBtn.closest('.prop-share-wrap');
+                if (wrap && !wrap.contains(e.target)) {
+                    shareMenu.style.display = 'none';
+                    shareBtn.setAttribute('aria-expanded', 'false');
                 }
+            });
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') {
+                    shareMenu.style.display = 'none';
+                    shareBtn.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            function openSharePopup(url, w, h) {
+                var left = (screen.width / 2) - (w / 2);
+                var top = (screen.height / 2) - (h / 2);
+                window.open(url, '_blank', 'width=' + w + ',height=' + h + ',left=' + left + ',top=' + top);
+            }
+
+            function copyShareLink(btn) {
+                var fallback = function () {
+                    var ta = document.createElement('textarea');
+                    ta.value = shareUrl;
+                    ta.style.position = 'fixed';
+                    ta.style.opacity = '0';
+                    document.body.appendChild(ta);
+                    ta.select();
+                    try { document.execCommand('copy'); } catch (err) {}
+                    document.body.removeChild(ta);
+                };
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(shareUrl).then(function () {
+                        flashShareFeedback(btn, 'Tautan disalin!');
+                    }).catch(fallback);
+                } else {
+                    fallback();
+                }
+            }
+
+            function flashShareFeedback(btn, msg) {
+                var label = btn.querySelector('span') || btn;
+                var orig = label.textContent;
+                label.textContent = msg;
+                setTimeout(function () { label.textContent = orig; }, 2000);
+            }
+
+            shareMenu.querySelectorAll('.prop-share-item').forEach(function (item) {
+                item.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    var type = item.getAttribute('data-share');
+                    var encodedUrl = encodeURIComponent(shareUrl);
+                    var encodedTitle = encodeURIComponent(shareTitle);
+
+                    switch (type) {
+                        case 'facebook':
+                            openSharePopup('https://www.facebook.com/sharer/sharer.php?u=' + encodedUrl, 620, 500);
+                            break;
+                        case 'instagram':
+                            window.open('https://www.instagram.com/', '_blank');
+                            break;
+                        case 'whatsapp':
+                            window.open('https://api.whatsapp.com/send?text=' + encodedTitle + '%20' + encodedUrl, '_blank');
+                            break;
+                        case 'copy':
+                            copyShareLink(item);
+                            return;
+                    }
+                    shareMenu.style.display = 'none';
+                    shareBtn.setAttribute('aria-expanded', 'false');
+                });
             });
         }
     })();
