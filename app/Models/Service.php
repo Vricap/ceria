@@ -35,6 +35,6 @@ class Service extends Model
         if ($this->image && str_starts_with($this->image, 'http')) {
             return $this->image;
         }
-        return $this->image ? asset('storage/' . $this->image) : asset('images/placeholder-service.jpg');
+        return $this->image ? asset('storage/' . $this->image) : asset('images/placeholder-service.svg');
     }
 }

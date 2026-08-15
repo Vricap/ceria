@@ -60,14 +60,14 @@ class SiteSeeder extends Seeder
         // Konfirmasi daftar final dengan client sesuai PRD.
         $services = [
             // Kategori: Perizinan
-            ['name' => 'PBG / IMB',              'slug' => 'pbg-imb',              'category' => 'perizinan', 'icon' => 'fa-file-signature',      'short_description' => 'Pengurusan Persetujuan Bangunan Gedung (PBG) dan Izin Mendirikan Bangunan (IMB) secara cepat dan resmi.', 'sort_order' => 1],
-            ['name' => 'Pengeringan',            'slug' => 'pengeringan',           'category' => 'perizinan', 'icon' => 'fa-water',              'short_description' => 'Jasa pengeringan lahan untuk menyiapkan tanah yang siap dibangun.', 'sort_order' => 2],
-            ['name' => 'Pecah Sertifikat',       'slug' => 'pecah-sertifikat',      'category' => 'perizinan', 'icon' => 'fa-file-invoice',       'short_description' => 'Pemecahan sertifikat tanah sesuai kebutuhan legal dan peruntukan lahan.', 'sort_order' => 3],
+            ['name' => 'PBG / IMB',              'slug' => 'pbg-imb',              'category' => 'perizinan', 'icon' => 'fa-file-signature',      'image' => 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&h=600&fit=crop&q=80', 'short_description' => 'Pengurusan Persetujuan Bangunan Gedung (PBG) dan Izin Mendirikan Bangunan (IMB) secara cepat dan resmi.', 'sort_order' => 1],
+            ['name' => 'Pengeringan',            'slug' => 'pengeringan',           'category' => 'perizinan', 'icon' => 'fa-water',              'image' => 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&h=600&fit=crop&q=80', 'short_description' => 'Jasa pengeringan lahan untuk menyiapkan tanah yang siap dibangun.', 'sort_order' => 2],
+            ['name' => 'Pecah Sertifikat',       'slug' => 'pecah-sertifikat',      'category' => 'perizinan', 'icon' => 'fa-file-invoice',       'image' => 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&h=600&fit=crop&q=80', 'short_description' => 'Pemecahan sertifikat tanah sesuai kebutuhan legal dan peruntukan lahan.', 'sort_order' => 3],
 
             // Kategori: Konstruksi
-            ['name' => 'Pembangunan',            'slug' => 'pembangunan',           'category' => 'konstruksi', 'icon' => 'fa-building-construction', 'short_description' => 'Jasa pembangunan bangunan dari fondasi hingga selesai oleh tim berpengalaman.', 'sort_order' => 4],
-            ['name' => 'Renovasi',               'slug' => 'renovasi',              'category' => 'konstruksi', 'icon' => 'fa-hammer',            'short_description' => 'Renovasi dan perbaikan bangunan untuk meningkatkan kenyamanan dan nilai properti.', 'sort_order' => 5],
-            ['name' => 'Jasa Konstruksi',        'slug' => 'jasa-konstruksi',       'category' => 'konstruksi', 'icon' => 'fa-helmet-safety',     'short_description' => 'Layanan konstruksi umum untuk kebutuhan pembangunan Anda.', 'sort_order' => 6],
+            ['name' => 'Pembangunan',            'slug' => 'pembangunan',           'category' => 'konstruksi', 'icon' => 'fa-building-construction', 'image' => 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&h=600&fit=crop&q=80', 'short_description' => 'Jasa pembangunan bangunan dari fondasi hingga selesai oleh tim berpengalaman.', 'sort_order' => 4],
+            ['name' => 'Renovasi',               'slug' => 'renovasi',              'category' => 'konstruksi', 'icon' => 'fa-hammer',            'image' => 'https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?w=800&h=600&fit=crop&q=80', 'short_description' => 'Renovasi dan perbaikan bangunan untuk meningkatkan kenyamanan dan nilai properti.', 'sort_order' => 5],
+            ['name' => 'Jasa Konstruksi',        'slug' => 'jasa-konstruksi',       'category' => 'konstruksi', 'icon' => 'fa-helmet-safety',     'image' => 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&h=600&fit=crop&q=80', 'short_description' => 'Layanan konstruksi umum untuk kebutuhan pembangunan Anda.', 'sort_order' => 6],
         ];
 
         foreach ($services as $service) {
