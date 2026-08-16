@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Admin — DJM</title>
     <meta name="description" content="Halaman login administrator DJM (Desty Jaya Mandiri) Property.">
+    <link rel="icon" type="image/png" href="{{ asset('images/logodjm1.png') }}">
     
     {{-- Fonts & Icons --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -105,7 +106,7 @@
             {{-- Header/Logo --}}
             <div class="mb-8 text-center">
                 <a href="{{ route('home') }}" class="inline-block transition-transform duration-300 hover:scale-105">
-                    <img src="{{ asset('images/logodjm.png') }}" alt="DJM Logo" class="mx-auto h-16 w-auto object-contain">
+                    <img src="{{ asset('images/logodjm.png') }}" alt="DJM Logo — Desty Jaya Mandiri" class="mx-auto h-16 w-auto object-contain">
                 </a>
                 <h1 class="mt-4 text-2xl font-extrabold tracking-tight text-noir">Admin Portal</h1>
                 <p class="mt-1 text-sm font-semibold text-bronze uppercase tracking-wider">Desty Jaya Mandiri</p>
