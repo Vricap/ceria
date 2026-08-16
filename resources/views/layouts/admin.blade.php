@@ -304,11 +304,11 @@
                 <form action="{{ route('logout') }}" method="POST" id="logout-form" class="hidden">
                     @csrf
                 </form>
-                <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" 
+                <!-- <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" 
                    class="text-xs font-semibold text-red-600 transition hover:text-red-800" title="Keluar">
                     <i class="fa-solid fa-right-from-bracket"></i>
                     <span class="hidden sm:inline"> Keluar</span>
-                </a>
+                </a> -->
 
                 <div class="flex h-9 w-9 items-center justify-center rounded-full bg-[#D4A569] text-xs font-bold text-[#1F1611] shadow" title="{{ auth()->user()->name ?? 'Admin' }}">
                     {{ strtoupper(substr(auth()->user()->name ?? 'A', 0, 1)) }}
