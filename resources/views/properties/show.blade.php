@@ -425,7 +425,7 @@
             <img id="propMainImg" src="{{ $gallerySlides[0]['src'] ?? $property->thumbnail_url }}" alt="{{ $property->title }}">
             @if($isSold)
                 <div class="sold-out-overlay" style="z-index: 20;">
-                    <div class="sold-out-stamp">Sold Out</div>
+                    <div class="sold-out-stamp">Terjual</div>
                 </div>
             @endif
             <span class="prop-gallery-photo-count"><i class="fa-regular fa-images" aria-hidden="true"></i> <span id="propCounter">1 / {{ $totalSlides }}</span></span>
@@ -583,7 +583,7 @@
                             </div>
                             @if($property->status == 'sold')
                                 <div class="sold-out-overlay">
-                                    <div class="sold-out-stamp">Sold Out</div>
+                                    <div class="sold-out-stamp">Terjual</div>
                                 </div>
                             @endif
                             <a href="{{ route('properties.show', $property->slug) }}" class="related-img-link" aria-label="{{ $property->title }}">

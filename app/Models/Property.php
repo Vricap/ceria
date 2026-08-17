@@ -156,12 +156,12 @@ class Property extends Model
 
     public function getStatusLabelAttribute(): string
     {
-        if ($this->status === 'sold') return 'Sold Out';
+        if ($this->status === 'sold') return 'Terjual';
         if ($this->status === 'rented') return 'Disewa';
         return match($this->transaction_type) {
-            'dijual' => 'For Sale',
-            'disewa' => 'For Rent',
-            default  => 'Available',
+            'dijual' => 'Dijual',
+            'disewa' => 'Disewa',
+            default  => 'Tersedia',
         };
     }
 

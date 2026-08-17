@@ -289,7 +289,7 @@
                                     </div>
                                     @if($property->status == 'sold')
                                         <div class="sold-out-overlay">
-                                            <div class="sold-out-stamp">Sold Out</div>
+                                            <div class="sold-out-stamp">Terjual</div>
                                         </div>
                                     @endif
                                     <a href="{{ route('properties.show', $property->slug) }}">
