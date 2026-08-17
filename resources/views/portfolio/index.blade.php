@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
-@section('title', 'Portfolio - DJM Desty Jaya Mandiri')
+@section('title', 'Portfolio Proyek | DJM Desty Jaya Mandiri')
 @section('meta_description', 'Lihat portfolio pekerjaan DJM Desty Jaya Mandiri: perizinan, konstruksi, dan properti yang telah berhasil dikerjakan.')
+@section('canonical', url('/portfolio'))
 
 @push('scripts')
 <style>

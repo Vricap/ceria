@@ -186,7 +186,7 @@
         
         {{-- Footer --}}
         <p class="mt-6 text-center text-xs font-medium text-bronze/70">
-            &copy; {{ date('Y') }} DJM — Desty Jaya Mandiri. All rights reserved.
+            &copy; {{ date('Y') }} DJM — Desty Jaya Mandiri. Hak Cipta Dilindungi.
         </p>
 
     </div>

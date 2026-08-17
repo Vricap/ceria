@@ -14,7 +14,7 @@ class SiteSeeder extends Seeder
         $settings = [
             // General
             ['key' => 'site_name',        'value' => 'DJM Property',                    'type' => 'text',     'group' => 'general', 'label' => 'Nama Website'],
-            ['key' => 'site_tagline',     'value' => 'Your Trusted Property Partner',     'type' => 'text',     'group' => 'general', 'label' => 'Tagline'],
+            ['key' => 'site_tagline',     'value' => 'Mitra Properti Terpercaya Anda',          'type' => 'text',     'group' => 'general', 'label' => 'Tagline'],
             ['key' => 'site_logo',        'value' => '',                                  'type' => 'image',    'group' => 'general', 'label' => 'Logo'],
             ['key' => 'site_favicon',     'value' => '',                                  'type' => 'image',    'group' => 'general', 'label' => 'Favicon'],
             ['key' => 'site_description', 'value' => 'Platform properti terpercaya di Yogyakarta. Temukan rumah, tanah, villa, dan properti impian Anda.', 'type' => 'textarea', 'group' => 'general', 'label' => 'Deskripsi Website'],
@@ -37,10 +37,10 @@ class SiteSeeder extends Seeder
             ['key' => 'seo_description',  'value' => 'DJM Property menyediakan informasi dan layanan properti, konstruksi, serta jasa pendukung kebutuhan properti di Yogyakarta. Temukan properti dan solusi properti yang sesuai dengan kebutuhan Anda.', 'type' => 'textarea', 'group' => 'seo', 'label' => 'SEO Description'],
 
             // Homepage
-            ['key' => 'hero_title',       'value' => 'Find Your Dream Property, Easy & Fast',                        'type' => 'text',     'group' => 'homepage', 'label' => 'Hero Title'],
-            ['key' => 'hero_subtitle',    'value' => 'Discover verified properties, luxury homes, and great investment opportunities all in one place.', 'type' => 'textarea', 'group' => 'homepage', 'label' => 'Hero Subtitle'],
+            ['key' => 'hero_title',       'value' => 'Temukan Properti Impian Anda, Mudah & Cepat',   'type' => 'text',     'group' => 'homepage', 'label' => 'Hero Title'],
+            ['key' => 'hero_subtitle',    'value' => 'Temukan properti terverifikasi, rumah mewah, dan peluang investasi terbaik dalam satu tempat.', 'type' => 'textarea', 'group' => 'homepage', 'label' => 'Hero Subtitle'],
             ['key' => 'hero_image',       'value' => '',                                                                'type' => 'image',    'group' => 'homepage', 'label' => 'Hero Background'],
-            ['key' => 'about_title',      'value' => 'Your Trusted Partner in Property Investment & Management',       'type' => 'text',     'group' => 'homepage', 'label' => 'About Title'],
+            ['key' => 'about_title',      'value' => 'Mitra Terpercaya dalam Investasi & Pengelolaan Properti',       'type' => 'text',     'group' => 'homepage', 'label' => 'About Title'],
             ['key' => 'about_description','value' => 'Kami membantu Anda menemukan, membeli, dan mengelola properti dengan proses yang mudah, transparan, dan terpercaya. Bergabunglah dengan ribuan klien yang telah mempercayakan kebutuhan properti mereka kepada kami.', 'type' => 'textarea', 'group' => 'homepage', 'label' => 'About Description'],
             ['key' => 'about_image',      'value' => '',                                                                'type' => 'image',    'group' => 'homepage', 'label' => 'About Image'],
             ['key' => 'stat_properties',  'value' => '2000+',  'type' => 'text', 'group' => 'homepage', 'label' => 'Stat: Properti'],

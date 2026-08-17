@@ -1,7 +1,31 @@
 @extends('layouts.app')
 
-@section('title', 'Detail Portfolio - DJM Desty Jaya Mandiri')
+@section('title', 'Detail Portfolio | DJM Desty Jaya Mandiri')
 @section('meta_description', 'Detail portfolio pekerjaan DJM Desty Jaya Mandiri.')
+@section('canonical', url('/portfolio/' . $slug))
+
+@section('schema')
+<script type="application/ld+json">
+{
+  "@@context": "https://schema.org",
+  "@@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@@type": "ListItem",
+      "position": 1,
+      "name": "Beranda",
+      "item": "{{ url('/') }}"
+    },
+    {
+      "@@type": "ListItem",
+      "position": 2,
+      "name": "Portfolio",
+      "item": "{{ route('portfolio.index') }}"
+    }
+  ]
+}
+</script>
+@endsection
 
 @section('content')
     <div class="page-header">

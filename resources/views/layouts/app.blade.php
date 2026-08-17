@@ -6,14 +6,28 @@
     <title>@yield('title', 'DJM Property – Solusi Properti & Konstruksi di Yogyakarta')</title>
     <link rel="icon" type="image/png" href="{{ asset('images/logodjm1.png') }}">
     <meta name="description" content="@yield('meta_description', 'DJM Property menyediakan informasi dan layanan properti, konstruksi, serta jasa pendukung kebutuhan properti di Yogyakarta. Temukan properti dan solusi properti yang sesuai dengan kebutuhan Anda.')">
-    
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="@yield('canonical', url()->current())">
+
     <!-- Open Graph -->
     <meta property="og:title" content="@yield('title', 'DJM Property')">
     <meta property="og:description" content="@yield('meta_description', 'Platform properti terpercaya di Yogyakarta.')">
-    <meta property="og:image" content="@yield('og_image', asset('images/og-default.jpg'))">
+    <meta property="og:image" content="@yield('og_image', asset('images/logodjm.png'))">
+    <meta property="og:url" content="@yield('canonical', url()->current())">
     <meta property="og:type" content="website">
+    <meta property="og:site_name" content="DJM Property">
+    <meta property="og:locale" content="id_ID">
 
-    <!-- Schema.org JSON-LD -->
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="@yield('title', 'DJM Property')">
+    <meta name="twitter:description" content="@yield('meta_description', 'Platform properti terpercaya di Yogyakarta.')">
+    <meta name="twitter:image" content="@yield('og_image', asset('images/logodjm.png'))">
+
+    {{-- Schema.org JSON-LD --}}
+    @yield('schema')
+
     <script type="application/ld+json">
     {
       "@@context": "https://schema.org",
@@ -25,6 +39,34 @@
         "target": "{{ route('properties.index') }}?keyword={search_term_string}",
         "query-input": "required name=search_term_string"
       }
+    }
+    </script>
+
+    @php
+        $orgName = \App\Models\SiteSetting::get('company_name', 'Desty Jaya Mandiri');
+        $orgAddress = \App\Models\SiteSetting::get('contact_address', 'Jl. Kaliurang KM 7, Sleman, Yogyakarta');
+        $orgPhone = \App\Models\SiteSetting::get('contact_phone', '+62 274 123456');
+        $orgEmail = \App\Models\SiteSetting::get('contact_email', 'info@djmproperty.id');
+    @endphp
+    <script type="application/ld+json">
+    {
+      "@@context": "https://schema.org",
+      "@@type": "Organization",
+      "name": "{{ $orgName }}",
+      "url": "{{ url('/') }}",
+      "logo": "{{ asset('images/logodjm.png') }}",
+      "address": {
+        "@@type": "PostalAddress",
+        "streetAddress": "{{ $orgAddress }}",
+        "addressCountry": "ID"
+      },
+      "contactPoint": {
+        "@@type": "ContactPoint",
+        "telephone": "{{ $orgPhone }}",
+        "contactType": "customer service",
+        "availableLanguage": "Indonesian"
+      },
+      "email": "{{ $orgEmail }}"
     }
     </script>
     
@@ -477,7 +519,7 @@
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; {{ date('Y') }} DJM — Desty Jaya Mandiri. All rights reserved.</p>
+                <p>&copy; {{ date('Y') }} DJM — Desty Jaya Mandiri. Hak Cipta Dilindungi.</p>
                 <div style="display: flex; gap: 15px;">
                     <a href="{{ route('contact.index') }}" style="color: rgba(255,255,255,0.6);">Kontak</a>
                     <a href="{{ route('about.index') }}" style="color: rgba(255,255,255,0.6);">Tentang Kami</a>

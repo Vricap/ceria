@@ -1,2 +1,14 @@
 User-agent: *
-Disallow:
+Allow: /
+
+Disallow: /dashboard/
+Disallow: /login
+Disallow: /logout
+Disallow: /properties/create
+Disallow: /properties/store
+Disallow: /properties/edit/
+Disallow: /properties/update/
+Disallow: /properties/destroy/
+Disallow: /properties/images/
+
+Sitemap: /sitemap.xml

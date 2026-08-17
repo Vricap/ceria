@@ -1,8 +1,38 @@
 @extends('layouts.app')
 
-@section('title', $service->name . ' - DJM Desty Jaya Mandiri')
+@section('title', $service->name . ' | DJM Property')
 @section('meta_description', Str::limit(strip_tags($service->short_description ?? $service->description), 160))
 @section('og_image', $service->image_url)
+
+@section('canonical', url('/layanan/' . $service->slug))
+
+@section('schema')
+<script type="application/ld+json">
+{
+  "@@context": "https://schema.org",
+  "@@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@@type": "ListItem",
+      "position": 1,
+      "name": "Beranda",
+      "item": "{{ url('/') }}"
+    },
+    {
+      "@@type": "ListItem",
+      "position": 2,
+      "name": "Layanan",
+      "item": "{{ route('services.index') }}"
+    },
+    {
+      "@@type": "ListItem",
+      "position": 3,
+      "name": "{{ $service->name }}"
+    }
+  ]
+}
+</script>
+@endsection
 
 @php
     $contactWhatsapp = \App\Models\SiteSetting::get('contact_whatsapp', '+62 812 3456 7890');

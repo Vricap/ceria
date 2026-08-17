@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
-@section('title', $settings['seo_title'] ?? 'DJM — Desty Jaya Mandiri | Perizinan, Properti & Konstruksi Yogyakarta')
+@section('title', $settings['seo_title'] ?? 'DJM Property | Properti & Jasa Perizinan Yogyakarta')
 @section('meta_description', $settings['seo_description'] ?? 'DJM Desty Jaya Mandiri menyediakan layanan perizinan (PBG/IMB), jual beli & sewa properti, serta konstruksi terpercaya di Yogyakarta dan sekitarnya.')
+@section('canonical', url('/'))
 
 @push('scripts')
 <style>
@@ -51,7 +52,7 @@
 
     .hero-title {
         font-family: 'Playfair Display', serif;
-        font-size: 3.5rem;
+        font-size: 3.3rem;
         font-weight: 700;
         line-height: 1.2;
         margin-bottom: 20px;

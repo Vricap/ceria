@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
-@section('title', 'Hubungi Kami - DJM Property')
-@section('meta_description', 'Hubungi DJM Property untuk pertanyaan, konsultasi, atau bantuan terkait layanan properti kami.')
+@section('title', 'Hubungi DJM Property | Yogyakarta')
+@section('meta_description', 'Hubungi DJM Property untuk pertanyaan, konsultasi, atau bantuan terkait layanan properti, perizinan, dan konstruksi di Yogyakarta.')
+@section('canonical', url('/kontak'))
 
 @push('scripts')
 <style>

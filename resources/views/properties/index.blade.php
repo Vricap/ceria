@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
-@section('title', 'Cari Properti - DJM Property')
+@section('title', 'Cari Properti di Yogyakarta | DJM Property')
+@section('meta_description', 'Temukan properti terbaik di Yogyakarta: rumah, tanah, ruko, dan villa. Cari properti dijual atau disewa dengan mudah bersama DJM Property.')
+@section('canonical', url('/properti'))
 
 @push('scripts')
 <style>

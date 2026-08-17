@@ -1,7 +1,60 @@
 @extends('layouts.app')
 
-@section('title', $property->title . ' - DJM Property')
-@section('meta_description', $property->short_description ?: ($property->meta_description ?: 'Detail properti ' . $property->title . ' dari DJM Property.'))
+@php
+    $isSold   = $property->status === 'sold';
+    $isRented = $property->status === 'rented';
+    $isAvailable = !$isSold && !$isRented;
+@endphp
+
+@section('title', $property->meta_title ?: ($property->title . ' | DJM Property'))
+@section('meta_description', $property->meta_description ?: ($property->short_description ?: Str::limit(strip_tags($property->description), 155)))
+@section('og_image', $property->og_image ?: $property->thumbnail_url)
+
+@section('canonical', url('/properti/' . $property->slug))
+
+@section('schema')
+<script type="application/ld+json">
+{
+  "@@context": "https://schema.org",
+  "@@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@@type": "ListItem",
+      "position": 1,
+      "name": "Beranda",
+      "item": "{{ url('/') }}"
+    },
+    {
+      "@@type": "ListItem",
+      "position": 2,
+      "name": "Properti",
+      "item": "{{ route('properties.index') }}"
+    },
+    {
+      "@@type": "ListItem",
+      "position": 3,
+      "name": "{{ $property->title }}"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@@context": "https://schema.org",
+  "@@type": "Product",
+  "name": "{{ $property->title }}",
+  "description": "{{ $property->meta_description ?: $property->short_description ?: Str::limit(strip_tags($property->description), 200) }}",
+  "image": "{{ $property->og_image ?: $property->thumbnail_url }}",
+  "url": "{{ url('/properti/' . $property->slug) }}",
+  "offers": {
+    "@@type": "Offer",
+    "price": "{{ $property->price }}",
+    "priceCurrency": "IDR",
+    "availability": "{{ $isAvailable ? 'https://schema.org/InStock' : 'https://schema.org/SoldOut' }}"
+  }
+}
+</script>
+@endsection
 
 @section('content')
 <style>
@@ -290,10 +343,6 @@
         default => '16/9',
     };
 
-    $isSold   = $property->status === 'sold';
-    $isRented = $property->status === 'rented';
-    $isAvailable = !$isSold && !$isRented;
-
     // Back to Search: pertahankan state pencarian sebelumnya bila datang dari listing.
     $backUrl = route('properties.index');
     $referer = (string) request()->headers->get('referer');
@@ -335,7 +384,7 @@
 
     {{-- Back to Search ───────────────────────────────────────────--}}
     <a href="{{ $backUrl }}" class="prop-back" title="Kembali ke pencarian properti">
-        <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back to Search
+        <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Kembali ke Pencarian
     </a>
 
     {{-- Property Header ──────────────────────────────────────────--}}
@@ -487,7 +536,7 @@
     {{-- Overview ─────────────────────────────────────────────────--}}
     @if($property->description)
         <div class="prop-section">
-            <h2 class="prop-section-title"><i class="fa-solid fa-align-left" aria-hidden="true"></i> Overview</h2>
+            <h2 class="prop-section-title"><i class="fa-solid fa-align-left" aria-hidden="true"></i> Deskripsi</h2>
             <div class="prop-overview-text" id="propOverviewText">{{ $property->description }}</div>
             <button type="button" class="prop-read-more" id="propOverviewToggle">
                 Baca Selengkapnya <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>

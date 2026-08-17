@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
-@section('title', 'Layanan - DJM Property')
+@section('title', 'Layanan Perizinan & Konstruksi | DJM Property')
 @section('meta_description', 'Layanan perizinan dan konstruksi dari DJM Desty Jaya Mandiri: PBG/IMB, pengeringan, pecah sertifikat, pembangunan, dan renovasi.')
+@section('canonical', url('/layanan'))
 
 @php
     $contactWhatsapp = \App\Models\SiteSetting::get('contact_whatsapp', '+62 812 3456 7890');

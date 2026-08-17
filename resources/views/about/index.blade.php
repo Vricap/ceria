@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
-@section('title', 'Tentang Kami - DJM Property')
+@section('title', 'Tentang DJM Property | Desty Jaya Mandiri')
 @section('meta_description', 'Pelajari lebih lanjut tentang DJM Property, visi, misi, dan tim profesional di balik layanan properti terpercaya di Yogyakarta.')
+@section('canonical', url('/tentang'))
 
 @push('scripts')
 <style>
