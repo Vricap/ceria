@@ -530,9 +530,12 @@
     </div> <!-- End Locomotive Scroll Container -->
 
     <!-- Floating WhatsApp Button -->
+    @hasSection('hide_wa_floating')
+    @else
     <a href="https://wa.me/6281234567890" class="floating-wa" target="_blank" rel="noopener noreferrer">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
+    @endif
 
     <!-- Locomotive Scroll JS -->
     <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>

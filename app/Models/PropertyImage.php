@@ -18,6 +18,9 @@ class PropertyImage extends Model
 
     public function getUrlAttribute(): string
     {
+        if (empty($this->image_url)) {
+            return asset('images/placeholder-property.svg');
+        }
         if (str_starts_with($this->image_url, 'http')) {
             return $this->image_url;
         }

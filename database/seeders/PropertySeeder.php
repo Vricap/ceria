@@ -242,7 +242,7 @@ class PropertySeeder extends Seeder
                 'facilities'       => ['One Gate System', 'Taman Bermain', 'CCTV', 'Keamanan 24 Jam', 'Air PDAM'],
                 'images'           => [
                     'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800&q=80',
-                    'https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=800&q=80',
+                    'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80',
                 ],
             ],
             [

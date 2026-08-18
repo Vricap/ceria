@@ -560,11 +560,15 @@
                             </div>
                             @if($property->status == 'sold')
                                 <div class="sold-out-overlay">
-                                    <div class="sold-out-stamp">Sold Out</div>
+                                    <div class="sold-out-stamp">Terjual</div>
+                                </div>
+                            @elseif($property->status == 'rented')
+                                <div class="sold-out-overlay">
+                                    <div class="rented-stamp">Tersewa</div>
                                 </div>
                             @endif
                             <a href="{{ route('properties.show', $property->slug) }}" title="{{ $property->title }}">
-                                <img src="{{ $property->thumbnail_url }}" alt="{{ $property->title }}" loading="lazy">
+                                <img src="{{ $property->thumbnail_url }}" alt="{{ $property->title }}" loading="lazy" onerror="this.onerror=null;this.src='{{ asset('images/placeholder-property.svg') }}';">
                             </a>
                         </div>
                         <div class="property-card-content">

@@ -139,17 +139,25 @@ class Property extends Model
         if ($primary) {
             return asset('storage/' . $primary->image_url);
         }
-        return asset('images/placeholder-property.jpg');
+        return asset('images/placeholder-property.svg');
     }
 
     public function getFormattedPriceAttribute(): string
     {
+        if ($this->transaction_type === 'disewa') {
+            if (!$this->price_rent_monthly) return 'Harga Nego';
+            return 'Rp ' . number_format($this->price_rent_monthly, 0, ',', '.') . '/Bulan';
+        }
         if (!$this->price) return 'Harga Nego';
         return 'Rp ' . number_format($this->price, 0, ',', '.');
     }
 
     public function getFormattedPriceFullAttribute(): string
     {
+        if ($this->transaction_type === 'disewa') {
+            if (!$this->price_rent_monthly) return 'Harga Nego';
+            return 'Rp ' . number_format($this->price_rent_monthly, 0, ',', '.') . '/Bulan';
+        }
         if (!$this->price) return 'Harga Nego';
         return 'Rp ' . number_format($this->price, 0, ',', '.');
     }
@@ -157,7 +165,7 @@ class Property extends Model
     public function getStatusLabelAttribute(): string
     {
         if ($this->status === 'sold') return 'Terjual';
-        if ($this->status === 'rented') return 'Disewa';
+        if ($this->status === 'rented') return 'Tersewa';
         return match($this->transaction_type) {
             'dijual' => 'Dijual',
             'disewa' => 'Disewa',

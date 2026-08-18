@@ -82,38 +82,83 @@
         margin-top: 50px;
         display: flex;
         justify-content: center;
+        width: 100%;
     }
     
     /* Pagination Styles */
-    .pagination {
+    .custom-pagination {
         display: flex;
-        list-style: none;
-        gap: 5px;
+        justify-content: center;
+        width: 100%;
     }
-    
-    .page-item .page-link {
+
+    .pagination-list {
         display: flex;
         align-items: center;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        gap: 8px;
+        flex-wrap: wrap;
         justify-content: center;
-        width: 40px;
-        height: 40px;
+    }
+    
+    .pagination-list .page-item {
+        list-style: none;
+        margin: 0;
+    }
+    
+    .pagination-list .page-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 42px;
+        height: 42px;
+        padding: 0 12px;
         border-radius: var(--border-radius);
-        background: white;
+        background: #FFFFFF;
         border: 1px solid var(--color-border);
         color: var(--color-text-main);
-        font-weight: 500;
+        font-size: 0.95rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        box-shadow: var(--shadow-sm);
     }
     
-    .page-item.active .page-link {
-        background: var(--color-gilded);
-        color: var(--color-noir);
+    .pagination-list .page-link:hover {
+        background: var(--color-champagne);
         border-color: var(--color-gilded);
+        color: var(--color-noir);
+        transform: translateY(-1px);
     }
     
-    .page-item.disabled .page-link {
-        color: var(--color-text-light);
-        background: var(--color-surface);
+    .pagination-list .page-item.active .page-link {
+        background: var(--color-gilded);
+        color: #FFFFFF;
+        border-color: var(--color-gilded);
+        font-weight: 700;
+        box-shadow: 0 4px 10px rgba(212, 165, 105, 0.35);
+    }
+    
+    .pagination-list .page-item.disabled .page-link {
+        background: #F8F6F2;
+        color: #BFB5A8;
+        border-color: var(--color-border);
         cursor: not-allowed;
+        box-shadow: none;
+        transform: none;
+        pointer-events: none;
+    }
+
+    .pagination-list .page-link.dots {
+        border: none;
+        background: transparent;
+        cursor: default;
+        min-width: 24px;
+        padding: 0;
+        box-shadow: none;
+        color: var(--color-text-muted);
     }
 
     @media (max-width: 991px) {
@@ -291,9 +336,13 @@
                                         <div class="sold-out-overlay">
                                             <div class="sold-out-stamp">Terjual</div>
                                         </div>
+                                    @elseif($property->status == 'rented')
+                                        <div class="sold-out-overlay">
+                                            <div class="rented-stamp">Tersewa</div>
+                                        </div>
                                     @endif
                                     <a href="{{ route('properties.show', $property->slug) }}">
-                                        <img src="{{ $property->thumbnail_url }}" alt="{{ $property->title }}">
+                                        <img src="{{ $property->thumbnail_url }}" alt="{{ $property->title }}" loading="lazy" onerror="this.onerror=null;this.src='{{ asset('images/placeholder-property.svg') }}';">
                                     </a>
                                 </div>
                                 <div class="property-card-content">
@@ -340,8 +389,7 @@
 
                     <!-- Pagination -->
                     <div class="pagination-wrapper">
-                        {{ $properties->links('pagination::bootstrap-5') }} 
-                        {{-- Note: we style bootstrap-5 pagination classes manually in CSS or just use simple custom if preferred. I'll use default since we added base styles --}}
+                        {{ $properties->links('vendor.pagination.custom') }}
                     </div>
                 @else
                     <div style="text-align: center; padding: 60px 20px; background: white; border-radius: var(--border-radius-lg); border: 1px solid var(--color-border);">

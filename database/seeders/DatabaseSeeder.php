@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             SiteSeeder::class,
             PropertySeeder::class,
+            DummyPropertySeeder::class,
         ]);
     }
 }

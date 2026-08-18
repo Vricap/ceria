@@ -11,7 +11,6 @@
 @section('og_image', $property->og_image ?: $property->thumbnail_url)
 
 @section('canonical', url('/properti/' . $property->slug))
-
 @section('schema')
 <script type="application/ld+json">
 {
@@ -69,11 +68,12 @@
 
     /* ─── Gallery ────────────────────────────────── */
     .prop-gallery { display: grid; grid-template-columns: minmax(0, 1fr) 200px; gap: 20px; margin-bottom: 32px; }
-    .prop-gallery-main { position: relative; display: block; border-radius: var(--border-radius-lg); overflow: hidden;
-        background: var(--color-champagne); cursor: zoom-in; box-shadow: var(--shadow-sm); }
+    .prop-gallery-main-wrap { position: relative; border-radius: var(--border-radius-lg); overflow: hidden;
+        background: var(--color-champagne); box-shadow: var(--shadow-sm); }
+    .prop-gallery-main { display: block; cursor: zoom-in; }
     .prop-gallery-main img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; }
     .prop-gallery-photo-count { position: absolute; bottom: 16px; left: 16px; background: rgba(31, 22, 17, 0.72); color: #fff;
-        padding: 6px 14px; border-radius: 999px; font-size: 0.85rem; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+        padding: 6px 14px; border-radius: 999px; font-size: 0.85rem; font-weight: 600; display: flex; align-items: center; gap: 8px; z-index: 5; }
 
     .prop-gallery-thumbs { display: flex; flex-direction: column; align-items: stretch; justify-content: flex-start; gap: 12px; }
     .prop-thumb { position: relative; border: 2px solid transparent; padding: 0; border-radius: var(--border-radius);
@@ -85,11 +85,12 @@
         flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-weight: 700; font-size: 1.05rem; line-height: 1.2; }
     .prop-thumb-more small { font-size: 0.7rem; font-weight: 500; opacity: 0.9; }
 
-    .prop-slider-btn { position: absolute; top: 50%; transform: translateY(-50%); z-index: 5; width: 44px; height: 44px;
+    .prop-slider-btn { position: absolute; top: 50%; transform: translateY(-50%); z-index: 10; width: 44px; height: 44px;
         border-radius: 50%; border: 1px solid var(--color-border); background: rgba(255, 255, 255, 0.92); color: var(--color-noir);
         display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: var(--shadow-sm);
-        transition: all 0.2s ease; }
+        transition: all 0.2s ease; -webkit-tap-highlight-color: transparent; user-select: none; }
     .prop-slider-btn:hover { background: #fff; color: var(--color-gilded-dark); }
+    .prop-slider-btn:active { transform: translateY(-50%) scale(0.92); }
     .prop-slider-prev { left: 16px; }
     .prop-slider-next { right: 16px; }
 
@@ -232,9 +233,6 @@
     .prop-cta h3 { font-size: 1.6rem; color: var(--color-noir); margin-bottom: 10px; font-weight: 700; }
     .prop-cta p { color: var(--color-text-muted); margin-bottom: 24px; }
 
-    /* ─── Sticky CTA Mobile ──────────────────────── */
-    .prop-sticky-cta { display: none; }
-
     /* ─── Related Properties (compact horizontal) ── */
     .related-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
     .related-card { display: flex; background: #fff; border: 1px solid var(--color-border); border-radius: var(--border-radius-lg);
@@ -273,9 +271,11 @@
     @media (max-width: 767px) {
         .prop-gallery { grid-template-columns: 1fr; margin-bottom: 24px; }
         .prop-gallery-thumbs { display: none !important; }
-        .prop-slider-btn { width: 38px; height: 38px; font-size: 0.9rem; }
-        .prop-slider-prev { left: 10px; }
-        .prop-slider-next { right: 10px; }
+        .prop-gallery-main { cursor: default; }
+        .prop-slider-btn { width: 36px; height: 36px; font-size: 0.85rem; }
+        .prop-slider-prev { left: 8px; }
+        .prop-slider-next { right: 8px; }
+        .prop-gallery-photo-count { bottom: 10px; left: 10px; padding: 5px 12px; font-size: 0.78rem; }
         .prop-header {
             grid-template-columns: minmax(0, 1fr) auto;
             grid-template-areas:
@@ -306,13 +306,6 @@
         .prop-cta { padding: 36px 20px; }
         .prop-map iframe { height: 300px; }
 
-        .prop-sticky-cta { display: flex; position: fixed; bottom: 0; left: 0; right: 0; background: #fff;
-            border-top: 1px solid var(--color-border); box-shadow: 0 -4px 20px rgba(31, 22, 17, 0.12);
-            padding: 10px 16px; gap: 12px; align-items: center; justify-content: space-between; z-index: 990; }
-        .prop-sticky-cta .price { font-weight: 800; color: var(--color-bronze); font-size: 1.05rem; line-height: 1.2; }
-        .prop-sticky-cta .status { font-size: 0.72rem; color: var(--color-text-muted); }
-        .prop-sticky-cta .btn { padding: 9px 22px; font-size: 0.9rem; }
-
         .related-grid { grid-template-columns: 1fr; }
         .related-card { flex-direction: column; }
         .related-card-image { width: 100%; height: 210px; }
@@ -322,11 +315,16 @@
 
 @php
     $gallerySlides = [];
-    $gallerySlides[] = ['src' => $property->thumbnail_url, 'alt' => $property->title];
+    if (!empty($property->thumbnail_url)) {
+        $gallerySlides[] = ['src' => $property->thumbnail_url, 'alt' => $property->title];
+    }
     foreach ($property->images as $img) {
-        if (!collect($gallerySlides)->contains('src', $img->url)) {
+        if (!empty($img->url) && !collect($gallerySlides)->contains('src', $img->url)) {
             $gallerySlides[] = ['src' => $img->url, 'alt' => $img->alt_text ?: $property->title];
         }
+    }
+    if (empty($gallerySlides)) {
+        $gallerySlides[] = ['src' => asset('images/placeholder-property.svg'), 'alt' => $property->title];
     }
     $totalSlides = count($gallerySlides);
 
@@ -420,15 +418,21 @@
 
     {{-- Gallery ──────────────────────────────────────────────────--}}
     <div class="prop-gallery">
-        <a id="propMainLink" href="{{ $gallerySlides[0]['src'] ?? $property->thumbnail_url }}"
-           data-fancybox="prop-gallery" data-caption="{{ $property->title }}" class="prop-gallery-main" title="Klik untuk membuka galeri">
-            <img id="propMainImg" src="{{ $gallerySlides[0]['src'] ?? $property->thumbnail_url }}" alt="{{ $property->title }}">
-            @if($isSold)
-                <div class="sold-out-overlay" style="z-index: 20;">
-                    <div class="sold-out-stamp">Terjual</div>
-                </div>
-            @endif
-            <span class="prop-gallery-photo-count"><i class="fa-regular fa-images" aria-hidden="true"></i> <span id="propCounter">1 / {{ $totalSlides }}</span></span>
+        <div class="prop-gallery-main-wrap">
+            <a id="propMainLink" href="{{ $gallerySlides[0]['src'] ?? $property->thumbnail_url }}"
+               class="prop-gallery-main" title="Klik untuk memperbesar galeri foto" aria-label="Lihat galeri foto properti">
+                <img id="propMainImg" src="{{ $gallerySlides[0]['src'] ?? $property->thumbnail_url }}" alt="{{ $property->title }}" onerror="this.onerror=null;this.src='{{ asset('images/placeholder-property.svg') }}';">
+                @if($isSold)
+                    <div class="sold-out-overlay" style="z-index: 20;">
+                        <div class="sold-out-stamp">Terjual</div>
+                    </div>
+                @elseif($isRented)
+                    <div class="sold-out-overlay" style="z-index: 20;">
+                        <div class="rented-stamp">Tersewa</div>
+                    </div>
+                @endif
+                <span class="prop-gallery-photo-count"><i class="fa-regular fa-images" aria-hidden="true"></i> <span id="propCounter">1 / {{ $totalSlides }}</span></span>
+            </a>
 
             @if($totalSlides > 1)
                 <button type="button" class="prop-slider-btn prop-slider-prev" id="propSliderPrev" aria-label="Foto sebelumnya">
@@ -438,7 +442,7 @@
                     <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
                 </button>
             @endif
-        </a>
+        </div>
 
         @if($colItems > 0)
             <div class="prop-gallery-thumbs">
@@ -450,7 +454,7 @@
                             data-caption="{{ $slide['alt'] }}"
                             style="aspect-ratio: {{ $thumbRatio }};"
                             aria-label="Lihat foto {{ $i + 2 }}">
-                        <img src="{{ $slide['src'] }}" alt="{{ $slide['alt'] }}" loading="lazy">
+                        <img src="{{ $slide['src'] }}" alt="{{ $slide['alt'] }}" loading="lazy" onerror="this.onerror=null;this.src='{{ asset('images/placeholder-property.svg') }}';">
                     </button>
                 @endforeach
 
@@ -461,7 +465,7 @@
                             id="propMoreThumb"
                             style="aspect-ratio: {{ $thumbRatio }};"
                             aria-label="Lihat semua foto">
-                        <img src="{{ $gallerySlides[3]['src'] ?? $gallerySlides[$totalSlides - 1]['src'] }}" alt="" loading="lazy">
+                        <img src="{{ $gallerySlides[3]['src'] ?? $gallerySlides[$totalSlides - 1]['src'] }}" alt="" loading="lazy" onerror="this.onerror=null;this.src='{{ asset('images/placeholder-property.svg') }}';">
                         <span class="prop-thumb-more">
                             +{{ $overlayCount }} Foto
                             <small>Lihat Semua</small>
@@ -471,10 +475,12 @@
             </div>
         @endif
 
-        {{-- Item lightbox untuk semua foto (anchor tersembunyi) --}}
-        @foreach($gallerySlides as $slide)
-            <a href="{{ $slide['src'] }}" data-fancybox="prop-gallery" data-caption="{{ $slide['alt'] }}" style="display: none;"></a>
-        @endforeach
+        {{-- Item lightbox untuk semua foto (anchor tersembunyi, 1:1 tanpa duplikasi) --}}
+        <div id="propLightboxItems" style="display: none;" aria-hidden="true">
+            @foreach($gallerySlides as $slide)
+                <a href="{{ $slide['src'] }}" data-fancybox="prop-gallery" data-caption="{{ $slide['alt'] }}" data-thumb="{{ $slide['src'] }}"></a>
+            @endforeach
+        </div>
     </div>
 
     {{-- Price + Highlights (satu container) ──────────────────────--}}
@@ -572,56 +578,60 @@
         <div class="prop-section" style="margin-bottom: 0;">
             <h2 class="prop-section-title"><i class="fa-solid fa-house-circle-check" aria-hidden="true"></i> Properti Lainnya</h2>
             <div class="related-grid">
-                @foreach($related as $property)
+                @foreach($related as $rp)
                     <article class="related-card">
                         <div class="related-card-image">
                             <div class="related-badges">
-                                <span class="badge {{ $property->status_color }}">{{ $property->status_label }}</span>
-                                @if($property->is_featured)
+                                <span class="badge {{ $rp->status_color }}">{{ $rp->status_label }}</span>
+                                @if($rp->is_featured)
                                     <span class="badge badge-featured"><i class="fa-solid fa-star" aria-hidden="true"></i></span>
                                 @endif
                             </div>
-                            @if($property->status == 'sold')
+                            @if($rp->status == 'sold')
                                 <div class="sold-out-overlay">
                                     <div class="sold-out-stamp">Terjual</div>
                                 </div>
+                            @elseif($rp->status == 'rented')
+                                <div class="sold-out-overlay">
+                                    <div class="rented-stamp">Tersewa</div>
+                                </div>
                             @endif
-                            <a href="{{ route('properties.show', $property->slug) }}" class="related-img-link" aria-label="{{ $property->title }}">
-                                <img src="{{ $property->thumbnail_url }}" alt="{{ $property->title }}" loading="lazy">
+                            <a href="{{ route('properties.show', $rp->slug) }}" class="related-img-link" aria-label="{{ $rp->title }}">
+                                <img src="{{ $rp->thumbnail_url }}" alt="{{ $rp->title }}" loading="lazy" onerror="this.onerror=null;this.src='{{ asset('images/placeholder-property.svg') }}';">
                             </a>
                         </div>
                         <div class="related-card-content">
                             <h3 class="related-card-title">
-                                <a href="{{ route('properties.show', $property->slug) }}" title="{{ $property->title }}">{{ $property->title }}</a>
+                                <a href="{{ route('properties.show', $rp->slug) }}" title="{{ $rp->title }}">{{ $rp->title }}</a>
                             </h3>
                             <div class="related-card-location">
-                                <i class="fa-solid fa-location-dot" aria-hidden="true"></i> {{ $property->location_string }}
+                                <i class="fa-solid fa-location-dot" aria-hidden="true"></i> {{ $rp->location_string }}
                             </div>
                             <div class="related-card-specs">
-                                @if($property->building_area)
+                                @if($rp->building_area)
                                     <span class="related-card-spec" title="Luas Bangunan">
-                                        <i class="fa-solid fa-ruler-combined" aria-hidden="true"></i> {{ (int) $property->building_area }} m&sup2;
+                                        <i class="fa-solid fa-ruler-combined" aria-hidden="true"></i> {{ (int) $rp->building_area }} m&sup2;
                                     </span>
                                 @endif
-                                @if($property->land_area)
+                                @if($rp->land_area)
                                     <span class="related-card-spec" title="Luas Tanah">
-                                        <i class="fa-solid fa-earth-asia" aria-hidden="true"></i> {{ (int) $property->land_area }} m&sup2;
+                                        <i class="fa-solid fa-earth-asia" aria-hidden="true"></i> {{ (int) $rp->land_area }} m&sup2;
                                     </span>
                                 @endif
-                                @if($property->bedrooms)
+                                @if($rp->bedrooms)
                                     <span class="related-card-spec" title="Kamar Tidur">
-                                        <i class="fa-solid fa-bed" aria-hidden="true"></i> {{ $property->bedrooms }} Kamar Tidur
+                                        <i class="fa-solid fa-bed" aria-hidden="true"></i> {{ $rp->bedrooms }} Kamar Tidur
                                     </span>
                                 @endif
-                                @if($property->bathrooms)
+                                @if($rp->bathrooms)
                                     <span class="related-card-spec" title="Kamar Mandi">
-                                        <i class="fa-solid fa-shower" aria-hidden="true"></i> {{ $property->bathrooms }} Kamar Mandi
+                                        <i class="fa-solid fa-shower" aria-hidden="true"></i> {{ $rp->bathrooms }} Kamar Mandi
                                     </span>
                                 @endif
                             </div>
                             <div class="related-card-footer">
-                                <div class="related-card-price">{{ $property->formatted_price }}</div>
-                                <a href="{{ route('properties.show', $property->slug) }}" class="related-card-btn">
+                                <div class="related-card-price">{{ $rp->formatted_price }}</div>
+                                <a href="{{ route('properties.show', $rp->slug) }}" class="related-card-btn">
                                     Detail <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
                                 </a>
                             </div>
@@ -633,32 +643,21 @@
     @endif
 </div>
 
-{{-- Sticky CTA WhatsApp (mobile, hanya untuk properti tersedia) --}}
-@if($isAvailable)
-    <div class="prop-sticky-cta">
-        <div>
-            <div class="price">{{ $property->formatted_price }}</div>
-            <div class="status">{{ $property->status_label }}</div>
-        </div>
-        <a href="{{ $whatsappUrl }}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-            <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Hubungi
-        </a>
-    </div>
-@endif
-
 <script>
     (function () {
         var total = {{ $totalSlides }};
         var slides = @json(array_column($gallerySlides, 'src'));
         var current = 0;
+        var isSwiping = false;
 
         var mainImg = document.getElementById('propMainImg');
         var mainLink = document.getElementById('propMainLink');
         var counter = document.getElementById('propCounter');
-        var thumbs = document.querySelectorAll('.prop-thumb');
+        var thumbBtns = document.querySelectorAll('.prop-thumb:not(#propMoreThumb)');
         var prevBtn = document.getElementById('propSliderPrev');
         var nextBtn = document.getElementById('propSliderNext');
         var moreThumb = document.getElementById('propMoreThumb');
+        var lightboxItems = document.querySelectorAll('#propLightboxItems [data-fancybox="prop-gallery"]');
 
         if (!mainImg || !slides.length) return;
 
@@ -667,22 +666,37 @@
             mainImg.src = slides[current];
             if (mainLink) {
                 mainLink.setAttribute('href', slides[current]);
-                mainLink.setAttribute('data-src', slides[current]);
             }
             if (counter) counter.textContent = (current + 1) + ' / ' + total;
-            thumbs.forEach(function (t) {
-                if (t === moreThumb) return;
+
+            thumbBtns.forEach(function (t) {
                 var tIdx = parseInt(t.getAttribute('data-thumb-idx'), 10);
                 t.classList.toggle('active', tIdx === current);
             });
         }
 
-        thumbs.forEach(function (t) {
-            if (t === moreThumb) return;
+        function openLightbox(idx) {
+            var targetIdx = (typeof idx === 'number') ? ((idx + total) % total) : current;
+            if (lightboxItems && lightboxItems[targetIdx]) {
+                lightboxItems[targetIdx].click();
+            } else if (lightboxItems && lightboxItems[0]) {
+                lightboxItems[0].click();
+            }
+        }
+
+        thumbBtns.forEach(function (t) {
             t.addEventListener('click', function () {
                 go(parseInt(t.getAttribute('data-thumb-idx'), 10));
             });
         });
+
+        if (mainLink) {
+            mainLink.addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                openLightbox(current);
+            });
+        }
 
         if (prevBtn) prevBtn.addEventListener('click', function (e) {
             e.preventDefault();
@@ -696,45 +710,72 @@
         });
 
         if (moreThumb) {
-            moreThumb.addEventListener('click', function () {
+            moreThumb.addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
                 go(3);
-                if (mainLink) mainLink.click();
+                openLightbox(3);
             });
         }
 
-        // ─── Touch swipe support for mobile slider ───
+        // Sinkronisasi saat foto diubah di dalam lightbox popup
+        window.addEventListener('fancybox:settle', function (e) {
+            if (e.detail && typeof e.detail.index === 'number') {
+                go(e.detail.index);
+            }
+        });
+
+        // ─── Keyboard navigation ───
+        document.addEventListener('keydown', function (e) {
+            if (total <= 1) return;
+            if (e.key === 'ArrowLeft') { go(current - 1); }
+            if (e.key === 'ArrowRight') { go(current + 1); }
+        });
+
+        // ─── Touch swipe support (mobile only) ───
         var touchStartX = 0;
         var touchStartY = 0;
-        var touchEndX = 0;
-        var touchEndY = 0;
+        var touchMoveX = 0;
+        var hasMoved = false;
 
         if (mainLink && total > 1) {
             mainLink.addEventListener('touchstart', function (e) {
                 if (e.touches && e.touches.length === 1) {
                     touchStartX = e.touches[0].clientX;
                     touchStartY = e.touches[0].clientY;
-                    touchEndX = touchStartX;
-                    touchEndY = touchStartY;
+                    touchMoveX = touchStartX;
+                    hasMoved = false;
+                    isSwiping = false;
                 }
             }, { passive: true });
 
             mainLink.addEventListener('touchmove', function (e) {
                 if (e.touches && e.touches.length === 1) {
-                    touchEndX = e.touches[0].clientX;
-                    touchEndY = e.touches[0].clientY;
+                    var dx = e.touches[0].clientX - touchStartX;
+                    var dy = e.touches[0].clientY - touchStartY;
+                    touchMoveX = e.touches[0].clientX;
+
+                    if (Math.abs(dx) > 10 && Math.abs(dx) > Math.abs(dy) * 0.8) {
+                        hasMoved = true;
+                        isSwiping = true;
+                    }
                 }
             }, { passive: true });
 
             mainLink.addEventListener('touchend', function (e) {
-                var diffX = touchEndX - touchStartX;
-                var diffY = touchEndY - touchStartY;
-                if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY) * 1.2) {
+                if (!hasMoved || !isSwiping) return;
+
+                var diffX = touchMoveX - touchStartX;
+                if (Math.abs(diffX) > 40) {
                     if (diffX < 0) {
                         go(current + 1);
                     } else {
                         go(current - 1);
                     }
                 }
+
+                isSwiping = false;
+                hasMoved = false;
             }, { passive: true });
         }
 

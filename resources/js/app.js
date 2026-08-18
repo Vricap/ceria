@@ -4,6 +4,7 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { Fancybox } from '@fancyapps/ui';
 
 window.Alpine = Alpine;
+window.Fancybox = Fancybox;
 
 document.addEventListener('alpine:init', () => {
     // Custom Alpine components can go here
@@ -47,6 +48,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize Fancybox
     Fancybox.bind("[data-fancybox]", {
-        // Custom options
+        Thumbs: {
+            minCount: 2,
+        },
+        Toolbar: {
+            display: {
+                left: ["counter"],
+                right: ["toggleFull", "autoplay", "fullscreen", "thumbs", "close"],
+            },
+        },
+        on: {
+            "Carousel.settle": (fancybox) => {
+                try {
+                    const carousel = fancybox.getCarousel();
+                    const pageIndex = carousel ? carousel.getPageIndex() : 0;
+                    window.dispatchEvent(new CustomEvent('fancybox:settle', { detail: { index: pageIndex } }));
+                } catch (err) {}
+            }
+        }
     });
 });
+
