@@ -311,6 +311,13 @@
         .related-card-image { width: 100%; height: 210px; }
         .related-img-link { position: static; height: 100%; }
     }
+
+    @media (max-width: 430px) {
+        .prop-info-header { flex-wrap: wrap; gap: 10px; }
+        .prop-highlights-grid { grid-template-columns: 1fr; }
+        .prop-highlight-item { padding: 12px; gap: 12px; }
+        .prop-highlight-item i { width: 40px; height: 40px; font-size: 1rem; }
+    }
 </style>
 
 @php
