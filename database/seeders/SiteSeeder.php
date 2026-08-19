@@ -57,14 +57,228 @@ class SiteSeeder extends Seeder
 
         // ─── Services ──────────────────────────────────────────────────────────────
         // Layanan asli DJM (Desty Jaya Mandiri): Perizinan & Konstruksi.
-        // Konfirmasi daftar final dengan client sesuai PRD.
         $services = [
-            // Kategori: Perizinan
-            ['name' => 'PBG / IMB',              'slug' => 'pbg-imb',              'category' => 'perizinan', 'icon' => 'fa-file-signature',      'image' => 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&h=600&fit=crop&q=80', 'short_description' => 'Pengurusan Persetujuan Bangunan Gedung (PBG) dan Izin Mendirikan Bangunan (IMB) secara cepat dan resmi.', 'sort_order' => 1],
-            ['name' => 'Pengeringan',            'slug' => 'pengeringan',           'category' => 'perizinan', 'icon' => 'fa-water',              'image' => 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&h=600&fit=crop&q=80', 'short_description' => 'Jasa pengeringan lahan untuk menyiapkan tanah yang siap dibangun.', 'sort_order' => 2],
-            ['name' => 'Pecah Sertifikat',       'slug' => 'pecah-sertifikat',      'category' => 'perizinan', 'icon' => 'fa-file-invoice',       'image' => 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&h=600&fit=crop&q=80', 'short_description' => 'Pemecahan sertifikat tanah sesuai kebutuhan legal dan peruntukan lahan.', 'sort_order' => 3],
+            // ── Kategori: Perizinan ──────────────────────────────────────────────
 
-            // Kategori: Konstruksi
+            // PBG / IMB
+            [
+                'name' => 'PBG / IMB',
+                'slug' => 'pbg-imb',
+                'category' => 'perizinan',
+                'icon' => 'fa-file-signature',
+                'image' => 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&h=600&fit=crop&q=80',
+                'short_description' => 'Pengurusan Persetujuan Bangunan Gedung (PBG) dan Izin Mendirikan Bangunan (IMB) secara cepat dan resmi.',
+                'seo_title' => 'Jasa Pengurusan PBG / IMB Yogyakarta | DJM Property',
+                'seo_description' => 'DJM membantu pengurusan PBG dan IMB di Yogyakarta. Penyusunan gambar teknis, dokumen administrasi, hingga pendampingan pengajuan.',
+                'description' => <<<'HTML'
+<h2>Kendala yang Sering Dihadapi</h2>
+<p>Beberapa kendala yang umum dihadapi dalam pengurusan PBG antara lain:</p>
+<ul>
+<li>Bingung dengan persyaratan pengurusan PBG.</li>
+<li>Tidak memiliki tenaga teknis untuk menyiapkan gambar bangunan.</li>
+<li>Kesulitan mempersiapkan dokumen teknis dan administrasi.</li>
+<li>Tidak memahami alur pengajuan melalui sistem yang berlaku.</li>
+<li>Tidak memiliki waktu untuk mengurus proses administrasi.</li>
+<li>Mendapat permintaan perbaikan atau revisi dokumen.</li>
+<li>Tidak yakin apakah rencana bangunan telah sesuai ketentuan yang berlaku.</li>
+</ul>
+<p><strong>DJM membantu Anda mempersiapkan kebutuhan tersebut secara lebih praktis dan terarah.</strong></p>
+
+<h2>Layanan yang Kami Bantu</h2>
+
+<h3>1. Penyusunan Gambar Arsitektur</h3>
+<p>Dokumen gambar yang menggambarkan kondisi dan rencana bangunan, seperti:</p>
+<ul>
+<li>Denah bangunan</li>
+<li>Site plan dan situasi</li>
+<li>Tampak bangunan</li>
+<li>Gambar potongan</li>
+<li>Rencana tata ruang</li>
+</ul>
+
+<h3>2. Gambar Struktur</h3>
+<p>Membantu menyiapkan kebutuhan gambar teknis struktur bangunan, meliputi:</p>
+<ul>
+<li>Rencana pondasi</li>
+<li>Sloof, kolom, dan balok</li>
+<li>Plat lantai</li>
+<li>Rencana atap</li>
+<li>Detail struktur sesuai kebutuhan bangunan</li>
+</ul>
+
+<h3>3. Gambar MEP / Utilitas</h3>
+<p>Dokumen teknis utilitas bangunan sesuai kebutuhan, seperti:</p>
+<ul>
+<li>Instalasi listrik</li>
+<li>Sanitasi dan jaringan air</li>
+<li>Sistem utilitas bangunan lainnya</li>
+</ul>
+
+<h3>4. Persiapan Dokumen Pendukung</h3>
+<p>Membantu mengidentifikasi dan mempersiapkan dokumen yang dibutuhkan sesuai kondisi bangunan dan persyaratan pengajuan.</p>
+
+<h3>5. Pendampingan Proses Pengurusan</h3>
+<p>DJM membantu mengarahkan proses administrasi dan pengajuan PBG serta membantu menangani kebutuhan revisi atau kelengkapan dokumen apabila diperlukan.</p>
+
+<h2>Alur Layanan</h2>
+<ul>
+<li><strong>Konsultasi Awal</strong> — Kami memahami kebutuhan, kondisi bangunan, lokasi, dan dokumen yang telah Anda miliki.</li>
+<li><strong>Pemeriksaan Dokumen</strong> — Dokumen dan informasi bangunan diperiksa untuk mengetahui kebutuhan yang masih harus dilengkapi.</li>
+<li><strong>Penyusunan Dokumen Teknis</strong> — Tim menyiapkan gambar dan dokumen teknis sesuai kebutuhan.</li>
+<li><strong>Proses Pengajuan</strong> — Dokumen dipersiapkan untuk proses pengajuan melalui sistem dan prosedur yang berlaku.</li>
+<li><strong>Verifikasi &amp; Revisi</strong> — Apabila terdapat kebutuhan perbaikan atau revisi, kami membantu mengarahkan proses penyelesaiannya.</li>
+<li><strong>Penyelesaian</strong> — Proses dilanjutkan hingga dokumen PBG selesai sesuai prosedur yang berlaku.</li>
+</ul>
+
+<h2>Dokumen yang Umumnya Dibutuhkan</h2>
+<p>Persyaratan dapat berbeda sesuai kondisi bangunan dan lokasi. Beberapa dokumen yang umumnya perlu dipersiapkan antara lain:</p>
+<ul>
+<li>KTP pemilik bangunan</li>
+<li>Dokumen kepemilikan tanah</li>
+<li>Dokumen terkait PBB</li>
+<li>Surat kuasa apabila proses dikuasakan</li>
+<li>Data dan informasi bangunan</li>
+<li>Gambar arsitektur, struktur, dan MEP/utilitas</li>
+<li>Dokumen teknis pendukung lainnya sesuai kebutuhan</li>
+</ul>
+<p><strong>Belum lengkap? Tidak perlu bingung. Konsultasikan kondisi bangunan Anda kepada kami terlebih dahulu.</strong></p>
+
+<h2>Kenapa Menggunakan Jasa DJM?</h2>
+<ul>
+<li>Konsultasi kebutuhan sebelum proses dimulai.</li>
+<li>Membantu mempersiapkan dokumen teknis.</li>
+<li>Proses lebih terarah dan sistematis.</li>
+<li>Mengurangi risiko kesalahan dalam persiapan dokumen.</li>
+<li>Cocok untuk pemilik rumah, bangunan usaha, maupun properti lainnya.</li>
+<li>Pendampingan disesuaikan dengan kondisi dan kebutuhan bangunan.</li>
+</ul>
+HTML,
+                'sort_order' => 1,
+            ],
+
+            // Pengeringan Lahan
+            [
+                'name' => 'Pengeringan',
+                'slug' => 'pengeringan',
+                'category' => 'perizinan',
+                'icon' => 'fa-water',
+                'image' => 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&h=600&fit=crop&q=80',
+                'short_description' => 'Jasa pengeringan lahan untuk menyiapkan tanah yang siap dibangun.',
+                'seo_title' => 'Jasa Pengeringan Lahan Yogyakarta | DJM Property',
+                'seo_description' => 'DJM membantu pengurusan administrasi pengeringan lahan di Yogyakarta. Konsultasi, persiapan dokumen, hingga pendampingan proses.',
+                'description' => <<<'HTML'
+<h2>Kapan Anda Membutuhkan Layanan Ini?</h2>
+<p>Layanan pengeringan dapat menjadi bagian dari proses yang perlu diperhatikan ketika:</p>
+<ul>
+<li>Tanah memiliki status atau peruntukan yang perlu disesuaikan.</li>
+<li>Lahan akan digunakan untuk kebutuhan pembangunan.</li>
+<li>Terdapat kebutuhan administrasi terkait perubahan penggunaan lahan.</li>
+<li>Anda belum memahami dokumen dan tahapan yang harus dipersiapkan.</li>
+<li>Anda ingin memastikan proses dilakukan melalui prosedur yang sesuai.</li>
+</ul>
+
+<h2>Apa yang DJM Bantu?</h2>
+
+<h3>Konsultasi Kondisi Lahan</h3>
+<p>Kami membantu memahami kondisi awal tanah dan kebutuhan proses berdasarkan informasi serta dokumen yang Anda miliki.</p>
+
+<h3>Pemeriksaan Dokumen</h3>
+<p>Membantu mengidentifikasi dokumen yang diperlukan dan mengevaluasi kelengkapan administrasi.</p>
+
+<h3>Persiapan Administrasi</h3>
+<p>Membantu mempersiapkan dokumen yang diperlukan untuk mendukung proses pengurusan.</p>
+
+<h3>Pendampingan Proses</h3>
+<p>Memberikan arahan dan pendampingan dalam proses administrasi sesuai kebutuhan dan kewenangan instansi terkait.</p>
+
+<h2>Alur Layanan</h2>
+<ul>
+<li><strong>Konsultasi</strong> — Sampaikan kondisi dan tujuan penggunaan lahan Anda.</li>
+<li><strong>Pemeriksaan Dokumen</strong> — Dokumen dan informasi lahan diperiksa untuk mengetahui kebutuhan proses.</li>
+<li><strong>Persiapan Administrasi</strong> — Dokumen yang diperlukan dipersiapkan sesuai kondisi lahan.</li>
+<li><strong>Proses Pengurusan</strong> — Proses administrasi dilakukan sesuai prosedur yang berlaku.</li>
+<li><strong>Penyelesaian</strong> — DJM membantu memantau proses hingga tahapan layanan selesai.</li>
+</ul>
+
+<h2>Dokumen yang Perlu Dipersiapkan</h2>
+<p>Dokumen dapat berbeda tergantung kondisi dan lokasi tanah. Dokumen yang mungkin diperlukan antara lain:</p>
+<ul>
+<li>Identitas pemilik</li>
+<li>Sertifikat atau dokumen kepemilikan tanah</li>
+<li>Dokumen PBB</li>
+<li>Data lokasi dan luas tanah</li>
+<li>Dokumen pendukung lainnya sesuai kebutuhan</li>
+</ul>
+<p><strong>Belum tahu apakah tanah Anda dapat diproses? Konsultasikan terlebih dahulu dengan DJM.</strong></p>
+HTML,
+                'sort_order' => 2,
+            ],
+
+            // Pecah Sertifikat
+            [
+                'name' => 'Pecah Sertifikat',
+                'slug' => 'pecah-sertifikat',
+                'category' => 'perizinan',
+                'icon' => 'fa-file-invoice',
+                'image' => 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&h=600&fit=crop&q=80',
+                'short_description' => 'Pemecahan sertifikat tanah sesuai kebutuhan legal dan peruntukan lahan.',
+                'seo_title' => 'Jasa Pemecahan Sertifikat Tanah Yogyakarta | DJM Property',
+                'seo_description' => 'DJM membantu pemecahan sertifikat tanah di Yogyakarta. Konsultasi, persiapan dokumen, pengukuran, hingga pendampingan proses.',
+                'description' => <<<'HTML'
+<h2>Kapan Pemecahan Sertifikat Dibutuhkan?</h2>
+<p>Pemecahan sertifikat dapat dibutuhkan untuk berbagai keperluan, seperti:</p>
+<ul>
+<li>Membagi tanah menjadi beberapa bidang.</li>
+<li>Pembagian tanah untuk keluarga atau ahli waris.</li>
+<li>Persiapan penjualan sebagian bidang tanah.</li>
+<li>Pembagian lahan untuk kebutuhan pembangunan.</li>
+<li>Penataan kepemilikan beberapa bidang tanah.</li>
+</ul>
+
+<h2>Layanan yang Kami Bantu</h2>
+
+<h3>Konsultasi Awal</h3>
+<p>Kami memahami kebutuhan pemecahan dan kondisi bidang tanah Anda.</p>
+
+<h3>Pemeriksaan Dokumen</h3>
+<p>Dokumen kepemilikan dan dokumen pendukung diperiksa untuk mengetahui kelengkapan administrasi.</p>
+
+<h3>Persiapan Data dan Dokumen</h3>
+<p>Membantu mempersiapkan kebutuhan administrasi dan data yang diperlukan untuk proses pemecahan.</p>
+
+<h3>Pendampingan Proses</h3>
+<p>Memberikan arahan dan pendampingan selama proses administrasi sesuai prosedur yang berlaku.</p>
+
+<h3>Pengukuran dan Penataan Bidang</h3>
+<p>Apabila diperlukan, proses pengukuran dan penataan bidang disesuaikan dengan kebutuhan serta ketentuan yang berlaku.</p>
+
+<h2>Alur Layanan</h2>
+<ul>
+<li><strong>Konsultasi</strong> — Jelaskan kebutuhan pemecahan sertifikat dan kondisi tanah Anda.</li>
+<li><strong>Pemeriksaan Sertifikat</strong> — Kami membantu mengecek dokumen dan informasi bidang tanah.</li>
+<li><strong>Persiapan Dokumen</strong> — Dokumen administrasi dan data pendukung dipersiapkan.</li>
+<li><strong>Pengukuran / Proses Teknis</strong> — Apabila diperlukan, dilakukan proses teknis sesuai ketentuan.</li>
+<li><strong>Pengurusan Administrasi</strong> — Proses dilanjutkan sesuai prosedur dan instansi yang berwenang.</li>
+<li><strong>Penyelesaian</strong> — Proses pemecahan dilanjutkan hingga tahapan penyelesaian sesuai ketentuan.</li>
+</ul>
+
+<h2>Dokumen yang Umumnya Dibutuhkan</h2>
+<p>Persyaratan dapat berbeda sesuai kondisi tanah. Beberapa dokumen yang umumnya diperlukan antara lain:</p>
+<ul>
+<li>KTP pemilik</li>
+<li>Sertifikat tanah</li>
+<li>SPPT PBB</li>
+<li>Dokumen pendukung kepemilikan</li>
+<li>Surat kuasa apabila dikuasakan</li>
+<li>Dokumen atau data pendukung lainnya sesuai kebutuhan</li>
+</ul>
+<p><strong>Tidak yakin sertifikat Anda bisa dipecah? Sampaikan kondisi tanah dan kebutuhan Anda kepada DJM. Kami membantu menjelaskan tahapan dan dokumen yang perlu dipersiapkan.</strong></p>
+HTML,
+                'sort_order' => 3,
+            ],
+
+            // ── Kategori: Konstruksi ─────────────────────────────────────────────
+
             ['name' => 'Pembangunan',            'slug' => 'pembangunan',           'category' => 'konstruksi', 'icon' => 'fa-building-construction', 'image' => 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&h=600&fit=crop&q=80', 'short_description' => 'Jasa pembangunan bangunan dari fondasi hingga selesai oleh tim berpengalaman.', 'sort_order' => 4],
             ['name' => 'Renovasi',               'slug' => 'renovasi',              'category' => 'konstruksi', 'icon' => 'fa-hammer',            'image' => 'https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?w=800&h=600&fit=crop&q=80', 'short_description' => 'Renovasi dan perbaikan bangunan untuk meningkatkan kenyamanan dan nilai properti.', 'sort_order' => 5],
             ['name' => 'Jasa Konstruksi',        'slug' => 'jasa-konstruksi',       'category' => 'konstruksi', 'icon' => 'fa-helmet-safety',     'image' => 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&h=600&fit=crop&q=80', 'short_description' => 'Layanan konstruksi umum untuk kebutuhan pembangunan Anda.', 'sort_order' => 6],
