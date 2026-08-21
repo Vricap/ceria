@@ -2,25 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Service;
+use App\Support\ServiceItem;
 use Illuminate\View\View;
 
 class ServiceController extends Controller
 {
     public function index(): View
     {
-        $services = Service::where('is_active', true)->orderBy('sort_order')->get()->groupBy('category');
+        $services = ServiceItem::all()->groupBy('category');
 
         return view('services.index', compact('services'));
     }
 
     public function show(string $slug): View
     {
-        $service  = Service::where('slug', $slug)->where('is_active', true)->firstOrFail();
-        $services = Service::where('is_active', true)
-            ->where('id', '!=', $service->id)
-            ->orderBy('sort_order')
-            ->get();
+        $service = ServiceItem::find($slug);
+
+        abort_if($service === null, 404);
+
+        $services = ServiceItem::all()
+            ->reject(fn (ServiceItem $item) => $item->slug === $slug)
+            ->values();
 
         $highlightCards = null;
 

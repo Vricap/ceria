@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Property;
 use App\Models\Category;
 use App\Models\City;
-use App\Models\Service;
 use App\Models\SiteSetting;
+use App\Support\ServiceItem;
 use Illuminate\View\View;
 
 class HomeController extends Controller
@@ -34,10 +34,7 @@ class HomeController extends Controller
             ->filter(fn ($city) => $city->properties_count > 0)
             ->values();
 
-        $services = Service::where('is_active', true)
-            ->orderBy('sort_order')
-            ->take(6)
-            ->get();
+        $services = ServiceItem::all()->take(6);
 
         $settings = SiteSetting::getAllAsArray();
 

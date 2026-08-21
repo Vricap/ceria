@@ -92,7 +92,7 @@
             </url>
     <url>
     <loc>http://localhost/properti/hotel-boutique-wonosari</loc>
-    <lastmod>2026-08-17T16:57:00+00:00</lastmod>
+    <lastmod>2026-08-18T09:27:08+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
             </url>
@@ -338,37 +338,31 @@
             </url>
     <url>
     <loc>http://localhost/layanan/pbg-imb</loc>
-    <lastmod>2026-08-18T09:20:24+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
             </url>
     <url>
     <loc>http://localhost/layanan/pengeringan</loc>
-    <lastmod>2026-08-18T09:20:24+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
             </url>
     <url>
     <loc>http://localhost/layanan/pecah-sertifikat</loc>
-    <lastmod>2026-08-18T09:20:24+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
             </url>
     <url>
     <loc>http://localhost/layanan/pembangunan</loc>
-    <lastmod>2026-08-17T16:57:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
             </url>
     <url>
     <loc>http://localhost/layanan/renovasi</loc>
-    <lastmod>2026-08-17T16:57:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
             </url>
     <url>
     <loc>http://localhost/layanan/jasa-konstruksi</loc>
-    <lastmod>2026-08-17T16:57:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
             </url>

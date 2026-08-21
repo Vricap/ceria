@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Property;
-use App\Models\Service;
+use App\Support\ServiceItem;
 use Illuminate\Console\Command;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
@@ -40,11 +40,9 @@ class GenerateSitemap extends Command
         }
 
         // Dynamic Pages - Services
-        $services = Service::where('is_active', true)->get();
-        foreach ($services as $service) {
+        foreach (ServiceItem::all() as $service) {
             $sitemap->add(
                 Url::create("/layanan/{$service->slug}")
-                    ->setLastModificationDate($service->updated_at)
                     ->setPriority(0.7)
                     ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)
             );
