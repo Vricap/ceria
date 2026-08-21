@@ -71,7 +71,8 @@ class SiteSeeder extends Seeder
                 'seo_title' => 'Jasa Pengurusan PBG / IMB Yogyakarta | DJM Property',
                 'seo_description' => 'DJM membantu pengurusan PBG dan IMB di Yogyakarta. Penyusunan gambar teknis, dokumen administrasi, hingga pendampingan pengajuan.',
                 'description' => <<<'HTML'
-<h2>Kendala yang Sering Dihadapi</h2>
+<!-- SVC_CARDS_START -->
+<h2 data-icon="fa-solid fa-triangle-exclamation" data-accent="kendala">Kendala yang Sering Dihadapi</h2>
 <p>Beberapa kendala yang umum dihadapi dalam pengurusan PBG antara lain:</p>
 <ul>
 <li>Bingung dengan persyaratan pengurusan PBG.</li>
@@ -84,66 +85,25 @@ class SiteSeeder extends Seeder
 </ul>
 <p><strong>DJM membantu Anda mempersiapkan kebutuhan tersebut secara lebih praktis dan terarah.</strong></p>
 
-<h2>Layanan yang Kami Bantu</h2>
-
-<h3>1. Penyusunan Gambar Arsitektur</h3>
-<p>Dokumen gambar yang menggambarkan kondisi dan rencana bangunan, seperti:</p>
+<h2 data-icon="fa-solid fa-clipboard-check" data-accent="persyaratan">Persyaratan IMB / PBG</h2>
+<p>Untuk mengurus IMB / PBG, bangunan Anda harus:</p>
 <ul>
-<li>Denah bangunan</li>
-<li>Site plan dan situasi</li>
-<li>Tampak bangunan</li>
-<li>Gambar potongan</li>
-<li>Rencana tata ruang</li>
+<li>Memiliki peruntukan lahan sesuai RTRW/RDTR.</li>
+<li>Memenuhi ketentuan KDB, KLB, dan Garis Sempadan.</li>
+<li>Tidak berada di kawasan konservasi atau jalur hijau.</li>
 </ul>
 
-<h3>2. Gambar Struktur</h3>
-<p>Membantu menyiapkan kebutuhan gambar teknis struktur bangunan, meliputi:</p>
-<ul>
-<li>Rencana pondasi</li>
-<li>Sloof, kolom, dan balok</li>
-<li>Plat lantai</li>
-<li>Rencana atap</li>
-<li>Detail struktur sesuai kebutuhan bangunan</li>
-</ul>
+<h2 data-icon="fa-solid fa-award" data-accent="manfaat">Manfaat Kepemilikan Surat IMB / PBG</h2>
+<p>Adapun beberapa manfaat dari IMB adalah sebagai berikut ini:</p>
+<ol>
+<li>Memastikan pembangunan berstatus legal. Pemerintah telah mewajibkan setiap orang yang akan, sedang atau pun telah membangun rumah, kantor dan bangunan lainnya untuk segera mengurus dokumen izin mendirikan bangunan.</li>
+<li>Terdata keberadaan rencana bangunan gedung. Rencana tata ruang membagi beberapa wilayah menjadi zona hijau (pertanian/resapan air), kuning (pemukiman), merah (komersil), dll.</li>
+<li>Sebagai syarat wajib bagi perijinan lainnya. Legalitas ini juga dibutuhkan jika properti Anda gunakan untuk kegiatan usaha, jual beli rumah, jaminan maupun kegiatan lain yang mensyaratkan bangunan sudah mendapatkan persetujuan IMB.</li>
+<li>Meningkatkan nilai jual dari suatu bangunan. Karena konsumen merasa aman dan nyaman tanpa harus mempertanyakan apakah bangunannya resmi/tidak, atau khawatir akan adanya penggusuran.</li>
+<li>Jaminan keamanan dan keselamatan. Memastikan penyelenggaraan bangunan gedung tersebut memenuhi standar yang menjamin keselamatan, kenyamanan, kesehatan dan kemudahan bagi penggunanya.</li>
+</ol>
 
-<h3>3. Gambar MEP / Utilitas</h3>
-<p>Dokumen teknis utilitas bangunan sesuai kebutuhan, seperti:</p>
-<ul>
-<li>Instalasi listrik</li>
-<li>Sanitasi dan jaringan air</li>
-<li>Sistem utilitas bangunan lainnya</li>
-</ul>
-
-<h3>4. Persiapan Dokumen Pendukung</h3>
-<p>Membantu mengidentifikasi dan mempersiapkan dokumen yang dibutuhkan sesuai kondisi bangunan dan persyaratan pengajuan.</p>
-
-<h3>5. Pendampingan Proses Pengurusan</h3>
-<p>DJM membantu mengarahkan proses administrasi dan pengajuan PBG serta membantu menangani kebutuhan revisi atau kelengkapan dokumen apabila diperlukan.</p>
-
-<h2>Alur Layanan</h2>
-<ul>
-<li><strong>Konsultasi Awal</strong> — Kami memahami kebutuhan, kondisi bangunan, lokasi, dan dokumen yang telah Anda miliki.</li>
-<li><strong>Pemeriksaan Dokumen</strong> — Dokumen dan informasi bangunan diperiksa untuk mengetahui kebutuhan yang masih harus dilengkapi.</li>
-<li><strong>Penyusunan Dokumen Teknis</strong> — Tim menyiapkan gambar dan dokumen teknis sesuai kebutuhan.</li>
-<li><strong>Proses Pengajuan</strong> — Dokumen dipersiapkan untuk proses pengajuan melalui sistem dan prosedur yang berlaku.</li>
-<li><strong>Verifikasi &amp; Revisi</strong> — Apabila terdapat kebutuhan perbaikan atau revisi, kami membantu mengarahkan proses penyelesaiannya.</li>
-<li><strong>Penyelesaian</strong> — Proses dilanjutkan hingga dokumen PBG selesai sesuai prosedur yang berlaku.</li>
-</ul>
-
-<h2>Dokumen yang Umumnya Dibutuhkan</h2>
-<p>Persyaratan dapat berbeda sesuai kondisi bangunan dan lokasi. Beberapa dokumen yang umumnya perlu dipersiapkan antara lain:</p>
-<ul>
-<li>KTP pemilik bangunan</li>
-<li>Dokumen kepemilikan tanah</li>
-<li>Dokumen terkait PBB</li>
-<li>Surat kuasa apabila proses dikuasakan</li>
-<li>Data dan informasi bangunan</li>
-<li>Gambar arsitektur, struktur, dan MEP/utilitas</li>
-<li>Dokumen teknis pendukung lainnya sesuai kebutuhan</li>
-</ul>
-<p><strong>Belum lengkap? Tidak perlu bingung. Konsultasikan kondisi bangunan Anda kepada kami terlebih dahulu.</strong></p>
-
-<h2>Kenapa Menggunakan Jasa DJM?</h2>
+<h2 data-icon="fa-solid fa-handshake" data-accent="djm">Kenapa Menggunakan Jasa DJM?</h2>
 <ul>
 <li>Konsultasi kebutuhan sebelum proses dimulai.</li>
 <li>Membantu mempersiapkan dokumen teknis.</li>
@@ -152,6 +112,37 @@ class SiteSeeder extends Seeder
 <li>Cocok untuk pemilik rumah, bangunan usaha, maupun properti lainnya.</li>
 <li>Pendampingan disesuaikan dengan kondisi dan kebutuhan bangunan.</li>
 </ul>
+<!-- SVC_CARDS_END -->
+
+<!-- SVC_ALUR_START -->
+<h2>Alur Layanan</h2>
+<ul>
+<li class="svc-alur-item"><span class="svc-alur-num"></span><div class="svc-alur-content"><strong>Konsultasi &amp; Analisis Awal</strong> — Konsultasikan bangunan Anda. Kami cek kelayakan lahan &amp; dokumen. Kami pastikan lahan Anda sesuai peruntukan &amp; zona tata ruang.</div></li>
+<li class="svc-alur-item"><span class="svc-alur-num"></span><div class="svc-alur-content"><strong>Penyusunan Gambar &amp; Dokumen Teknis</strong> — Tim arsitek &amp; struktur kami siapkan semua berkas sesuai standar dinas. Mulai dari site plan, denah, tampak, potongan, hingga rencana teknis lainnya (termasuk dokumen perhitungan struktur).</div></li>
+<li class="svc-alur-item"><span class="svc-alur-num"></span><div class="svc-alur-content"><strong>Pengurusan Lewat OSS/SIMBG</strong> — Kami daftarkan permohonan Anda dan lakukan komunikasi aktif, hingga diverifikasi oleh dinas terkait.</div></li>
+<li class="svc-alur-item"><span class="svc-alur-num"></span><div class="svc-alur-content"><strong>Verifikasi Dinas &amp; Revisi Jika Diperlukan</strong> — Kami bantu komunikasi dengan Dinas Cipta Karya/PUPR dan update progres Anda. Jika ada catatan dari dinas, kami bantu revisi &amp; klarifikasi sampai lolos.</div></li>
+<li class="svc-alur-item"><span class="svc-alur-num"></span><div class="svc-alur-content"><strong>Pembayaran Retribusi</strong> — Pembayaran retribusi resmi berdasarkan SKRD (Surat Ketetapan Retribusi Daerah) yang diterbitkan dinas terkait. SKRD PBG sebagai dasar pembayaran resmi untuk layanan penerbitan PBG.</div></li>
+<li class="svc-alur-item"><span class="svc-alur-num"></span><div class="svc-alur-content"><strong>Penerbitan PBG Resmi</strong> — Setelah pembayaran retribusi resmi melalui SKRD, PBG disetujui dan Anda akan menerima berkas IMB/PBG resmi.</div></li>
+</ul>
+<!-- SVC_ALUR_END -->
+
+<!-- SVC_DOKUMEN_START -->
+<h2>Dokumen yang Umumnya Dibutuhkan</h2>
+<p>Persyaratan dapat berbeda sesuai kondisi bangunan dan lokasi. Beberapa dokumen yang umumnya perlu dipersiapkan antara lain:</p>
+<ul>
+<li class="svc-dok-item"><span class="svc-dok-icon"><i class="fa-solid fa-id-card"></i></span><span class="svc-dok-text">KTP Pemilik Bangunan</span></li>
+<li class="svc-dok-item"><span class="svc-dok-icon"><i class="fa-solid fa-file-contract"></i></span><span class="svc-dok-text">Sertifikat Tanah SHM / HGB</span></li>
+<li class="svc-dok-item"><span class="svc-dok-icon"><i class="fa-solid fa-file-signature"></i></span><span class="svc-dok-text">Surat Kuasa (jika dikuasakan)</span></li>
+<li class="svc-dok-item"><span class="svc-dok-icon"><i class="fa-solid fa-file-invoice-dollar"></i></span><span class="svc-dok-text">SPPT PBB Tahun Terakhir</span></li>
+<li class="svc-dok-item"><span class="svc-dok-icon"><i class="fa-solid fa-people-roof"></i></span><span class="svc-dok-text">Surat Persetujuan Tetangga (jika diperlukan)</span></li>
+<li class="svc-dok-item"><span class="svc-dok-icon"><i class="fa-solid fa-laptop-file"></i></span><span class="svc-dok-text">Formulir OSS / SIMBG yang telah diisi</span></li>
+<li class="svc-dok-item"><span class="svc-dok-icon"><i class="fa-solid fa-drafting-compass"></i></span><span class="svc-dok-text">Gambar Rencana Arsitektur, Struktur, MEP</span></li>
+<li class="svc-dok-item"><span class="svc-dok-icon"><i class="fa-solid fa-building"></i></span><span class="svc-dok-text">Dokumen Perhitungan Struktur (bertingkat)</span></li>
+<li class="svc-dok-item"><span class="svc-dok-icon"><i class="fa-solid fa-mountain"></i></span><span class="svc-dok-text">Data Hasil Uji Sondir Tanah (3 lantai ke atas)</span></li>
+<li class="svc-dok-item"><span class="svc-dok-icon"><i class="fa-solid fa-file-circle-check"></i></span><span class="svc-dok-text">Dokumen Teknis Lain Untuk Bangunan/Lokasi Khusus</span></li>
+</ul>
+<p><strong>Belum lengkap? Tidak perlu bingung. Konsultasikan kondisi bangunan Anda kepada kami terlebih dahulu.</strong></p>
+<!-- SVC_DOKUMEN_END -->
 HTML,
                 'sort_order' => 1,
             ],
@@ -191,25 +182,29 @@ HTML,
 <h3>Pendampingan Proses</h3>
 <p>Memberikan arahan dan pendampingan dalam proses administrasi sesuai kebutuhan dan kewenangan instansi terkait.</p>
 
+<!-- SVC_ALUR_START -->
 <h2>Alur Layanan</h2>
 <ul>
-<li><strong>Konsultasi</strong> — Sampaikan kondisi dan tujuan penggunaan lahan Anda.</li>
-<li><strong>Pemeriksaan Dokumen</strong> — Dokumen dan informasi lahan diperiksa untuk mengetahui kebutuhan proses.</li>
-<li><strong>Persiapan Administrasi</strong> — Dokumen yang diperlukan dipersiapkan sesuai kondisi lahan.</li>
-<li><strong>Proses Pengurusan</strong> — Proses administrasi dilakukan sesuai prosedur yang berlaku.</li>
-<li><strong>Penyelesaian</strong> — DJM membantu memantau proses hingga tahapan layanan selesai.</li>
+<li class="svc-alur-item"><span class="svc-alur-num"></span><div class="svc-alur-content"><strong>Konsultasi</strong> — Sampaikan kondisi dan tujuan penggunaan lahan Anda.</div></li>
+<li class="svc-alur-item"><span class="svc-alur-num"></span><div class="svc-alur-content"><strong>Pemeriksaan Dokumen</strong> — Dokumen dan informasi lahan diperiksa untuk mengetahui kebutuhan proses.</div></li>
+<li class="svc-alur-item"><span class="svc-alur-num"></span><div class="svc-alur-content"><strong>Persiapan Administrasi</strong> — Dokumen yang diperlukan dipersiapkan sesuai kondisi lahan.</div></li>
+<li class="svc-alur-item"><span class="svc-alur-num"></span><div class="svc-alur-content"><strong>Proses Pengurusan</strong> — Proses administrasi dilakukan sesuai prosedur yang berlaku.</div></li>
+<li class="svc-alur-item"><span class="svc-alur-num"></span><div class="svc-alur-content"><strong>Penyelesaian</strong> — DJM membantu memantau proses hingga tahapan layanan selesai.</div></li>
 </ul>
+<!-- SVC_ALUR_END -->
 
+<!-- SVC_DOKUMEN_START -->
 <h2>Dokumen yang Perlu Dipersiapkan</h2>
 <p>Dokumen dapat berbeda tergantung kondisi dan lokasi tanah. Dokumen yang mungkin diperlukan antara lain:</p>
 <ul>
-<li>Identitas pemilik</li>
-<li>Sertifikat atau dokumen kepemilikan tanah</li>
-<li>Dokumen PBB</li>
-<li>Data lokasi dan luas tanah</li>
-<li>Dokumen pendukung lainnya sesuai kebutuhan</li>
+<li class="svc-dok-item"><span class="svc-dok-icon"><i class="fa-solid fa-id-card"></i></span><span class="svc-dok-text">Identitas pemilik</span></li>
+<li class="svc-dok-item"><span class="svc-dok-icon"><i class="fa-solid fa-file-contract"></i></span><span class="svc-dok-text">Sertifikat atau dokumen kepemilikan tanah</span></li>
+<li class="svc-dok-item"><span class="svc-dok-icon"><i class="fa-solid fa-file-invoice-dollar"></i></span><span class="svc-dok-text">Dokumen PBB</span></li>
+<li class="svc-dok-item"><span class="svc-dok-icon"><i class="fa-solid fa-map-location-dot"></i></span><span class="svc-dok-text">Data lokasi dan luas tanah</span></li>
+<li class="svc-dok-item"><span class="svc-dok-icon"><i class="fa-solid fa-file-circle-check"></i></span><span class="svc-dok-text">Dokumen pendukung lainnya sesuai kebutuhan</span></li>
 </ul>
 <p><strong>Belum tahu apakah tanah Anda dapat diproses? Konsultasikan terlebih dahulu dengan DJM.</strong></p>
+<!-- SVC_DOKUMEN_END -->
 HTML,
                 'sort_order' => 2,
             ],
@@ -252,27 +247,31 @@ HTML,
 <h3>Pengukuran dan Penataan Bidang</h3>
 <p>Apabila diperlukan, proses pengukuran dan penataan bidang disesuaikan dengan kebutuhan serta ketentuan yang berlaku.</p>
 
+<!-- SVC_ALUR_START -->
 <h2>Alur Layanan</h2>
 <ul>
-<li><strong>Konsultasi</strong> — Jelaskan kebutuhan pemecahan sertifikat dan kondisi tanah Anda.</li>
-<li><strong>Pemeriksaan Sertifikat</strong> — Kami membantu mengecek dokumen dan informasi bidang tanah.</li>
-<li><strong>Persiapan Dokumen</strong> — Dokumen administrasi dan data pendukung dipersiapkan.</li>
-<li><strong>Pengukuran / Proses Teknis</strong> — Apabila diperlukan, dilakukan proses teknis sesuai ketentuan.</li>
-<li><strong>Pengurusan Administrasi</strong> — Proses dilanjutkan sesuai prosedur dan instansi yang berwenang.</li>
-<li><strong>Penyelesaian</strong> — Proses pemecahan dilanjutkan hingga tahapan penyelesaian sesuai ketentuan.</li>
+<li class="svc-alur-item"><span class="svc-alur-num"></span><div class="svc-alur-content"><strong>Konsultasi</strong> — Jelaskan kebutuhan pemecahan sertifikat dan kondisi tanah Anda.</div></li>
+<li class="svc-alur-item"><span class="svc-alur-num"></span><div class="svc-alur-content"><strong>Pemeriksaan Sertifikat</strong> — Kami membantu mengecek dokumen dan informasi bidang tanah.</div></li>
+<li class="svc-alur-item"><span class="svc-alur-num"></span><div class="svc-alur-content"><strong>Persiapan Dokumen</strong> — Dokumen administrasi dan data pendukung dipersiapkan.</div></li>
+<li class="svc-alur-item"><span class="svc-alur-num"></span><div class="svc-alur-content"><strong>Pengukuran / Proses Teknis</strong> — Apabila diperlukan, dilakukan proses teknis sesuai ketentuan.</div></li>
+<li class="svc-alur-item"><span class="svc-alur-num"></span><div class="svc-alur-content"><strong>Pengurusan Administrasi</strong> — Proses dilanjutkan sesuai prosedur dan instansi yang berwenang.</div></li>
+<li class="svc-alur-item"><span class="svc-alur-num"></span><div class="svc-alur-content"><strong>Penyelesaian</strong> — Proses pemecahan dilanjutkan hingga tahapan penyelesaian sesuai ketentuan.</div></li>
 </ul>
+<!-- SVC_ALUR_END -->
 
+<!-- SVC_DOKUMEN_START -->
 <h2>Dokumen yang Umumnya Dibutuhkan</h2>
 <p>Persyaratan dapat berbeda sesuai kondisi tanah. Beberapa dokumen yang umumnya diperlukan antara lain:</p>
 <ul>
-<li>KTP pemilik</li>
-<li>Sertifikat tanah</li>
-<li>SPPT PBB</li>
-<li>Dokumen pendukung kepemilikan</li>
-<li>Surat kuasa apabila dikuasakan</li>
-<li>Dokumen atau data pendukung lainnya sesuai kebutuhan</li>
+<li class="svc-dok-item"><span class="svc-dok-icon"><i class="fa-solid fa-id-card"></i></span><span class="svc-dok-text">KTP pemilik</span></li>
+<li class="svc-dok-item"><span class="svc-dok-icon"><i class="fa-solid fa-file-contract"></i></span><span class="svc-dok-text">Sertifikat tanah</span></li>
+<li class="svc-dok-item"><span class="svc-dok-icon"><i class="fa-solid fa-file-invoice-dollar"></i></span><span class="svc-dok-text">SPPT PBB</span></li>
+<li class="svc-dok-item"><span class="svc-dok-icon"><i class="fa-solid fa-folder-open"></i></span><span class="svc-dok-text">Dokumen pendukung kepemilikan</span></li>
+<li class="svc-dok-item"><span class="svc-dok-icon"><i class="fa-solid fa-file-signature"></i></span><span class="svc-dok-text">Surat kuasa apabila dikuasakan</span></li>
+<li class="svc-dok-item"><span class="svc-dok-icon"><i class="fa-solid fa-file-circle-check"></i></span><span class="svc-dok-text">Dokumen atau data pendukung lainnya sesuai kebutuhan</span></li>
 </ul>
 <p><strong>Tidak yakin sertifikat Anda bisa dipecah? Sampaikan kondisi tanah dan kebutuhan Anda kepada DJM. Kami membantu menjelaskan tahapan dan dokumen yang perlu dipersiapkan.</strong></p>
+<!-- SVC_DOKUMEN_END -->
 HTML,
                 'sort_order' => 3,
             ],

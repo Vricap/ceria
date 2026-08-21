@@ -35,28 +35,155 @@
 @endsection
 
 @php
-    $contactWhatsapp = \App\Models\SiteSetting::get('contact_whatsapp', '+62 812 3456 7890');
-    $waNumber = preg_replace('/[^0-9]/', '', $contactWhatsapp);
+    $contactWhatsatsapp = \App\Models\SiteSetting::get('contact_whatsapp', '+62 812 3456 7890');
+    $waNumber = preg_replace('/[^0-9]/', '', $contactWhatsatsapp);
     $waMessage = 'Halo DJM, saya ingin berkonsultasi mengenai layanan ' . $service->name . '.';
 @endphp
 
 @push('scripts')
 <style>
     /* ═══════════════════════════════════════════════
-       HERO — page-header style (match Tentang Kami)
+       HERO
        ═══════════════════════════════════════════════ */
-    .svc-hero {
-        text-align: center;
+    .svc-hero { text-align: center; }
+
+    /* ═══════════════════════════════════════════════
+       TAB SECTION — 2 Column Layout
+       ═══════════════════════════════════════════════ */
+    .pbg-tab-section {
+        padding: 0 0 70px;
+    }
+
+    .pbg-tab-panel {
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        border: 1px solid var(--color-border);
+        border-radius: var(--border-radius-lg);
+        overflow: hidden;
+        background: white;
+        box-shadow: var(--shadow-sm);
+        min-height: 480px;
+    }
+
+    /* ── Left Column: Tab Menu ── */
+    .pbg-tab-nav {
+        background: var(--color-champagne);
+        padding: 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        border-right: 1px solid var(--color-border);
+    }
+
+    .pbg-tab-btn {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        width: 100%;
+        padding: 18px 20px;
+        border: none;
+        background: transparent;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        text-align: left;
+        transition: all 0.2s ease;
+        font-family: inherit;
+    }
+
+    .pbg-tab-btn-icon {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        color: var(--color-bronze);
+        background: rgba(255,255,255,0.6);
+        transition: all 0.2s ease;
+    }
+
+    .pbg-tab-btn-text {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: var(--color-text-muted);
+        line-height: 1.3;
+        transition: color 0.2s ease;
+    }
+
+    .pbg-tab-btn:hover {
+        background: rgba(255,255,255,0.7);
+    }
+
+    .pbg-tab-btn:hover .pbg-tab-btn-text {
+        color: var(--color-text-main);
+    }
+
+    .pbg-tab-btn.active {
+        background: white;
+        box-shadow: var(--shadow-sm);
+    }
+
+    .pbg-tab-btn.active .pbg-tab-btn-icon {
+        background: var(--color-gilded);
+        color: var(--color-noir);
+    }
+
+    .pbg-tab-btn.active .pbg-tab-btn-text {
+        color: var(--color-text-main);
+        font-weight: 700;
+    }
+
+    /* ── Right Column: Content ── */
+    .pbg-tab-content-area {
+        padding: 40px 44px;
+    }
+
+    .pbg-tab-title {
+        font-size: 1.45rem;
+        font-weight: 700;
+        color: var(--color-text-main);
+        margin-bottom: 28px;
+        padding-bottom: 16px;
+        border-bottom: 2px solid var(--color-champagne);
+    }
+
+    .pbg-tab-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .pbg-tab-list li {
+        position: relative;
+        padding: 12px 0 12px 30px;
+        font-size: 1rem;
+        color: var(--color-text-muted);
+        line-height: 1.6;
+        border-bottom: 1px solid rgba(234, 223, 203, 0.5);
+    }
+
+    .pbg-tab-list li:last-child {
+        border-bottom: none;
+    }
+
+    .pbg-tab-list li::before {
+        content: "\f058";
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        color: var(--color-accent);
+        position: absolute;
+        left: 0;
+        top: 14px;
+        font-size: 0.82rem;
     }
 
     /* ═══════════════════════════════════════════════
-       SECTION UTAMA (di dalam container)
+       REST OF SECTIONS (unchanged)
        ═══════════════════════════════════════════════ */
-    .svc-main {
-        padding: 70px 0 0;
-    }
+    .svc-main { padding: 0 0 0; }
 
-    /* ── Highlight Strip ── */
     .svc-hl-custom {
         display: grid;
         gap: 24px;
@@ -138,22 +265,7 @@
         gap: 12px;
     }
 
-    .svc-rich h2:first-child {
-        margin-top: 0;
-    }
-
-    .svc-rich h2 .svc-h2-icon {
-        width: 38px;
-        height: 38px;
-        min-width: 38px;
-        background: var(--color-champagne);
-        color: var(--color-bronze);
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 0.95rem;
-    }
+    .svc-rich h2:first-child { margin-top: 0; }
 
     .svc-rich h3 {
         font-size: 1.15rem;
@@ -186,9 +298,7 @@
         border-bottom: 1px solid rgba(234, 223, 203, 0.4);
     }
 
-    .svc-rich ul li:last-child {
-        border-bottom: none;
-    }
+    .svc-rich ul li:last-child { border-bottom: none; }
 
     .svc-rich ul li::before {
         content: "\f058";
@@ -454,7 +564,6 @@
         transform: translateY(-6px);
     }
 
-    /* Accent header zone */
     .svc-card-header {
         padding: 28px 28px 20px;
         position: relative;
@@ -593,12 +702,7 @@
         color: var(--color-bronze);
     }
 
-    /* ═══════════════════════════════════════════════
-       CTA WHATSAPP — match homepage style
-       ═══════════════════════════════════════════════ */
-    .svc-cta-section {
-        padding: 0 0 80px;
-    }
+    .svc-cta-section { padding: 0 0 80px; }
 
     .svc-cta-card {
         background: linear-gradient(135deg, var(--color-noir) 0%, var(--color-espresso) 100%);
@@ -678,12 +782,8 @@
         box-shadow: 0 12px 30px rgba(212, 165, 105, 0.55);
     }
 
-    /* ═══════════════════════════════════════════════
-       LAYANAN LAINNYA
-       ═══════════════════════════════════════════════ */
-    .svc-other-section {
-        padding: 0 0 80px;
-    }
+    /* Layanan Lainnya */
+    .svc-other-section { padding: 0 0 80px; }
 
     .svc-other-card {
         background: white;
@@ -743,13 +843,76 @@
        RESPONSIVE
        ═══════════════════════════════════════════════ */
     @media (max-width: 991px) {
+        .pbg-tab-panel {
+            grid-template-columns: 1fr;
+            min-height: auto;
+        }
+
+        .pbg-tab-nav {
+            flex-direction: row;
+            border-right: none;
+            border-bottom: 1px solid var(--color-border);
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 6px;
+        }
+
+        .pbg-tab-btn {
+            padding: 14px 16px;
+            min-width: max-content;
+            flex-direction: column;
+            gap: 8px;
+            text-align: center;
+        }
+
+        .pbg-tab-btn-text {
+            font-size: 0.82rem;
+            white-space: nowrap;
+        }
+
+        .pbg-tab-content-area {
+            padding: 32px 28px;
+        }
+
         .svc-highlights-strip { grid-template-columns: 1fr; gap: 16px; }
         .svc-hl-card { padding: 22px 20px; }
         .svc-dual-section { gap: 32px; }
     }
 
     @media (max-width: 767px) {
-        .svc-main { padding: 50px 0 0; }
+        .pbg-tab-nav {
+            gap: 3px;
+            padding: 4px;
+        }
+
+        .pbg-tab-btn {
+            padding: 12px 10px;
+        }
+
+        .pbg-tab-btn-icon {
+            width: 34px;
+            height: 34px;
+            min-width: 34px;
+            font-size: 0.85rem;
+        }
+
+        .pbg-tab-btn-text {
+            font-size: 0.75rem;
+        }
+
+        .pbg-tab-content-area {
+            padding: 24px 18px;
+        }
+
+        .pbg-tab-title {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .pbg-tab-list li {
+            font-size: 0.92rem;
+            padding: 10px 0 10px 26px;
+        }
 
         .svc-rich { margin-bottom: 50px; }
         .svc-rich h2 { font-size: 1.35rem; margin: 40px 0 16px; }
@@ -779,14 +942,16 @@
         .svc-card-icon-wrap { width: 48px; height: 48px; border-radius: 14px; font-size: 1rem; margin-bottom: 14px; }
         .svc-card-header h2 { font-size: 1.05rem; }
 
-        .svc-cta-card {
-            padding: 45px 24px;
-        }
+        .svc-cta-card { padding: 45px 24px; }
         .svc-cta-card h2 { font-size: 1.7rem; }
         .svc-cta-card .btn-whatsapp { padding: 14px 30px; font-size: 1rem; }
     }
 
     @media (max-width: 480px) {
+        .pbg-tab-content-area {
+            padding: 20px 14px;
+        }
+
         .svc-cta-card h2 { font-size: 1.45rem; }
     }
 </style>
@@ -803,24 +968,18 @@
         </div>
     </div>
 
-    {{-- ══════════ MAIN CONTENT ══════════ --}}
+    {{-- ══════════ HIGHLIGHTS ══════════ --}}
     <div class="svc-main">
         <div class="container">
-
-            {{-- Highlight Strip --}}
-            @if(!empty($highlightCards))
             <div class="svc-hl-custom" data-scroll>
-                @foreach($highlightCards as $card)
-                <div class="svc-hl-card" style="grid-column: 1 / -1;">
-                    <div class="svc-hl-icon"><i class="fa-solid {{ $card['icon'] }}"></i></div>
+                <div class="svc-hl-card">
+                    <div class="svc-hl-icon"><i class="fa-solid fa-file-signature"></i></div>
                     <div class="svc-hl-text">
-                        <h3>{{ $card['title'] }}</h3>
-                        <p>{{ $card['text'] }}</p>
+                        <h3>Apa itu PBG/IMB?</h3>
+                        <p>Kami menyediakan jasa pengurusan perizinan mendirikan bangunan seperti IMB/PBG (SIMBG) untuk memenuhi aspek aspek perizinan sesuai ketentuan yang berlaku. Dengan Tim yang profesional mempersiapkan, mengajukan dan memonitor berkas perizinan anda serta melengkapi kekurangan pada pengajuannya dan menyelesaikan seluruh perizinan yang diajukan.</p>
                     </div>
                 </div>
-                @endforeach
             </div>
-            @endif
             <div class="svc-highlights-strip" data-scroll>
                 <div class="svc-hl-card">
                     <div class="svc-hl-icon"><i class="fa-solid fa-comments"></i></div>
@@ -844,88 +1003,147 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
 
-            {{-- Rich Content --}}
-            @if($service->description)
+    {{-- ══════════ TAB SECTION: Layanan yang Kami Bantu ══════════ --}}
+    <div class="pbg-tab-section">
+        <div class="container">
+            <div style="text-align: center; max-width: 600px; margin: 0 auto 40px;" data-scroll>
+                <h2 class="section-title" style="font-size: 2rem; margin-bottom: 10px;">Layanan yang Kami Bantu</h2>
+                <p style="color: var(--color-text-muted); font-size: 1.05rem;">
+                    Pilih kategori gambar untuk melihat detail layanan
+                </p>
+            </div>
+
+            <div class="pbg-tab-panel" data-scroll>
+                {{-- Left Column: Tab Navigation --}}
+                <nav class="pbg-tab-nav" role="tablist" aria-label="Kategori Gambar">
+                    @foreach($gambarSections as $index => $section)
+                    <button
+                        class="pbg-tab-btn {{ $index === 0 ? 'active' : '' }}"
+                        role="tab"
+                        aria-selected="{{ $index === 0 ? 'true' : 'false' }}"
+                        aria-controls="pbg-tab-{{ $index }}"
+                        data-tab="{{ $index }}"
+                        type="button"
+                    >
+                        <span class="pbg-tab-btn-icon">
+                            @if($index === 0)<i class="fa-solid fa-file-lines"></i>
+                            @elseif($index === 1)<i class="fa-solid fa-ruler-combined"></i>
+                            @elseif($index === 2)<i class="fa-solid fa-building"></i>
+                            @else<i class="fa-solid fa-bolt"></i>
+                            @endif
+                        </span>
+                        <span class="pbg-tab-btn-text">{{ $section['title'] }}</span>
+                    </button>
+                    @endforeach
+                </nav>
+
+                {{-- Right Column: Tab Content --}}
+                <div class="pbg-tab-content-area">
+                    @foreach($gambarSections as $index => $section)
+                    <div
+                        id="pbg-tab-{{ $index }}"
+                        class="pbg-tab-panel-content"
+                        role="tabpanel"
+                        {{ $index !== 0 ? 'hidden' : '' }}
+                    >
+                        <h3 class="pbg-tab-title">{{ $section['title'] }}</h3>
+                        <ul class="pbg-tab-list">
+                            @foreach($section['items'] as $item)
+                            <li>{!! $item !!}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- ══════════ RICH CONTENT (Alur, Dokumen, dll) ══════════ --}}
+    @if($service->description)
+    @php
+        $desc = $service->description;
+        $alurHtml = null;
+        $dokumenHtml = null;
+        $cardsHtml = null;
+
+        if (preg_match('/<!-- SVC_ALUR_START -->([\s\S]*?)<!-- SVC_ALUR_END -->/', $desc, $am)) {
+            $alurHtml = preg_replace('/<ul>/', '<ul class="svc-alur-list">', trim($am[1]));
+        }
+        if (preg_match('/<!-- SVC_DOKUMEN_START -->([\s\S]*?)<!-- SVC_DOKUMEN_END -->/', $desc, $dm)) {
+            $dokumenHtml = preg_replace('/<ul>/', '<ul class="svc-dok-list">', trim($dm[1]));
+        }
+        if (preg_match('/<!-- SVC_CARDS_START -->([\s\S]*?)<!-- SVC_CARDS_END -->/', $desc, $cm)) {
+            $cardsRaw = trim($cm[1]);
+            $cardSections = preg_split('/(?=<h2)/', $cardsRaw);
+            $cardSections = array_filter(array_map('trim', $cardSections));
+            $cardsHtml = '<div class="svc-cards-grid">';
+            foreach ($cardSections as $card) {
+                $accent = '';
+                $iconClass = 'fa-solid fa-circle-info';
+                if (preg_match('/<h2\s+data-icon="([^"]+)"\s+data-accent="([^"]+)">/', $card, $m)) {
+                    $iconClass = $m[1];
+                    $accent = $m[2];
+                } elseif (preg_match('/<h2\s+data-icon="([^"]+)">/', $card, $m)) {
+                    $iconClass = $m[1];
+                }
+                $accentAttr = $accent ? ' data-accent="' . $accent . '"' : '';
+                $cleanCard = preg_replace('/<h2[^>]*>/', '<h2>', $card, 1);
+                $cleanCard = preg_replace('/<h2>/', '<h2><span class="svc-card-icon"><i class="' . $iconClass . '"></i></span>', $cleanCard, 1);
+                if (preg_match('/(<h2>[\s\S]*?<\/h2>)([\s\S]*)/', $cleanCard, $parts)) {
+                    $headerHtml = '<div class="svc-card-header">' . $parts[1] . '</div>';
+                    $bodyContent = trim($parts[2]);
+                    $bodyHtml = '<div class="svc-card-body">' . $bodyContent . '</div>';
+                    $cleanCard = $headerHtml . $bodyHtml;
+                }
+                $cardsHtml .= '<div class="svc-card"' . $accentAttr . '>' . $cleanCard . '</div>';
+            }
+            $cardsHtml .= '</div>';
+        }
+    @endphp
+
+    <div class="svc-main">
+        <div class="container">
+            @if($alurHtml && $dokumenHtml)
                 @php
-                    $desc = $service->description;
-                    $alurHtml = null;
-                    $dokumenHtml = null;
-                    $cardsHtml = null;
-
-                    if (preg_match('/<!-- SVC_ALUR_START -->([\s\S]*?)<!-- SVC_ALUR_END -->/', $desc, $am)) {
-                        $alurHtml = preg_replace('/<ul>/', '<ul class="svc-alur-list">', trim($am[1]));
-                    }
-                    if (preg_match('/<!-- SVC_DOKUMEN_START -->([\s\S]*?)<!-- SVC_DOKUMEN_END -->/', $desc, $dm)) {
-                        $dokumenHtml = preg_replace('/<ul>/', '<ul class="svc-dok-list">', trim($dm[1]));
-                    }
-                    if (preg_match('/<!-- SVC_CARDS_START -->([\s\S]*?)<!-- SVC_CARDS_END -->/', $desc, $cm)) {
-                        $cardsRaw = trim($cm[1]);
-                        $cardSections = preg_split('/(?=<h2)/', $cardsRaw);
-                        $cardSections = array_filter(array_map('trim', $cardSections));
-                        $cardsHtml = '<div class="svc-cards-grid">';
-                        foreach ($cardSections as $card) {
-                            $accent = '';
-                            $iconClass = 'fa-solid fa-circle-info';
-                            if (preg_match('/<h2\s+data-icon="([^"]+)"\s+data-accent="([^"]+)">/', $card, $m)) {
-                                $iconClass = $m[1];
-                                $accent = $m[2];
-                            } elseif (preg_match('/<h2\s+data-icon="([^"]+)">/', $card, $m)) {
-                                $iconClass = $m[1];
-                            }
-                            $accentAttr = $accent ? ' data-accent="' . $accent . '"' : '';
-                            $cleanCard = preg_replace('/<h2[^>]*>/', '<h2>', $card, 1);
-                            $cleanCard = preg_replace('/<h2>/', '<h2><span class="svc-card-icon"><i class="' . $iconClass . '"></i></span>', $cleanCard, 1);
-                            if (preg_match('/(<h2>[\s\S]*?<\/h2>)([\s\S]*)/', $cleanCard, $parts)) {
-                                $headerHtml = '<div class="svc-card-header">' . $parts[1] . '</div>';
-                                $bodyContent = trim($parts[2]);
-                                $bodyHtml = '<div class="svc-card-body">' . $bodyContent . '</div>';
-                                $cleanCard = $headerHtml . $bodyHtml;
-                            }
-                            $cardsHtml .= '<div class="svc-card"' . $accentAttr . '>' . $cleanCard . '</div>';
-                        }
-                        $cardsHtml .= '</div>';
-                    }
+                    $remaining = $desc;
+                    $remaining = preg_replace('/<!-- SVC_CARDS_START -->[\s\S]*?<!-- SVC_CARDS_END -->/', '', $remaining);
+                    $remaining = preg_replace('/<!-- SVC_ALUR_START -->[\s\S]*?<!-- SVC_ALUR_END -->/', '', $remaining);
+                    $remaining = preg_replace('/<!-- SVC_DOKUMEN_START -->[\s\S]*?<!-- SVC_DOKUMEN_END -->/', '', $remaining);
+                    $remaining = trim($remaining);
                 @endphp
 
-                @if($alurHtml && $dokumenHtml)
-                    @php
-                        $remaining = $desc;
-                        $remaining = preg_replace('/<!-- SVC_CARDS_START -->[\s\S]*?<!-- SVC_CARDS_END -->/', '', $remaining);
-                        $remaining = preg_replace('/<!-- SVC_ALUR_START -->[\s\S]*?<!-- SVC_ALUR_END -->/', '', $remaining);
-                        $remaining = preg_replace('/<!-- SVC_DOKUMEN_START -->[\s\S]*?<!-- SVC_DOKUMEN_END -->/', '', $remaining);
-                        $remaining = trim($remaining);
-                    @endphp
-
-                    @if($cardsHtml)
-                    <div class="svc-dual-section" data-scroll>
-                        <div class="svc-dual-alur">
-                            <span class="svc-dual-label">Alur Layanan</span>
-                            {!! $alurHtml !!}
-                        </div>
-                        <div class="svc-dual-dokumen">
-                            <span class="svc-dual-label">Dokumen yang Dibutuhkan</span>
-                            {!! $dokumenHtml !!}
-                        </div>
+                @if($cardsHtml)
+                <div class="svc-dual-section" data-scroll>
+                    <div class="svc-dual-alur">
+                        <span class="svc-dual-label">Alur Layanan</span>
+                        {!! $alurHtml !!}
                     </div>
-
-                        {!! $cardsHtml !!}
-                    @endif
-
-                    @if($remaining)
-                    <div id="detail-layanan" class="svc-rich" data-scroll>
-                        {!! $remaining !!}
+                    <div class="svc-dual-dokumen">
+                        <span class="svc-dual-label">Dokumen yang Dibutuhkan</span>
+                        {!! $dokumenHtml !!}
                     </div>
-                    @endif
-                @else
+                </div>
+
+                    {!! $cardsHtml !!}
+                @endif
+
+                @if($remaining)
+                <div id="detail-layanan" class="svc-rich" data-scroll>
+                    {!! $remaining !!}
+                </div>
+                @endif
+            @else
                 <div id="detail-layanan" class="svc-rich" data-scroll>
                     {!! $desc !!}
                 </div>
-                @endif
             @endif
-
         </div>
     </div>
+    @endif
 
     {{-- ══════════ CTA ══════════ --}}
     <div class="svc-cta-section">
@@ -963,3 +1181,30 @@
     </div>
     @endif
 @endsection
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const tabBtns = document.querySelectorAll('.pbg-tab-btn');
+    const tabPanels = document.querySelectorAll('.pbg-tab-panel-content');
+
+    tabBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var target = this.getAttribute('data-tab');
+
+            tabBtns.forEach(function(b) {
+                b.classList.remove('active');
+                b.setAttribute('aria-selected', 'false');
+            });
+            this.classList.add('active');
+            this.setAttribute('aria-selected', 'true');
+
+            tabPanels.forEach(function(panel) {
+                panel.setAttribute('hidden', '');
+            });
+            document.getElementById('pbg-tab-' + target).removeAttribute('hidden');
+        });
+    });
+});
+</script>
+@endpush
