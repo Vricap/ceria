@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Inquiry;
-use App\Models\SiteSetting;
+use App\Support\Site;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -12,7 +12,7 @@ class ContactController extends Controller
 {
     public function index(): View
     {
-        $settings = SiteSetting::getAllAsArray();
+        $settings = Site::all();
         return view('contact.index', compact('settings'));
     }
 

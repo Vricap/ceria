@@ -20,7 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call([
             LocationSeeder::class,
             CategorySeeder::class,
-            SiteSeeder::class,
             PropertySeeder::class,
             DummyPropertySeeder::class,
         ]);

@@ -43,10 +43,10 @@
     </script>
 
     @php
-        $orgName = \App\Models\SiteSetting::get('company_name', 'Desty Jaya Mandiri');
-        $orgAddress = \App\Models\SiteSetting::get('contact_address', 'Jl. Kaliurang KM 7, Sleman, Yogyakarta');
-        $orgPhone = \App\Models\SiteSetting::get('contact_phone', '+62 274 123456');
-        $orgEmail = \App\Models\SiteSetting::get('contact_email', 'info@djmproperty.id');
+        $orgName = \App\Support\Site::get('company_name', 'Desty Jaya Mandiri');
+        $orgAddress = \App\Support\Site::get('contact_address', 'Jl. Kaliurang KM 7, Sleman, Yogyakarta');
+        $orgPhone = \App\Support\Site::get('contact_phone', '+62 274 123456');
+        $orgEmail = \App\Support\Site::get('contact_email', 'info@djmproperty.id');
     @endphp
     <script type="application/ld+json">
     {

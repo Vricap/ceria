@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Property;
 use App\Models\Category;
 use App\Models\City;
-use App\Models\SiteSetting;
 use App\Support\ServiceItem;
+use App\Support\Site;
 use Illuminate\View\View;
 
 class HomeController extends Controller
@@ -36,12 +36,12 @@ class HomeController extends Controller
 
         $services = ServiceItem::all()->take(6);
 
-        $settings = SiteSetting::getAllAsArray();
+        $settings = Site::all();
 
         $stats = [
             'total_properties' => Property::published()->count(),
-            'total_clients'    => SiteSetting::get('stat_clients', '500+'),
-            'support'          => SiteSetting::get('stat_support', '24/7'),
+            'total_clients'    => Site::get('stat_clients', '500+'),
+            'support'          => Site::get('stat_support', '24/7'),
         ];
 
         return view('home.index', compact(

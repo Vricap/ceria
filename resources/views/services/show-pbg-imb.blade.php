@@ -35,7 +35,7 @@
 @endsection
 
 @php
-    $contactWhatsatsapp = \App\Models\SiteSetting::get('contact_whatsapp', '+62 812 3456 7890');
+    $contactWhatsatsapp = \App\Support\Site::get('contact_whatsapp', '+62 812 3456 7890');
     $waNumber = preg_replace('/[^0-9]/', '', $contactWhatsatsapp);
     $waMessage = 'Halo DJM, saya ingin berkonsultasi mengenai layanan ' . $service->name . '.';
 @endphp
