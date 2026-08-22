@@ -2,11 +2,12 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PropertyController;
-use App\Http\Controllers\PropertyTypeController;
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PropertyTypeController;
+use App\Http\Controllers\FacilityController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Property;
 
@@ -44,6 +45,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard/tipe-properti', [PropertyTypeController::class, 'index'])->name("dashboard.property-types");
     Route::post('/property-types/store', [PropertyTypeController::class, 'store'])->name("property-types.store");
     Route::put('/property-types/update/{propertyType}', [PropertyTypeController::class, 'update'])->name("property-types.update");
+    Route::delete('/property-types/destroy/{propertyType}', [PropertyTypeController::class, 'destroy'])->name("property-types.destroy");
+
+    // Facilities & Features (Fasilitas & Fitur)
+    Route::get('/dashboard/fasilitas', [FacilityController::class, 'index'])->name("dashboard.facilities");
+    Route::post('/facilities/store', [FacilityController::class, 'store'])->name("facilities.store");
+    Route::put('/facilities/update/{facilityId}', [FacilityController::class, 'update'])->name("facilities.update");
+    Route::delete('/facilities/destroy/{facilityId}', [FacilityController::class, 'destroy'])->name("facilities.destroy");
 
     Route::get('/properties/create', [PropertyController::class, 'create'])->name("properties.create");
     Route::post('/properties/store', [PropertyController::class, 'store'])->name("properties.store");

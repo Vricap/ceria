@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Property;
 use App\Models\Category;
 use App\Models\PropertyType;
+use App\Http\Controllers\FacilityController;
 use App\Models\City;
 use App\Models\District;
 use App\Models\Agent;
@@ -173,8 +174,9 @@ class PropertyController extends Controller
         $cities        = City::where('is_active', true)->orderBy('name')->get();
         $districts     = District::where('is_active', true)->orderBy('name')->get();
         $agents        = Agent::where('is_active', true)->orderBy('name')->get();
+        $facilities    = FacilityController::active();
 
-        return view('dashboard.create', compact('categories', 'propertyTypes', 'cities', 'districts', 'agents'));
+        return view('dashboard.create', compact('categories', 'propertyTypes', 'cities', 'districts', 'agents', 'facilities'));
     }
 
     /**
@@ -297,8 +299,9 @@ class PropertyController extends Controller
         $cities        = City::where('is_active', true)->orderBy('name')->get();
         $districts     = District::where('is_active', true)->orderBy('name')->get();
         $agents        = Agent::where('is_active', true)->orderBy('name')->get();
+        $facilities    = FacilityController::active();
 
-        return view('dashboard.edit', compact('property', 'categories', 'propertyTypes', 'cities', 'districts', 'agents'));
+        return view('dashboard.edit', compact('property', 'categories', 'propertyTypes', 'cities', 'districts', 'agents', 'facilities'));
     }
 
     /**

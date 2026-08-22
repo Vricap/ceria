@@ -367,22 +367,13 @@
                 <p class="mt-0.5 text-xs text-[#523828]">Centang fasilitas pendukung yang tersedia pada properti ini.</p>
             </div>
 
-            @php
-                $popularFacilities = [
-                    'AC', 'Kolam Renang', 'Carport', 'Garasi', 'Taman / Garden', 'CCTV',
-                    'Keamanan 24 Jam', 'Water Heater', 'Balkon', 'Internet Ready', 'Kitchen Set',
-                    'Fully Furnished', 'Unfurnished', 'Line Telepon', 'Akses Jalan Besar',
-                    'Dekat Kampus', 'Dekat Rumah Sakit', 'Dekat Akses Toll'
-                ];
-            @endphp
-
             <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
-                @foreach($popularFacilities as $fac)
+                @foreach($facilities as $fac)
                     <label class="flex cursor-pointer items-center gap-2.5 rounded-lg border border-[#EADFCB] p-3 transition hover:bg-[#FBF6EC] has-[:checked]:border-[#D4A569] has-[:checked]:bg-[#F9F0D6]/50">
-                        <input type="checkbox" name="facilities[]" value="{{ $fac }}"
-                            {{ is_array(old('facilities')) && in_array($fac, old('facilities')) ? 'checked' : '' }}
+                        <input type="checkbox" name="facilities[]" value="{{ $fac->name }}"
+                            {{ is_array(old('facilities')) && in_array($fac->name, old('facilities')) ? 'checked' : '' }}
                             class="h-4 w-4 rounded accent-[#D4A569]">
-                        <span class="text-xs font-medium text-[#1F1611]">{{ $fac }}</span>
+                        <span class="text-xs font-medium text-[#1F1611]">{{ $fac->name }}</span>
                     </label>
                 @endforeach
             </div>

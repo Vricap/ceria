@@ -71,4 +71,20 @@ class PropertyTypeController extends Controller
 
         return redirect()->route('dashboard.property-types')->with('success', 'Tipe properti berhasil diperbarui!');
     }
+
+    /**
+     * Remove the specified property type.
+     */
+    public function destroy(PropertyType $propertyType): RedirectResponse
+    {
+        if ($propertyType->properties()->exists()) {
+            $count = $propertyType->properties()->count();
+
+            return back()->with('error', "Tipe \"{$propertyType->name}\" tidak dapat dihapus karena masih dipakai oleh {$count} properti.");
+        }
+
+        $propertyType->delete();
+
+        return redirect()->route('dashboard.property-types')->with('success', 'Tipe properti berhasil dihapus!');
+    }
 }

@@ -392,23 +392,16 @@
             </div>
 
             @php
-                $popularFacilities = [
-                    'AC', 'Kolam Renang', 'Carport', 'Garasi', 'Taman / Garden', 'CCTV',
-                    'Keamanan 24 Jam', 'Water Heater', 'Balkon', 'Internet Ready', 'Kitchen Set',
-                    'Fully Furnished', 'Unfurnished', 'Line Telepon', 'Akses Jalan Besar',
-                    'Dekat Kampus', 'Dekat Rumah Sakit', 'Dekat Akses Toll'
-                ];
-
                 $existingFacilityNames = old('facilities', $property->facilities->pluck('name')->toArray() ?? []);
             @endphp
 
             <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
-                @foreach($popularFacilities as $fac)
+                @foreach($facilities as $fac)
                     <label class="flex cursor-pointer items-center gap-2.5 rounded-lg border border-[#EADFCB] p-3 transition hover:bg-[#FBF6EC] has-[:checked]:border-[#D4A569] has-[:checked]:bg-[#F9F0D6]/50">
-                        <input type="checkbox" name="facilities[]" value="{{ $fac }}"
-                            {{ in_array($fac, $existingFacilityNames) ? 'checked' : '' }}
+                        <input type="checkbox" name="facilities[]" value="{{ $fac->name }}"
+                            {{ in_array($fac->name, $existingFacilityNames) ? 'checked' : '' }}
                             class="h-4 w-4 rounded accent-[#D4A569]">
-                        <span class="text-xs font-medium text-[#1F1611]">{{ $fac }}</span>
+                        <span class="text-xs font-medium text-[#1F1611]">{{ $fac->name }}</span>
                     </label>
                 @endforeach
             </div>

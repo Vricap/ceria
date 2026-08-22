@@ -114,6 +114,48 @@
             color: #946E4B;
         }
 
+        /* ── Sidebar Submenu ───────────────────── */
+        .sidebar-group.open > .sidebar-submenu {
+            max-height: 320px;
+        }
+        .sidebar-group.open > .sidebar-link .sidebar-chevron {
+            transform: rotate(180deg);
+        }
+        .sidebar-submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.25s ease;
+        }
+        .sidebar-sublink {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-left: 24px;
+            padding: 8px 12px 8px 16px;
+            border-left: 2px solid #EADFCB;
+            border-radius: 0 10px 10px 0;
+            color: #523828;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.18s ease;
+        }
+        .sidebar-sublink:hover {
+            background: #F9F0D6;
+            color: #1F1611;
+            border-left-color: #D4A569;
+        }
+        .sidebar-sublink.active {
+            background: #F9F0D6;
+            color: #1F1611;
+            border-left-color: #D4A569;
+        }
+        .sidebar-chevron {
+            margin-left: auto;
+            font-size: 0.72rem;
+            color: #946E4B;
+            transition: transform 0.25s ease;
+        }
+
         /* ── Topbar ────────────────────────────── */
         .admin-topbar {
             position: sticky;
@@ -274,14 +316,30 @@
                 <i class="fa-solid fa-table-columns"></i>
                 Dashboard
             </a>
-            <a href="{{ route('dashboard.properties') }}" class="sidebar-link {{ request()->routeIs('dashboard.properties') || request()->routeIs('properties.*') ? 'active' : '' }}">
-                <i class="fa-solid fa-building"></i>
-                Properti
-            </a>
-            <a href="{{ route('dashboard.property-types') }}" class="sidebar-link {{ request()->routeIs('dashboard.property-types') || request()->routeIs('property-types.*') ? 'active' : '' }}">
-                <i class="fa-solid fa-layer-group"></i>
-                Tipe Properti
-            </a>
+            @php
+                $propertyMenuActive = request()->routeIs('dashboard.properties') || request()->routeIs('properties.*')
+                    || request()->routeIs('dashboard.property-types') || request()->routeIs('property-types.*')
+                    || request()->routeIs('dashboard.facilities') || request()->routeIs('facilities.*');
+            @endphp
+            <div class="sidebar-group {{ $propertyMenuActive ? 'open' : '' }}">
+                <button type="button" onclick="togglePropertyMenu()"
+                    class="sidebar-link w-full cursor-pointer border-0 bg-transparent text-left {{ $propertyMenuActive ? 'active' : '' }}">
+                    <i class="fa-solid fa-building"></i>
+                    Properti
+                    <i class="fa-solid fa-chevron-down sidebar-chevron"></i>
+                </button>
+                <div class="sidebar-submenu">
+                    <a href="{{ route('dashboard.properties') }}" class="sidebar-sublink {{ request()->routeIs('dashboard.properties') || request()->routeIs('properties.*') ? 'active' : '' }}">
+                        Daftar Properti
+                    </a>
+                    <a href="{{ route('dashboard.property-types') }}" class="sidebar-sublink {{ request()->routeIs('dashboard.property-types') || request()->routeIs('property-types.*') ? 'active' : '' }}">
+                        Tipe Properti
+                    </a>
+                    <a href="{{ route('dashboard.facilities') }}" class="sidebar-sublink {{ request()->routeIs('dashboard.facilities') || request()->routeIs('facilities.*') ? 'active' : '' }}">
+                        Fasilitas &amp; Fitur
+                    </a>
+                </div>
+            </div>
             <div class="px-2 pt-4 pb-2 text-[11px] font-bold uppercase tracking-widest text-[#9C8C77]">Akun</div>
             <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="sidebar-link text-red-700 hover:bg-red-50 hover:text-red-900 transition-colors">
                 <i class="fa-solid fa-right-from-bracket text-red-700"></i>
@@ -376,6 +434,9 @@
         function closeSidebar() {
             document.getElementById('adminSidebar').classList.remove('open');
             document.getElementById('sidebarOverlay').classList.remove('show');
+        }
+        function togglePropertyMenu() {
+            document.querySelector('.sidebar-group').classList.toggle('open');
         }
     </script>
 
