@@ -152,6 +152,38 @@
         box-shadow: var(--shadow-lg);
     }
 
+    /* ── Carousel Properti Terbaru ───────────── */
+    .prop-carousel {
+        overflow: hidden;
+    }
+    .prop-carousel-track {
+        display: flex;
+        width: max-content;
+        animation: prop-marquee var(--marquee-duration, 30s) linear infinite;
+    }
+    .prop-carousel:hover .prop-carousel-track,
+    .prop-carousel:focus-within .prop-carousel-track {
+        animation-play-state: paused;
+    }
+    .prop-carousel-set {
+        display: flex;
+        gap: 25px;
+        padding-right: 25px;
+    }
+    .prop-carousel-set .property-card {
+        width: 300px;
+        flex-shrink: 0;
+        margin: 0;
+    }
+    @keyframes prop-marquee {
+        from { transform: translateX(0); }
+        to   { transform: translateX(-50%); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .prop-carousel { overflow-x: auto; }
+        .prop-carousel-track { animation: none; }
+    }
+
     .property-card-image {
         position: relative;
         overflow: hidden;
@@ -548,9 +580,19 @@
         </div>
 
         @if($featuredProperties->count() > 0)
-            <div class="grid grid-cols-4" style="grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));">
-                @foreach($featuredProperties as $property)
-                    <article class="property-card" data-scroll>
+            @php
+                // Ulangi set kartu agar lebar setengah track ≥ kontainer → loop mulus tanpa ruang kosong.
+                $marqueeRepeats = max(2, (int) ceil(1400 / ($featuredProperties->count() * 325)));
+                // Durasi proporsional lebar setengah track (≈65px/detik), dibatasi 30–120 detik.
+                $marqueeSeconds = max(30, min(120, (int) round($featuredProperties->count() * 325 * $marqueeRepeats / 65)));
+            @endphp
+            <div class="prop-carousel" role="region" aria-label="Carousel properti terbaru">
+                <div class="prop-carousel-track" style="--marquee-duration: {{ $marqueeSeconds }}s;">
+                    @foreach([false, true] as $isClone)
+                        <div class="prop-carousel-set" @if($isClone) aria-hidden="true" inert @endif>
+                            @for($r = 0; $r < $marqueeRepeats; $r++)
+                                @foreach($featuredProperties as $property)
+                                    <article class="property-card">
                         <div class="property-card-image">
                             <div class="property-badges">
                                 <span class="badge {{ $property->status_color }}">{{ $property->status_label }}</span>
@@ -609,8 +651,12 @@
                                 <div class="property-price" style="color: var(--color-primary); font-size: 1.5rem; margin-bottom: 0; font-weight: bold;">{{ $property->formatted_price }}</div>
                             </div>
                         </div>
-                    </article>
-                @endforeach
+                                    </article>
+                                @endforeach
+                            @endfor
+                        </div>
+                    @endforeach
+                </div>
             </div>
         @else
             <div style="text-align: center; padding: 60px 20px; color: var(--color-text-muted);">
