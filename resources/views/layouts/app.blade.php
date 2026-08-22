@@ -151,6 +151,208 @@
             color: var(--color-gilded-dark);
         }
 
+        /* ── Dropdown Layanan ───────────────────── */
+        .nav-dropdown {
+            position: relative;
+        }
+        .nav-dropdown-toggle .fa-chevron-down {
+            font-size: 0.62rem;
+            margin-left: 4px;
+            transition: transform 0.2s ease;
+        }
+        .nav-dropdown:hover .nav-dropdown-toggle .fa-chevron-down,
+        .nav-dropdown:focus-within .nav-dropdown-toggle .fa-chevron-down {
+            transform: rotate(180deg);
+        }
+        .nav-dropdown-menu {
+            position: absolute;
+            top: calc(100% + 18px);
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            min-width: 270px;
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            padding: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+            z-index: 1100;
+        }
+        /* jembatan hover agar menu tidak hilang saat kursor melewati celah */
+        .nav-dropdown-menu::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 0;
+            right: 0;
+            height: 20px;
+        }
+        .nav-dropdown:hover .nav-dropdown-menu,
+        .nav-dropdown:focus-within .nav-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+        .nav-dropdown-label {
+            padding: 10px 12px 5px;
+            font-size: 0.68rem;
+            font-weight: 800;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            color: var(--color-gilded-dark);
+        }
+        .nav-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 9px 12px;
+            border-radius: 10px;
+            color: var(--color-espresso);
+            font-size: 0.88rem;
+            font-weight: 600;
+            transition: all 0.15s ease;
+        }
+        .nav-dropdown-item i {
+            width: 18px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--color-gilded-dark);
+        }
+        .nav-dropdown-item:hover {
+            background: #F9F0D6;
+            color: var(--color-noir);
+        }
+        /* ── Mega Dropdown Properti (Kota → Kecamatan) ── */
+        [x-cloak] { display: none !important; }
+        .nav-mega {
+            width: 480px;
+            max-width: calc(100vw - 32px);
+            padding: 16px;
+        }
+        .nav-mega-body {
+            display: flex;
+            gap: 14px;
+        }
+        .nav-mega-cities {
+            width: 40%;
+            min-width: 150px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .nav-mega-city {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            min-height: 48px;
+            padding: 8px 14px;
+            border: 0;
+            border-radius: 12px;
+            background: transparent;
+            color: var(--color-gilded-dark);
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 0.88rem;
+            text-align: left;
+            cursor: pointer;
+            transition: background 0.15s ease, color 0.15s ease;
+        }
+        .nav-mega-city:hover {
+            background: #FBF6EC;
+        }
+        .nav-mega-city.is-active {
+            background: #F9F0D6;
+            color: var(--color-noir);
+        }
+        .nav-mega-arrow {
+            margin-left: auto;
+            font-size: 0.62rem;
+            color: #946E4B;
+            transition: transform 0.15s ease;
+        }
+        .nav-mega-city:hover .nav-mega-arrow,
+        .nav-mega-city.is-active .nav-mega-arrow {
+            transform: translateX(3px);
+        }
+        .nav-mega-right {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        .nav-mega-heading {
+            padding: 10px 12px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            color: var(--color-gilded-dark);
+        }
+        .nav-mega-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            max-height: 250px;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            padding-right: 4px;
+            scrollbar-width: thin;
+            scrollbar-color: #D4A569 #F3EFE6;
+        }
+        .nav-mega-list::-webkit-scrollbar {
+            width: 5px;
+        }
+        .nav-mega-list::-webkit-scrollbar-thumb {
+            background: #D4A569;
+            border-radius: 999px;
+        }
+        .nav-mega-item {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 10px 12px;
+            border-radius: 11px;
+            font-size: 0.95rem;
+            color: var(--color-espresso);
+            transition: background 0.15s ease;
+        }
+        .nav-mega-item i {
+            width: 18px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--color-gilded-dark);
+        }
+        .nav-mega-item:hover {
+            background: #FBF6EC;
+        }
+        .nav-mega-item.is-current {
+            background: #F9F0D6;
+        }
+        .nav-mega-footer {
+            margin-top: 14px;
+            padding-top: 10px;
+            border-top: 1px solid var(--color-border);
+        }
+        .nav-mega-all {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 11px 14px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-gilded-dark);
+            transition: background 0.15s ease;
+        }
+        .nav-mega-all:hover {
+            background: #F9F0D6;
+            color: var(--color-noir);
+        }
+
         .header-actions {
             display: flex;
             align-items: center;
@@ -419,8 +621,94 @@
             <nav class="main-nav">
                 <a href="{{ route('home') }}" class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}">Beranda</a>
                 <a href="{{ route('about.index') }}" class="nav-link {{ request()->routeIs('about.*') ? 'active' : '' }}">Tentang Kami</a>
-                <a href="{{ route('services.index') }}" class="nav-link {{ request()->routeIs('services.*') ? 'active' : '' }}">Layanan</a>
-                <a href="{{ route('properties.index') }}" class="nav-link {{ request()->routeIs('properties.*') ? 'active' : '' }}">Properti</a>
+
+                @php $navServices = \App\Support\ServiceItem::all()->groupBy('category'); @endphp
+                <div class="nav-dropdown">
+                    <a href="{{ route('services.index') }}" class="nav-link nav-dropdown-toggle {{ request()->routeIs('services.*') ? 'active' : '' }}">
+                        Layanan<i class="fa-solid fa-chevron-down"></i>
+                    </a>
+                    <div class="nav-dropdown-menu">
+                        @foreach($navServices as $category => $items)
+                            <div class="nav-dropdown-label">{{ \App\Support\ServiceItem::CATEGORIES[$category] ?? ucfirst($category) }}</div>
+                            @foreach($items as $svc)
+                                <a href="{{ route('services.show', $svc->slug) }}" class="nav-dropdown-item">
+                                    {{ $svc->name }}
+                                </a>
+                            @endforeach
+                        @endforeach
+                        <div style="border-top: 1px solid var(--color-border); margin-top: 8px; padding-top: 8px;">
+                            <a href="{{ route('services.index') }}" class="nav-dropdown-item" style="justify-content: center; color: var(--color-gilded-dark);">
+                                Lihat Semua Layanan <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                @php
+                    $navCities = \App\Models\City::with(['districts' => fn ($q) => $q->where('is_active', true)->orderBy('name')])
+                        ->where('is_active', true)->orderBy('name')->get();
+                    // Struktur data dipisah dari tampilan — nanti tinggal diganti fetch API tanpa ubah UI.
+                    $navRegionData = $navCities->map(fn ($city) => [
+                        'name'      => $city->name,
+                        'slug'      => $city->slug,
+                        'districts' => $city->districts->map(fn ($d) => ['name' => $d->name, 'slug' => $d->slug])->values()->all(),
+                    ])->values()->all();
+                @endphp
+                <div class="nav-dropdown"
+                    x-data="{
+                        regions: {{ json_encode($navRegionData) }},
+                        active: 0,
+                        path: '{{ url('properti') }}',
+                        curCity: {{ json_encode(request('city')) }},
+                        curDistrict: {{ json_encode(request('district')) }}
+                    }">
+                    <a href="{{ route('properties.index') }}" class="nav-link nav-dropdown-toggle {{ request()->routeIs('properties.*') ? 'active' : '' }}"
+                        @mouseenter="active = 0" @focus="active = 0">
+                        Properti<i class="fa-solid fa-chevron-down"></i>
+                    </a>
+                    <div class="nav-dropdown-menu nav-mega">
+                        @if(count($navRegionData))
+                            <div class="nav-mega-body">
+                                {{-- KOLOM KIRI: daftar kota/kabupaten --}}
+                                <div class="nav-mega-cities">
+                                    @foreach($navRegionData as $i => $region)
+                                        <button type="button"
+                                            class="nav-mega-city"
+                                            :class="active === {{ $i }} ? 'is-active' : ''"
+                                            @mouseenter="active = {{ $i }}"
+                                            @focus="active = {{ $i }}"
+                                            @click="active = {{ $i }}">
+                                            <span>{{ $region['name'] }}</span>
+                                            <i class="fa-solid fa-chevron-right nav-mega-arrow"></i>
+                                        </button>
+                                    @endforeach
+                                </div>
+                                {{-- KOLOM KANAN: kecamatan milik kota aktif --}}
+                                <div class="nav-mega-right">
+                                    <h4 class="nav-mega-heading" x-text="'Kecamatan di ' + regions[active].name">Kecamatan di {{ $navRegionData[0]['name'] }}</h4>
+                                    <div class="nav-mega-list">
+                                        <template x-for="d in regions[active].districts" :key="regions[active].slug + '-' + d.slug">
+                                            <a :href="path + '?city=' + regions[active].slug + '&amp;district=' + d.slug"
+                                                class="nav-mega-item"
+                                                :class="(curCity === regions[active].slug && curDistrict === d.slug) ? 'is-current' : ''">
+                                                <i class="fa-solid fa-location-dot"></i>
+                                                <span x-text="d.name">{{ $navRegionData[0]['districts'][0]['name'] ?? '' }}</span>
+                                            </a>
+                                        </template>
+                                    </div>
+                                </div>
+                            </div>
+                        @else
+                            <div style="padding: 16px; font-size: 0.9rem; color: var(--color-espresso);">Belum ada wilayah.</div>
+                        @endif
+                        <div class="nav-mega-footer">
+                            <a href="{{ route('properties.index') }}" class="nav-mega-all">
+                                Lihat Semua Properti <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
                 <a href="{{ route('portfolio.index') }}" class="nav-link {{ request()->routeIs('portfolio.*') ? 'active' : '' }}">Portfolio</a>
             </nav>
 
@@ -440,8 +728,41 @@
             <div style="display: flex; flex-direction: column; gap: 15px;">
                 <a href="{{ route('home') }}" style="color: var(--color-text-main); font-weight: 500;">Beranda</a>
                 <a href="{{ route('about.index') }}" style="color: var(--color-text-main); font-weight: 500;">Tentang Kami</a>
-                <a href="{{ route('services.index') }}" style="color: var(--color-text-main); font-weight: 500;">Layanan</a>
-                <a href="{{ route('properties.index') }}" style="color: var(--color-text-main); font-weight: 500;">Properti</a>
+                <div>
+                    <a href="{{ route('services.index') }}" style="color: var(--color-text-main); font-weight: 500;">Layanan</a>
+                    <div style="margin-top: 10px; margin-left: 14px; padding-left: 12px; border-left: 2px solid var(--color-border); display: flex; flex-direction: column; gap: 10px;">
+                        @foreach(\App\Support\ServiceItem::all() as $svc)
+                            <a href="{{ route('services.show', $svc->slug) }}" style="font-size: 0.9rem; color: var(--color-text-main);">
+                                <i class="fa-solid {{ $svc->icon }}" style="width: 18px; color: var(--color-gilded-dark);"></i> {{ $svc->name }}
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+                <div x-data="{ openCity: 0 }">
+                    <a href="{{ route('properties.index') }}" style="color: var(--color-text-main); font-weight: 500;">Properti</a>
+                    <div style="margin-top: 10px; margin-left: 14px; padding-left: 12px; border-left: 2px solid var(--color-border); display: flex; flex-direction: column; gap: 4px;">
+                        @foreach($navRegionData as $ci => $region)
+                            <div>
+                                <button type="button"
+                                    @click="openCity = openCity === {{ $ci }} ? null : {{ $ci }}"
+                                    style="display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; padding: 6px 0; background: none; border: 0; font-family: inherit; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-gilded-dark); cursor: pointer;">
+                                    <span><i class="fa-solid fa-city" style="width: 16px;"></i> {{ $region['name'] }}</span>
+                                    <i class="fa-solid fa-chevron-down" style="font-size: 0.65rem; transition: transform 0.2s ease;"
+                                        :style="openCity === {{ $ci }} ? 'transform: rotate(180deg)' : ''"></i>
+                                </button>
+                                <div x-show="openCity === {{ $ci }}" x-transition.opacity.duration.150ms
+                                    style="margin-top: 6px; margin-bottom: 6px; display: flex; flex-direction: column; gap: 8px;">
+                                    @foreach($region['districts'] as $district)
+                                        <a href="{{ url('properti') }}?city={{ $region['slug'] }}&amp;district={{ $district['slug'] }}"
+                                            style="font-size: 0.88rem; color: var(--color-text-main);">
+                                            <i class="fa-solid fa-location-dot" style="width: 16px;"></i> Kecamatan {{ $district['name'] }}
+                                        </a>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
                 <a href="{{ route('portfolio.index') }}" style="color: var(--color-text-main); font-weight: 500;">Portfolio</a>
                 <a href="{{ route('contact.index') }}" style="color: var(--color-bronze); font-weight: 600;">Hubungi Kami</a>
             </div>

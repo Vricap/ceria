@@ -28,7 +28,7 @@
             <input type="text" name="name" value="{{ old('name') }}" required maxlength="100"
                 placeholder="Contoh: Smart Home, Jacuzzi, Lift Pribadi..."
                 class="field-input flex-1" />
-            <button type="submit" class="btn-gilded shrink-0">
+            <button type="submit" class="btn-gilded w-full justify-center sm:w-auto">
                 <i class="fa-solid fa-plus"></i>
                 Tambah
             </button>
@@ -45,27 +45,27 @@
         </div>
 
         {{-- DESKTOP TABLE --}}
-        <div class="hidden overflow-x-auto md:block">
+        <div class="hidden overflow-x-auto lg:block">
             <table class="w-full text-left text-sm">
                 <thead class="border-b border-[#F0E6D2] bg-[#FBF6EC] text-xs uppercase tracking-wider text-[#946E4B]">
                     <tr>
-                        <th class="px-6 py-4 font-bold">Nama Fasilitas</th>
-                        <th class="px-6 py-4 font-bold">Dipakai Properti</th>
-                        <th class="px-6 py-4 font-bold">Status</th>
-                        <th class="px-6 py-4 text-right font-bold">Aksi</th>
+                        <th class="px-4 py-4 xl:px-6 font-bold">Nama Fasilitas</th>
+                        <th class="px-4 py-4 xl:px-6 font-bold">Dipakai Properti</th>
+                        <th class="px-4 py-4 xl:px-6 font-bold">Status</th>
+                        <th class="px-4 py-4 xl:px-6 text-right font-bold">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-[#F0E6D2]">
                     @forelse($facilities as $facility)
                     <tr class="transition hover:bg-[#FBF6EC]/60">
-                        <td class="px-6 py-4 font-semibold text-[#1F1611]">{{ $facility->name }}</td>
-                        <td class="px-6 py-4">
+                        <td class="px-4 py-4 xl:px-6 font-semibold text-[#1F1611]">{{ $facility->name }}</td>
+                        <td class="px-4 py-4 xl:px-6">
                             <span class="inline-flex items-center gap-1.5 rounded-full bg-[#F3EFE6] px-2.5 py-1 text-xs font-semibold text-[#523828]">
                                 <i class="fa-solid fa-building text-[10px] text-[#946E4B]"></i>
                                 {{ $facility->usage_count }} properti
                             </span>
                         </td>
-                        <td class="px-6 py-4">
+                        <td class="px-4 py-4 xl:px-6">
                             @if($facility->is_active)
                                 <span class="inline-block rounded-full bg-[#F9F0D6] px-2.5 py-1 text-xs font-semibold text-[#523828]">
                                     <i class="fa-solid fa-circle-check mr-1 text-[10px]"></i>Aktif
@@ -76,7 +76,7 @@
                                 </span>
                             @endif
                         </td>
-                        <td class="px-6 py-4 text-right">
+                        <td class="px-4 py-4 xl:px-6 text-right">
                             <div class="flex items-center justify-end gap-2">
                                 <button type="button"
                                     onclick="openEditDialog(this)"
@@ -123,8 +123,8 @@
             </table>
         </div>
 
-        {{-- MOBILE CARDS --}}
-        <div class="divide-y divide-[#F0E6D2] md:hidden">
+        {{-- MOBILE / TABLET CARDS --}}
+        <div class="divide-y divide-[#F0E6D2] lg:hidden">
             @forelse($facilities as $facility)
             <div class="p-4">
                 <div class="flex items-start justify-between gap-3">
@@ -138,28 +138,28 @@
                         </span>
                     </div>
                 </div>
-                <div class="mt-3 flex gap-2">
+                <div class="mt-3 flex flex-wrap gap-2">
                     <button type="button"
                         onclick="openEditDialog(this)"
                         data-action="{{ route('facilities.update', $facility->id) }}"
                         data-name="{{ $facility->name }}"
                         data-active="{{ $facility->is_active ? '1' : '0' }}"
-                        class="flex-1 rounded-lg border border-[#EADFCB] px-3 py-2 text-center text-xs font-medium text-[#946E4B] transition hover:bg-[#F9F0D6]">
+                        class="min-w-[120px] flex-1 rounded-lg border border-[#EADFCB] px-3 py-2.5 text-center text-xs font-medium text-[#946E4B] transition hover:bg-[#F9F0D6]">
                         Edit
                     </button>
                     @if($facility->usage_count > 0)
                         <button type="button" disabled
-                            class="flex-1 cursor-not-allowed rounded-lg bg-[#F3EFE6] px-3 py-2 text-center text-xs font-medium text-[#B0A48F]"
+                            class="min-w-[120px] flex-1 cursor-not-allowed rounded-lg bg-[#F3EFE6] px-3 py-2.5 text-center text-xs font-medium text-[#B0A48F]"
                             title="Tidak dapat dihapus karena masih dipakai {{ $facility->usage_count }} properti">
                             Hapus
                         </button>
                     @else
                         <form action="{{ route('facilities.destroy', $facility->id) }}" method="POST"
-                            onsubmit="return confirm('Apakah kamu yakin ingin menghapus fasilitas ini?')" class="flex-1">
+                            onsubmit="return confirm('Apakah kamu yakin ingin menghapus fasilitas ini?')" class="min-w-[120px] flex-1">
                             @csrf
                             @method('DELETE')
                             <button type="submit"
-                                class="w-full rounded-lg bg-[#FBF0EA] px-3 py-2 text-xs font-medium text-[#A4492F] transition hover:bg-[#F5E1D4]">
+                                class="w-full rounded-lg bg-[#FBF0EA] px-3 py-2.5 text-xs font-medium text-[#A4492F] transition hover:bg-[#F5E1D4]">
                                 Hapus
                             </button>
                         </form>
@@ -179,7 +179,7 @@
 
     {{-- Dialog Edit --}}
     <dialog id="edit-dialog" class="w-[calc(100%-2rem)] max-w-md rounded-2xl border border-[#EADFCB] bg-white p-0 shadow-2xl backdrop:bg-black/40">
-        <form method="POST" id="edit-form" class="p-6">
+        <form method="POST" id="edit-form" class="max-h-[85vh] overflow-y-auto p-5 sm:p-6">
             @csrf
             @method('PUT')
             <h3 class="text-lg font-bold text-[#1F1611]">
@@ -215,6 +215,11 @@
             document.getElementById('edit-active').checked = btn.dataset.active === '1';
             document.getElementById('edit-dialog').showModal();
         }
+
+        const editDialog = document.getElementById('edit-dialog');
+        editDialog.addEventListener('click', (e) => {
+            if (e.target === editDialog) editDialog.close();
+        });
     </script>
 
 @endsection
