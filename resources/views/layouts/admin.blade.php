@@ -210,6 +210,22 @@
         .flash-success i:first-child {
             color: #946E4B;
         }
+        .flash-error {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            background: #FBF0EA;
+            border: 1px solid #F0D9CC;
+            color: #A4492F;
+            border-radius: 14px;
+            padding: 14px 18px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .flash-error i:first-child {
+            color: #A4492F;
+        }
 
         /* ── Form controls ─────────────────────── */
         .field-input {
@@ -261,6 +277,10 @@
             <a href="{{ route('dashboard.properties') }}" class="sidebar-link {{ request()->routeIs('dashboard.properties') || request()->routeIs('properties.*') ? 'active' : '' }}">
                 <i class="fa-solid fa-building"></i>
                 Properti
+            </a>
+            <a href="{{ route('dashboard.property-types') }}" class="sidebar-link {{ request()->routeIs('dashboard.property-types') || request()->routeIs('property-types.*') ? 'active' : '' }}">
+                <i class="fa-solid fa-layer-group"></i>
+                Tipe Properti
             </a>
             <div class="px-2 pt-4 pb-2 text-[11px] font-bold uppercase tracking-widest text-[#9C8C77]">Akun</div>
             <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="sidebar-link text-red-700 hover:bg-red-50 hover:text-red-900 transition-colors">
@@ -326,6 +346,18 @@
                         {{ session('success') }}
                     </div>
                     <button onclick="this.parentElement.remove()" class="text-[#523828] hover:text-[#1F1611]" aria-label="Tutup">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            @endif
+
+            @if(session('error'))
+                <div class="flash-error mb-6">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                        {{ session('error') }}
+                    </div>
+                    <button onclick="this.parentElement.remove()" class="hover:text-[#7A3B2E]" aria-label="Tutup">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>

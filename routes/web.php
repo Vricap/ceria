@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PropertyController;
+use App\Http\Controllers\PropertyTypeController;
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ContactController;
@@ -38,6 +39,11 @@ Route::middleware('auth')->group(function () {
         $properties = Property::with(['category', 'propertyType', 'city', 'agent'])->latest()->get();
         return view('dashboard.properties', ['properties' => $properties]);
     })->name("dashboard.properties");
+
+    // Property Types (Tipe Properti)
+    Route::get('/dashboard/tipe-properti', [PropertyTypeController::class, 'index'])->name("dashboard.property-types");
+    Route::post('/property-types/store', [PropertyTypeController::class, 'store'])->name("property-types.store");
+    Route::put('/property-types/update/{propertyType}', [PropertyTypeController::class, 'update'])->name("property-types.update");
 
     Route::get('/properties/create', [PropertyController::class, 'create'])->name("properties.create");
     Route::post('/properties/store', [PropertyController::class, 'store'])->name("properties.store");
