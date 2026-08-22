@@ -87,8 +87,8 @@
 
                 {{-- Tipe Properti --}}
                 <div>
-                    <label for="property_type_id" class="field-label">Tipe Properti</label>
-                    <select id="property_type_id" name="property_type_id" class="field-input">
+                    <label for="property_type_id" class="field-label">Tipe Properti <span class="text-[#A4492F]">*</span></label>
+                    <select id="property_type_id" name="property_type_id" class="field-input" required>
                         <option value="">-- Pilih Tipe --</option>
                         @foreach($propertyTypes as $pt)
                             <option value="{{ $pt->id }}" {{ old('property_type_id', $property->property_type_id) == $pt->id ? 'selected' : '' }}>
@@ -121,9 +121,9 @@
 
                 {{-- Harga Jual / Total --}}
                 <div id="price_group">
-                    <label for="price" class="field-label">Harga (Rp)</label>
+                    <label for="price" class="field-label">Harga (Rp) <span class="text-[#A4492F]">*</span></label>
                     <input type="number" id="price" name="price" value="{{ old('price', $property->price) }}" step="100000" min="0"
-                        placeholder="Contoh: 1500000000" class="field-input">
+                        placeholder="Contoh: 1500000000" class="field-input" required>
                 </div>
 
                 {{-- Harga Sewa Bulanan --}}
@@ -227,8 +227,8 @@
             <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                 {{-- Kota --}}
                 <div>
-                    <label for="city_id" class="field-label">Kota / Kabupaten</label>
-                    <select id="city_id" name="city_id" class="field-input">
+                    <label for="city_id" class="field-label">Kota / Kabupaten <span class="text-[#A4492F]">*</span></label>
+                    <select id="city_id" name="city_id" class="field-input" required>
                         <option value="">-- Pilih Kota/Kabupaten --</option>
                         @foreach($cities as $city)
                             <option value="{{ $city->id }}" {{ old('city_id', $property->city_id) == $city->id ? 'selected' : '' }}>
