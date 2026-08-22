@@ -19,8 +19,9 @@ class Property extends Model
         'short_description', 'transaction_type', 'price', 'price_rent_monthly',
         'price_note', 'land_area', 'building_area', 'bedrooms', 'bathrooms',
         'garage', 'floors', 'certificate', 'year_built', 'electric_power',
-        'address', 'latitude', 'longitude', 'thumbnail', 'meta_title',
-        'meta_description', 'og_image', 'status', 'is_featured', 'views', 'published_at',
+        'address', 'latitude', 'longitude', 'google_maps_link', 'google_maps_embed_url',
+        'thumbnail', 'meta_title', 'meta_description', 'og_image', 'status', 'is_featured',
+        'views', 'published_at',
     ];
 
     protected $casts = [
@@ -197,5 +198,83 @@ class Property extends Model
     {
         $title = $this->title;
         return urlencode("Halo, saya tertarik dengan properti *{$title}*.\n\nSaya ingin mendapatkan informasi lebih lanjut mengenai properti tersebut.\n\nLink: " . route('properties.show', $this->slug));
+    }
+
+    protected static function booted()
+    {
+        static::saving(function ($property) {
+            if ($property->isDirty('google_maps_link')) {
+                $link = $property->google_maps_link;
+                if (empty($link)) {
+                    $property->google_maps_embed_url = null;
+                } else {
+                    $property->google_maps_embed_url = static::convertToEmbedUrl($link);
+                }
+            }
+        });
+    }
+
+    public static function convertToEmbedUrl(?string $url): ?string
+    {
+        if (!$url) {
+            return null;
+        }
+
+        if (str_contains($url, 'google.com/maps/embed') || str_contains($url, 'output=embed')) {
+            return $url;
+        }
+
+        $resolvedUrl = $url;
+        
+        // Resolve short URL
+        if (str_contains($url, 'maps.app.goo.gl') || str_contains($url, 'goo.gl/maps')) {
+            try {
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, $url);
+                curl_setopt($ch, CURLOPT_HEADER, true);
+                curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+                $response = curl_exec($ch);
+                $info = curl_getinfo($ch);
+                curl_close($ch);
+
+                if ($info['http_code'] == 301 || $info['http_code'] == 302) {
+                    preg_match('/Location:\s*(.*)/i', $response, $matches);
+                    if (isset($matches[1])) {
+                        $resolvedUrl = trim($matches[1]);
+                    }
+                }
+            } catch (\Exception $e) {
+                // Ignore network errors
+            }
+        }
+
+        // 1. Try to extract exact pin coordinates (!3d...!4d...)
+        if (preg_match('/!3d(-?\d+\.\d+)!4d(-?\d+\.\d+)/', $resolvedUrl, $matches)) {
+            return "https://maps.google.com/maps?q={$matches[1]},{$matches[2]}&z=15&output=embed";
+        }
+
+        // 2. Try to extract map center coordinates (@lat,lng)
+        if (preg_match('/@(-?\d+\.\d+),(-?\d+\.\d+)/', $resolvedUrl, $matches)) {
+            return "https://maps.google.com/maps?q={$matches[1]},{$matches[2]}&z=15&output=embed";
+        }
+
+        // 3. Try to extract place name
+        if (preg_match('/maps\/place\/([^\/@?]+)/', $resolvedUrl, $matches)) {
+            $placeName = urldecode(str_replace('+', ' ', $matches[1]));
+            return "https://maps.google.com/maps?q=" . urlencode($placeName) . "&z=15&output=embed";
+        }
+
+        // 4. Try to extract q query parameter
+        $queryStr = parse_url($resolvedUrl, PHP_URL_QUERY);
+        if ($queryStr) {
+            parse_str($queryStr, $params);
+            if (isset($params['q'])) {
+                return "https://maps.google.com/maps?q=" . urlencode($params['q']) . "&z=15&output=embed";
+            }
+        }
+
+        return null;
     }
 }

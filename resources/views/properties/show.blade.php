@@ -360,7 +360,9 @@
 
     $mapQuery = trim(($property->address ?? '') . ', ' . $property->location_string);
     $mapQuery = trim($mapQuery, ' ,');
-    if ($property->latitude && $property->longitude) {
+    if ($property->google_maps_embed_url) {
+        $mapSrc = $property->google_maps_embed_url;
+    } elseif ($property->latitude && $property->longitude) {
         $mapSrc = 'https://maps.google.com/maps?q=' . $property->latitude . ',' . $property->longitude . '&z=15&output=embed';
     } elseif ($mapQuery !== '') {
         $mapSrc = 'https://maps.google.com/maps?q=' . urlencode($mapQuery) . '&z=14&output=embed';
@@ -554,6 +556,35 @@
             <button type="button" class="prop-read-more" id="propOverviewToggle">
                 Baca Selengkapnya <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
             </button>
+        </div>
+    @endif
+
+    {{-- Lokasi / Peta ─────────────────────────────────────────── --}}
+    @if($mapSrc)
+        <div class="prop-section">
+            <h2 class="prop-section-title"><i class="fa-solid fa-map-location-dot" aria-hidden="true"></i> Lokasi</h2>
+            <div class="prop-loc-string">
+                <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                <span>{{ $property->location_string }}</span>
+            </div>
+            @if($property->address)
+                <div class="prop-loc-address">{{ $property->address }}</div>
+            @endif
+            <div class="prop-map">
+                <iframe src="{{ $mapSrc }}" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade" 
+                        title="Peta Lokasi Properti - {{ $property->title }}">
+                </iframe>
+            </div>
+            @if($property->google_maps_link)
+                <div style="margin-top: 16px;">
+                    <a href="{{ $property->google_maps_link }}" target="_blank" rel="noopener noreferrer" class="prop-detail-btn" style="text-decoration: none;">
+                        <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i> Buka di Google Maps
+                    </a>
+                </div>
+            @endif
         </div>
     @endif
 

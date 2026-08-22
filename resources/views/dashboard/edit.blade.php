@@ -260,6 +260,17 @@
                         <p class="mt-1.5 text-xs text-[#A4492F]">{{ $message }}</p>
                     @enderror
                 </div>
+
+                {{-- Link Google Maps --}}
+                <div class="md:col-span-2">
+                    <label for="google_maps_link" class="field-label">Link Google Maps Lokasi</label>
+                    <input type="url" id="google_maps_link" name="google_maps_link" value="{{ old('google_maps_link', $property->google_maps_link) }}"
+                        placeholder="Contoh: https://maps.app.goo.gl/aRA8cqKRMBJnui2SA" class="field-input">
+                    <p class="mt-1.5 text-xs text-[#523828]">Masukkan link lokasi/share dari Google Maps. Link ini otomatis akan diubah menjadi peta interaktif di frontend.</p>
+                    @error('google_maps_link')
+                        <p class="mt-1.5 text-xs text-[#A4492F]">{{ $message }}</p>
+                    @enderror
+                </div>
             </div>
         </div>
 
