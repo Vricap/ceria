@@ -69,12 +69,12 @@
       "email": "{{ $orgEmail }}"
     }
     </script>
-    
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    
+
     <!-- Locomotive Scroll CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.css">
-    
+
     <style>
         /* Locomotive Reveal Animations */
         html.has-scroll-init [data-scroll] {
@@ -105,8 +105,15 @@
             z-index: 1000;
             box-shadow: var(--shadow-sm);
             border-bottom: 1px solid var(--color-border);
+            transition: background-color 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
         }
-        
+
+        .site-header.header-transparent {
+            background-color: transparent;
+            box-shadow: none;
+            border-bottom-color: transparent;
+        }
+
         .header-inner {
             display: flex;
             justify-content: space-between;
@@ -121,14 +128,45 @@
             align-items: center;
             gap: 10px;
         }
-        
+
         .logo:hover {
             color: var(--color-gilded-dark);
+        }
+
+        .logo-container {
+            position: relative;
+            display: flex;
+            align-items: center;
         }
 
         .logo-img {
             height: 56px;
             width: auto;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .logo-img--primary {
+            opacity: 1;
+        }
+
+        .logo-img--secondary {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 1;
+            pointer-events: none;
+        }
+
+        .site-header.is-scrolled .logo-img--primary {
+            opacity: 1;
+        }
+
+        .site-header.is-scrolled .logo-img--secondary {
+            opacity: 0;
+        }
+
+        .site-header.is-scrolled .main-nav .nav-link {
+            color: var(--color-espresso);
         }
 
         .main-nav {
@@ -143,12 +181,27 @@
             font-size: 0.95rem;
         }
 
+        @if(request()->routeIs('home'))
+            .nav-link {
+                font-weight: 600;
+                font-size: 0.95rem;
+                color: var(--color-white);
+            }
+        @endif
+
         .nav-link:hover {
             color: var(--color-gilded-dark);
         }
 
         .nav-link.active {
             color: var(--color-gilded-dark);
+        }
+
+        .site-header.is-scrolled .main-nav .nav-link:hover {
+            color: var(--color-gilded);
+        }
+        .site-header.is-scrolled .main-nav .nav-link.active {
+            color: var(--color-gilded);
         }
 
         /* ── Dropdown Layanan ───────────────────── */
@@ -358,7 +411,7 @@
             align-items: center;
             gap: 15px;
         }
-        
+
         .mobile-menu-btn {
             display: none;
             position: relative;
@@ -597,7 +650,7 @@
             color: rgba(249, 240, 214, 0.7);
             font-size: 0.95rem;
         }
-        
+
         .contact-info i {
             color: var(--color-gilded);
             margin-top: 4px;
@@ -758,12 +811,24 @@
 
     <!-- Header -->
     <header class="site-header"
+        @if(request()->routeIs('home'))
+            :class="{ 'header-transparent': !isScrolled && !mobileMenuOpen, 'is-scrolled': isScrolled }"
+        @endif
         x-data="{
             mobileMenuOpen: false,
             openLayanan: false,
             openKategori: {},
             openProperti: false,
             openCities: {},
+            isScrolled: false,
+            init() {
+                const handleScroll = (y) => {
+                    this.isScrolled = y > 20;
+                };
+                window.headerHandleScroll = handleScroll;
+                window.addEventListener('scroll', () => handleScroll(window.scrollY));
+                handleScroll(window.scrollY);
+            },
             toggleMenu() {
                 this.mobileMenuOpen ? this.closeAll() : this.mobileMenuOpen = true;
             },
@@ -785,9 +850,14 @@
         }">
         <div class="container header-inner">
             <a href="{{ route('home') }}" class="logo" title="DJM — Desty Jaya Mandiri">
-                <img src="{{ asset('images/logodjm.png') }}" alt="DJM — Desty Jaya Mandiri" class="logo-img">
+                <div class="logo-container">
+                    <img src="{{ asset('images/logodjm.png') }}" alt="DJM — Desty Jaya Mandiri" class="logo-img logo-img--primary">
+                    @if(request()->routeIs('home'))
+                        <img src="{{ asset('images/logodjm2.png') }}" alt="DJM — Desty Jaya Mandiri" class="logo-img logo-img--secondary">
+                    @endif
+                </div>
             </a>
-            
+
             <nav class="main-nav">
                 <a href="{{ route('home') }}" class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}">Beranda</a>
                 <a href="{{ route('about.index') }}" class="nav-link {{ request()->routeIs('about.*') ? 'active' : '' }}">Tentang Kami</a>
@@ -1007,7 +1077,7 @@
         <main>
             @yield('content')
         </main>
-    
+
         <!-- Footer -->
         <footer class="site-footer">
         <div class="container">
@@ -1099,6 +1169,12 @@
                 smooth: true,
                 multiplier: 1,
                 class: 'is-reveal'
+            });
+
+            scroll.on('scroll', function(args) {
+                if (window.headerHandleScroll && args && args.scroll) {
+                    window.headerHandleScroll(args.scroll.y);
+                }
             });
 
             // Update Locomotive Scroll if images loaded
