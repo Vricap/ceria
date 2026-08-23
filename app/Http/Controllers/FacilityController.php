@@ -59,21 +59,37 @@ class FacilityController extends Controller
         );
     }
 
-    /**
-     * Display a listing of facilities & features.
-     */
-    public function index(): View
-    {
-        $facilities = self::all();
-
-        $usage = PropertyFacility::query()
-            ->select('name', DB::raw('COUNT(DISTINCT property_id) as total'))
-            ->groupBy('name')
-            ->pluck('total', 'name');
-        $facilities->each(fn($f) => $f->usage_count = (int) ($usage[$f->name] ?? 0));
-
-        return view('dashboard.facilities', compact('facilities'));
-    }
+     public function index(Request $request): View
+     {
+         $facilities = self::all();
+ 
+         if ($request->filled('search')) {
+             $search = strtolower($request->search);
+             $facilities = $facilities->filter(function ($f) use ($search) {
+                 return str_contains(strtolower($f->name), $search);
+             });
+         }
+ 
+         if ($request->filled('status')) {
+             $status = $request->status;
+             $facilities = $facilities->filter(function ($f) use ($status) {
+                 if ($status === 'active') {
+                     return $f->is_active === true;
+                 } elseif ($status === 'inactive') {
+                     return $f->is_active === false;
+                 }
+                 return true;
+             });
+         }
+ 
+         $usage = PropertyFacility::query()
+             ->select('name', DB::raw('COUNT(DISTINCT property_id) as total'))
+             ->groupBy('name')
+             ->pluck('total', 'name');
+         $facilities->each(fn($f) => $f->usage_count = (int) ($usage[$f->name] ?? 0));
+ 
+         return view('dashboard.facilities', compact('facilities'));
+     }
 
     /**
      * Store a newly created facility.
