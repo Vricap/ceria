@@ -361,11 +361,156 @@
         
         .mobile-menu-btn {
             display: none;
+            position: relative;
+            width: 42px;
+            height: 42px;
             background: none;
-            border: none;
+            border: 0;
             color: var(--color-noir);
             font-size: 1.5rem;
             cursor: pointer;
+            border-radius: 10px;
+        }
+        .mobile-menu-btn:focus-visible {
+            outline: 2px solid var(--color-gilded-dark);
+            outline-offset: 2px;
+        }
+        .mobile-menu-btn .mm-icon {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.25s ease, transform 0.3s ease;
+        }
+        .mobile-menu-btn .mm-icon--close {
+            opacity: 0;
+            transform: rotate(-90deg) scale(0.5);
+        }
+        .mobile-menu-btn.is-open .mm-icon--bars {
+            opacity: 0;
+            transform: rotate(90deg) scale(0.5);
+        }
+        .mobile-menu-btn.is-open .mm-icon--close {
+            opacity: 1;
+            transform: rotate(0deg) scale(1);
+        }
+
+        /* ── Mobile Menu Panel ───────────────────── */
+        .mobile-menu {
+            background: white;
+            color: var(--color-text-main);
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            box-shadow: var(--shadow);
+            padding: 14px 20px 22px;
+            max-height: calc(100vh - 76px);
+            max-height: calc(100dvh - 76px);
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            -webkit-overflow-scrolling: touch;
+        }
+        .mm-list {
+            display: flex;
+            flex-direction: column;
+        }
+        a.mm-link,
+        a.mm-toggle,
+        button.mm-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            width: 100%;
+            padding: 12px 2px;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--color-text-main);
+            text-align: left;
+            text-decoration: none;
+        }
+        a.mm-link { justify-content: flex-start; }
+        button.mm-toggle { background: none; border: 0; cursor: pointer; }
+        a.mm-link:hover,
+        a.mm-toggle:hover,
+        button.mm-toggle:hover { color: var(--color-gilded-dark); }
+        button.mm-toggle:focus-visible {
+            outline: 2px solid var(--color-gilded-dark);
+            outline-offset: 2px;
+            border-radius: 8px;
+        }
+
+        /* Icon + / − (morphing halus) */
+        .mm-plus {
+            position: relative;
+            width: 15px;
+            height: 15px;
+            flex-shrink: 0;
+            color: var(--color-gilded-dark);
+        }
+        .mm-plus::before,
+        .mm-plus::after {
+            content: '';
+            position: absolute;
+            background: currentColor;
+            border-radius: 2px;
+            transition: transform 0.25s ease;
+        }
+        .mm-plus::before { left: 0; right: 0; top: 50%; height: 2px; margin-top: -1px; }
+        .mm-plus::after  { top: 0; bottom: 0; left: 50%; width: 2px; margin-left: -1px; }
+        .mm-plus.is-open::after { transform: scaleY(0); }
+
+        /* Panel & indentasi submenu */
+        .mm-panel { min-width: 0; }
+        .mm-sub {
+            margin: 2px 0 10px 12px;
+            padding-left: 14px;
+            border-left: 2px solid var(--color-border);
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+        .mm-toggle--sub {
+            padding: 10px 2px;
+            font-size: 0.93rem;
+            font-weight: 600;
+        }
+        .mm-city {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--color-gilded-dark);
+        }
+        .mm-leaf {
+            display: flex;
+            align-items: center;
+            padding: 9px 2px;
+            font-size: 0.92rem;
+            color: var(--color-text-main);
+            text-decoration: none;
+        }
+        .mm-leaf:hover { color: var(--color-bronze); }
+        .mm-see-all {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 6px;
+            padding: 11px 12px;
+            border-radius: 10px;
+            background: #F9F0D6;
+            color: var(--color-gilded-dark);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+        }
+        .mm-see-all:hover {
+            background: #F3E4BC;
+            color: var(--color-noir);
         }
 
         /* Footer */
@@ -612,7 +757,32 @@
 <body>
 
     <!-- Header -->
-    <header class="site-header" x-data="{ mobileMenuOpen: false }">
+    <header class="site-header"
+        x-data="{
+            mobileMenuOpen: false,
+            openLayanan: false,
+            openKategori: {},
+            openProperti: false,
+            openCities: {},
+            toggleMenu() {
+                this.mobileMenuOpen ? this.closeAll() : this.mobileMenuOpen = true;
+            },
+            toggleLayanan() {
+                this.openLayanan = !this.openLayanan;
+                if (!this.openLayanan) this.openKategori = {};
+            },
+            toggleProperti() {
+                this.openProperti = !this.openProperti;
+                if (!this.openProperti) this.openCities = {};
+            },
+            closeAll() {
+                this.mobileMenuOpen = false;
+                this.openLayanan = false;
+                this.openKategori = {};
+                this.openProperti = false;
+                this.openCities = {};
+            }
+        }">
         <div class="container header-inner">
             <a href="{{ route('home') }}" class="logo" title="DJM — Desty Jaya Mandiri">
                 <img src="{{ asset('images/logodjm.png') }}" alt="DJM — Desty Jaya Mandiri" class="logo-img">
@@ -714,58 +884,120 @@
 
             <div class="header-actions">
                 <a href="{{ route('contact.index') }}" class="btn btn-primary" style="color: var(--color-noir);">Hubungi Kami</a>
-                <button @click="mobileMenuOpen = !mobileMenuOpen" class="mobile-menu-btn">
-                    <i class="fa-solid fa-bars"></i>
+                <button type="button"
+                    class="mobile-menu-btn"
+                    :class="mobileMenuOpen ? 'is-open' : ''"
+                    @click="toggleMenu()"
+                    @keydown.escape.window="closeAll()"
+                    aria-label="Buka / tutup menu navigasi"
+                    aria-controls="mobile-menu"
+                    :aria-expanded="mobileMenuOpen">
+                    <i class="fa-solid fa-bars mm-icon mm-icon--bars" aria-hidden="true"></i>
+                    <i class="fa-solid fa-xmark mm-icon mm-icon--close" aria-hidden="true"></i>
                 </button>
             </div>
         </div>
 
         <!-- Mobile Menu (Alpine.js) -->
-        <div x-show="mobileMenuOpen" 
-             @click.away="mobileMenuOpen = false"
-             x-transition
-             style="display: none; background: white; color: var(--color-text-main); position: absolute; top: 100%; left: 0; right: 0; box-shadow: var(--shadow); padding: 20px;">
-            <div style="display: flex; flex-direction: column; gap: 15px;">
-                <a href="{{ route('home') }}" style="color: var(--color-text-main); font-weight: 500;">Beranda</a>
-                <a href="{{ route('about.index') }}" style="color: var(--color-text-main); font-weight: 500;">Tentang Kami</a>
+        <div id="mobile-menu"
+             class="mobile-menu"
+             x-show="mobileMenuOpen"
+             @click.away="closeAll()"
+             x-transition.opacity.duration.200ms
+             style="display: none;">
+            <nav class="mm-list" aria-label="Navigasi utama">
+                <a href="{{ route('home') }}" class="mm-link">Beranda</a>
+                <a href="{{ route('about.index') }}" class="mm-link">Tentang Kami</a>
+
+                {{-- ── LAYANAN: accordion 2 level ── --}}
                 <div>
-                    <a href="{{ route('services.index') }}" style="color: var(--color-text-main); font-weight: 500;">Layanan</a>
-                    <div style="margin-top: 10px; margin-left: 14px; padding-left: 12px; border-left: 2px solid var(--color-border); display: flex; flex-direction: column; gap: 10px;">
-                        @foreach(\App\Support\ServiceItem::all() as $svc)
-                            <a href="{{ route('services.show', $svc->slug) }}" style="font-size: 0.9rem; color: var(--color-text-main);">
-                                <i class="fa-solid {{ $svc->icon }}" style="width: 18px; color: var(--color-gilded-dark);"></i> {{ $svc->name }}
+                    <button type="button"
+                        class="mm-toggle"
+                        @click="toggleLayanan()"
+                        :aria-expanded="openLayanan"
+                        aria-controls="mobile-menu-layanan">
+                        <span>Layanan</span>
+                        <span class="mm-plus" :class="openLayanan ? 'is-open' : ''" aria-hidden="true"></span>
+                    </button>
+
+                    <div id="mobile-menu-layanan" class="mm-panel" x-show="openLayanan" x-transition.opacity.duration.200ms x-cloak>
+                        <div class="mm-sub">
+                            @foreach(\App\Support\ServiceItem::CATEGORIES as $catKey => $catLabel)
+                                @if($navServices->has($catKey))
+                                    <div>
+                                        <button type="button"
+                                            class="mm-toggle mm-toggle--sub"
+                                            @click="openKategori['{{ $catKey }}'] = !openKategori['{{ $catKey }}']"
+                                            :aria-expanded="openKategori['{{ $catKey }}'] ? 'true' : 'false'"
+                                            aria-controls="mobile-menu-kategori-{{ $catKey }}">
+                                            <span>{{ $catLabel }}</span>
+                                            <span class="mm-plus" :class="openKategori['{{ $catKey }}'] ? 'is-open' : ''" aria-hidden="true"></span>
+                                        </button>
+                                        <div id="mobile-menu-kategori-{{ $catKey }}" class="mm-panel" x-show="openKategori['{{ $catKey }}']" x-transition.opacity.duration.200ms x-cloak>
+                                            <div class="mm-sub">
+                                                @foreach($navServices[$catKey] as $svc)
+                                                    <a href="{{ route('services.show', $svc->slug) }}" class="mm-leaf">{{ $svc->name }}</a>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            @endforeach
+                            <a href="{{ route('services.index') }}" class="mm-see-all">
+                                Lihat Semua Layanan <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
                             </a>
-                        @endforeach
+                        </div>
                     </div>
                 </div>
-                <div x-data="{ openCity: 0 }">
-                    <a href="{{ route('properties.index') }}" style="color: var(--color-text-main); font-weight: 500;">Properti</a>
-                    <div style="margin-top: 10px; margin-left: 14px; padding-left: 12px; border-left: 2px solid var(--color-border); display: flex; flex-direction: column; gap: 4px;">
-                        @foreach($navRegionData as $ci => $region)
-                            <div>
-                                <button type="button"
-                                    @click="openCity = openCity === {{ $ci }} ? null : {{ $ci }}"
-                                    style="display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; padding: 6px 0; background: none; border: 0; font-family: inherit; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-gilded-dark); cursor: pointer;">
-                                    <span><i class="fa-solid fa-city" style="width: 16px;"></i> {{ $region['name'] }}</span>
-                                    <i class="fa-solid fa-chevron-down" style="font-size: 0.65rem; transition: transform 0.2s ease;"
-                                        :style="openCity === {{ $ci }} ? 'transform: rotate(180deg)' : ''"></i>
-                                </button>
-                                <div x-show="openCity === {{ $ci }}" x-transition.opacity.duration.150ms
-                                    style="margin-top: 6px; margin-bottom: 6px; display: flex; flex-direction: column; gap: 8px;">
-                                    @foreach($region['districts'] as $district)
-                                        <a href="{{ url('properti') }}?city={{ $region['slug'] }}&amp;district={{ $district['slug'] }}"
-                                            style="font-size: 0.88rem; color: var(--color-text-main);">
-                                            <i class="fa-solid fa-location-dot" style="width: 16px;"></i> Kecamatan {{ $district['name'] }}
+
+                {{-- ── PROPERTI: accordion 2 level (kota → kecamatan) ── --}}
+                <div>
+                    <button type="button"
+                        class="mm-toggle"
+                        @click="toggleProperti()"
+                        :aria-expanded="openProperti"
+                        aria-controls="mobile-menu-properti">
+                        <span>Properti</span>
+                        <span class="mm-plus" :class="openProperti ? 'is-open' : ''" aria-hidden="true"></span>
+                    </button>
+
+                    <div id="mobile-menu-properti" class="mm-panel" x-show="openProperti" x-transition.opacity.duration.200ms x-cloak>
+                        <div class="mm-sub">
+                            @foreach($navRegionData as $region)
+                                <div>
+                                    @if(count($region['districts']))
+                                        <button type="button"
+                                            class="mm-toggle mm-toggle--sub mm-city"
+                                            @click="openCities['{{ $region['slug'] }}'] = !openCities['{{ $region['slug'] }}']"
+                                            :aria-expanded="openCities['{{ $region['slug'] }}'] ? 'true' : 'false'"
+                                            aria-controls="mobile-menu-wilayah-{{ $region['slug'] }}">
+                                            <span>{{ $region['name'] }}</span>
+                                            <span class="mm-plus" :class="openCities['{{ $region['slug'] }}'] ? 'is-open' : ''" aria-hidden="true"></span>
+                                        </button>
+                                        <div id="mobile-menu-wilayah-{{ $region['slug'] }}" class="mm-panel" x-show="openCities['{{ $region['slug'] }}']" x-transition.opacity.duration.200ms x-cloak>
+                                            <div class="mm-sub">
+                                                @foreach($region['districts'] as $district)
+                                                    <a href="{{ url('properti') }}?city={{ $region['slug'] }}&amp;district={{ $district['slug'] }}" class="mm-leaf">Kecamatan {{ $district['name'] }}</a>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    @else
+                                        <a href="{{ url('properti') }}?city={{ $region['slug'] }}" class="mm-toggle mm-toggle--sub mm-city">
+                                            <span>{{ $region['name'] }}</span>
                                         </a>
-                                    @endforeach
+                                    @endif
                                 </div>
-                            </div>
-                        @endforeach
+                            @endforeach
+                            <a href="{{ route('properties.index') }}" class="mm-see-all">
+                                Lihat Semua Properti <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
-                <a href="{{ route('portfolio.index') }}" style="color: var(--color-text-main); font-weight: 500;">Portfolio</a>
-                <a href="{{ route('contact.index') }}" style="color: var(--color-bronze); font-weight: 600;">Hubungi Kami</a>
-            </div>
+
+                <a href="{{ route('portfolio.index') }}" class="mm-link">Portfolio</a>
+                <a href="{{ route('contact.index') }}" class="mm-link" style="color: var(--color-bronze); font-weight: 600;">Hubungi Kami</a>
+            </nav>
         </div>
     </header>
 

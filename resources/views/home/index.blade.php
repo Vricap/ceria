@@ -153,9 +153,40 @@
     }
 
     /* ── Carousel Properti Terbaru ───────────── */
+    .prop-carousel-wrap {
+        position: relative;
+    }
     .prop-carousel {
         overflow: hidden;
     }
+    .prop-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 10;
+        width: 46px;
+        height: 46px;
+        border-radius: var(--border-radius-full);
+        background: #fff;
+        border: 1px solid var(--color-border);
+        color: var(--color-bronze);
+        box-shadow: var(--shadow);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+    .prop-nav:hover,
+    .prop-nav:focus-visible {
+        background: var(--color-primary);
+        border-color: var(--color-primary);
+        color: #fff;
+        box-shadow: var(--shadow-hover);
+    }
+    .prop-nav--prev { left: -12px; }
+    .prop-nav--next { right: -12px; }
     .prop-carousel-track {
         display: flex;
         width: max-content;
@@ -182,6 +213,11 @@
     @media (prefers-reduced-motion: reduce) {
         .prop-carousel { overflow-x: auto; }
         .prop-carousel-track { animation: none; }
+    }
+    @media (max-width: 767px) {
+        .prop-nav { width: 40px; height: 40px; font-size: 0.9rem; }
+        .prop-nav--prev { left: -6px; }
+        .prop-nav--next { right: -6px; }
     }
 
     .property-card-image {
@@ -586,8 +622,9 @@
                 // Durasi proporsional lebar setengah track (≈65px/detik), dibatasi 30–120 detik.
                 $marqueeSeconds = max(30, min(120, (int) round($featuredProperties->count() * 325 * $marqueeRepeats / 65)));
             @endphp
-            <div class="prop-carousel" role="region" aria-label="Carousel properti terbaru">
-                <div class="prop-carousel-track" style="--marquee-duration: {{ $marqueeSeconds }}s;">
+            <div class="prop-carousel-wrap" role="region" aria-label="Carousel properti terbaru">
+                <div class="prop-carousel">
+                    <div class="prop-carousel-track" style="--marquee-duration: {{ $marqueeSeconds }}s;">
                     @foreach([false, true] as $isClone)
                         <div class="prop-carousel-set" @if($isClone) aria-hidden="true" inert @endif>
                             @for($r = 0; $r < $marqueeRepeats; $r++)
@@ -656,7 +693,14 @@
                             @endfor
                         </div>
                     @endforeach
+                    </div>
                 </div>
+                <button type="button" class="prop-nav prop-nav--prev" data-prop-slide="-1" aria-label="Geser ke properti sebelumnya">
+                    <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+                </button>
+                <button type="button" class="prop-nav prop-nav--next" data-prop-slide="1" aria-label="Geser ke properti berikutnya">
+                    <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                </button>
             </div>
         @else
             <div style="text-align: center; padding: 60px 20px; color: var(--color-text-muted);">
@@ -666,6 +710,78 @@
         @endif
     </div>
 </section>
+
+@push('scripts')
+<script>
+    document.querySelectorAll('.prop-carousel-wrap').forEach(function (wrap) {
+        var carousel = wrap.querySelector('.prop-carousel');
+        var track = carousel.querySelector('.prop-carousel-track');
+        if (!track) return;
+
+        var duration = parseFloat(getComputedStyle(track).getPropertyValue('--marquee-duration')) || 30;
+        var resumeDelay = 3500;
+        var resumeTimer = null;
+        var rafId = null;
+
+        function marqueeAnim() {
+            return track.getAnimations().find(function (a) {
+                return a.animationName === 'prop-marquee';
+            });
+        }
+
+        function holdManual() {
+            if (!marqueeAnim()) return;
+            track.style.animationPlayState = 'paused';
+            clearTimeout(resumeTimer);
+            resumeTimer = setTimeout(releaseManual, resumeDelay);
+        }
+
+        function releaseManual() {
+            clearTimeout(resumeTimer);
+            track.style.animationPlayState = '';
+        }
+
+        function slideNative(dir) {
+            carousel.scrollBy({ left: dir * Math.min(carousel.clientWidth * 0.8, 600), behavior: 'smooth' });
+        }
+
+        function slideMarquee(dir) {
+            var anim = marqueeAnim();
+            if (!anim) { slideNative(dir); return; }
+            holdManual();
+            cancelAnimationFrame(rafId);
+
+            var total = duration * 1000;
+            var start = anim.currentTime % total;
+            var delta = dir * total * 0.22;
+            var t0 = performance.now();
+            var TWEEN = 420;
+
+            function step(now) {
+                var p = Math.min(1, (now - t0) / TWEEN);
+                var eased = 1 - Math.pow(1 - p, 3);
+                anim.currentTime = (((start + delta * eased) % total) + total) % total;
+                if (p < 1) rafId = requestAnimationFrame(step);
+            }
+            rafId = requestAnimationFrame(step);
+        }
+
+        wrap.querySelectorAll('[data-prop-slide]').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                slideMarquee(parseInt(btn.dataset.propSlide, 10));
+            });
+        });
+
+        carousel.addEventListener('mouseenter', holdManual);
+        carousel.addEventListener('focusin', holdManual);
+        carousel.addEventListener('mouseleave', releaseManual);
+        carousel.addEventListener('touchstart', holdManual, { passive: true });
+        carousel.addEventListener('touchend', function () {
+            resumeTimer = setTimeout(releaseManual, resumeDelay);
+        }, { passive: true });
+    });
+</script>
+@endpush
 
 
 {{-- ──────────────────────────────────────────────── --}}
