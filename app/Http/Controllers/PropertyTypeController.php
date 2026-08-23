@@ -13,10 +13,28 @@ class PropertyTypeController extends Controller
     /**
      * Display a listing of property types.
      */
-    public function index(): View
+    public function index(Request $request): View
     {
-        $propertyTypes = PropertyType::withCount('properties')
-            ->orderBy('sort_order')
+        $query = PropertyType::withCount('properties');
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('slug', 'like', "%{$search}%");
+            });
+        }
+
+        if ($request->filled('status')) {
+            $status = $request->status;
+            if ($status === 'active') {
+                $query->where('is_active', true);
+            } elseif ($status === 'inactive') {
+                $query->where('is_active', false);
+            }
+        }
+
+        $propertyTypes = $query->orderBy('sort_order')
             ->orderBy('name')
             ->get();
 

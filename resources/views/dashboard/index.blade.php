@@ -87,20 +87,87 @@
                 <i class="fa-solid fa-arrow-right"></i>
             </a>
         </div>
+ 
+        {{-- Filter Bar --}}
+        <div class="border-b border-[#F0E6D2] bg-[#FBF6EC]/40 px-6 py-4">
+            <form method="GET" action="{{ route('dashboard') }}" class="flex flex-col gap-4 lg:flex-row lg:items-end">
+                <div class="grid flex-1 grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-4">
+                    {{-- Pencarian Kata Kunci --}}
+                    <div>
+                        <label for="search" class="mb-1 block text-xs font-bold uppercase tracking-wider text-[#946E4B]">Cari Properti</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-[#946E4B]">
+                                <i class="fa-solid fa-magnifying-glass text-xs"></i>
+                            </span>
+                            <input type="text" name="search" id="search" value="{{ request('search') }}"
+                                placeholder="Judul, Kode ID, Alamat..." 
+                                class="field-input w-full !pl-9 !py-1.5 text-xs" />
+                        </div>
+                    </div>
 
-        <div class="overflow-x-auto">
-            <table class="w-full text-left text-sm">
-                <thead class="border-b border-[#F0E6D2] bg-[#FBF6EC] text-xs uppercase tracking-wider text-[#946E4B]">
-                    <tr>
-                        <th class="px-6 py-4 font-bold">Foto</th>
-                        <th class="px-6 py-4 font-bold">Properti</th>
-                        <th class="px-6 py-4 font-bold">Harga</th>
-                        <th class="px-6 py-4 font-bold">Status</th>
-                        <th class="px-6 py-4 text-right font-bold">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-[#F0E6D2]">
-                    @forelse($recent as $property)
+                    {{-- Tipe Properti --}}
+                    <div>
+                        <label for="type" class="mb-1 block text-xs font-bold uppercase tracking-wider text-[#946E4B]">Tipe Properti</label>
+                        <select name="type" id="type" class="field-input w-full !py-1.5 text-xs">
+                            <option value="">Semua Tipe</option>
+                            @foreach($propertyTypes as $pt)
+                                <option value="{{ $pt->id }}" {{ request('type') == $pt->id ? 'selected' : '' }}>
+                                    {{ $pt->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    {{-- Tipe Transaksi --}}
+                    <div>
+                        <label for="transaction" class="mb-1 block text-xs font-bold uppercase tracking-wider text-[#946E4B]">Transaksi</label>
+                        <select name="transaction" id="transaction" class="field-input w-full !py-1.5 text-xs">
+                            <option value="">Semua</option>
+                            <option value="dijual" {{ request('transaction') == 'dijual' ? 'selected' : '' }}>Dijual</option>
+                            <option value="disewa" {{ request('transaction') == 'disewa' ? 'selected' : '' }}>Disewa</option>
+                        </select>
+                    </div>
+
+                    {{-- Status --}}
+                    <div>
+                        <label for="status" class="mb-1 block text-xs font-bold uppercase tracking-wider text-[#946E4B]">Status</label>
+                        <select name="status" id="status" class="field-input w-full !py-1.5 text-xs">
+                            <option value="">Semua Status</option>
+                            <option value="draft" {{ request('status') == 'draft' ? 'selected' : '' }}>Draft</option>
+                            <option value="published" {{ request('status') == 'published' ? 'selected' : '' }}>Published</option>
+                            <option value="featured" {{ request('status') == 'featured' ? 'selected' : '' }}>Featured</option>
+                            <option value="sold" {{ request('status') == 'sold' ? 'selected' : '' }}>Sold</option>
+                            <option value="rented" {{ request('status') == 'rented' ? 'selected' : '' }}>Rented</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="flex gap-2">
+                    <button type="submit" class="btn-gilded !px-4 !py-2 text-xs">
+                        <i class="fa-solid fa-filter mr-1"></i> Filter
+                    </button>
+                    @if($isFiltered)
+                        <a href="{{ route('dashboard') }}" class="rounded-lg border border-[#EADFCB] bg-white px-4 py-2 text-center text-xs font-medium text-[#523828] transition hover:bg-[#F9F0D6]">
+                            <i class="fa-solid fa-rotate-left mr-1"></i> Reset
+                        </a>
+                    @endif
+                </div>
+            </form>
+        </div>
+ 
+         <div class="overflow-x-auto">
+             <table class="w-full text-left text-sm">
+                 <thead class="border-b border-[#F0E6D2] bg-[#FBF6EC] text-xs uppercase tracking-wider text-[#946E4B]">
+                     <tr>
+                         <th class="px-6 py-4 font-bold">Foto</th>
+                         <th class="px-6 py-4 font-bold">Properti</th>
+                         <th class="px-6 py-4 font-bold">Harga</th>
+                         <th class="px-6 py-4 font-bold">Status</th>
+                         <th class="px-6 py-4 text-right font-bold">Aksi</th>
+                     </tr>
+                 </thead>
+                 <tbody class="divide-y divide-[#F0E6D2]">
+                     @forelse($tableProperties as $property)
                     <tr class="transition hover:bg-[#FBF6EC]/60">
                         <td class="px-6 py-4">
                             <img src="{{ $property->thumbnail_url }}" alt="{{ $property->title }}"

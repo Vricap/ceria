@@ -44,6 +44,47 @@
             </div>
         </div>
 
+        {{-- Filter Bar --}}
+        <div class="border-b border-[#F0E6D2] bg-[#FBF6EC]/40 px-6 py-4">
+            <form method="GET" action="{{ route('dashboard.property-types') }}" class="flex flex-col gap-4 sm:flex-row sm:items-end">
+                <div class="grid flex-1 grid-cols-1 gap-3 sm:grid-cols-2">
+                    {{-- Pencarian Kata Kunci --}}
+                    <div>
+                        <label for="search" class="mb-1 block text-xs font-bold uppercase tracking-wider text-[#946E4B]">Cari Tipe Properti</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-[#946E4B]">
+                                <i class="fa-solid fa-magnifying-glass text-xs"></i>
+                            </span>
+                            <input type="text" name="search" id="search" value="{{ request('search') }}"
+                                placeholder="Nama atau slug tipe..." 
+                                class="field-input w-full !pl-9 !py-1.5 text-xs" />
+                        </div>
+                    </div>
+
+                    {{-- Status --}}
+                    <div>
+                        <label for="status" class="mb-1 block text-xs font-bold uppercase tracking-wider text-[#946E4B]">Status</label>
+                        <select name="status" id="status" class="field-input w-full !py-1.5 text-xs">
+                            <option value="">Semua Status</option>
+                            <option value="active" {{ request('status') === 'active' ? 'selected' : '' }}>Aktif</option>
+                            <option value="inactive" {{ request('status') === 'inactive' ? 'selected' : '' }}>Nonaktif</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="flex gap-2">
+                    <button type="submit" class="btn-gilded !px-4 !py-2 text-xs">
+                        <i class="fa-solid fa-filter mr-1"></i> Filter
+                    </button>
+                    @if(request()->anyFilled(['search', 'status']))
+                        <a href="{{ route('dashboard.property-types') }}" class="rounded-lg border border-[#EADFCB] bg-white px-4 py-2 text-center text-xs font-medium text-[#523828] transition hover:bg-[#F9F0D6]">
+                            <i class="fa-solid fa-rotate-left mr-1"></i> Reset
+                        </a>
+                    @endif
+                </div>
+            </form>
+        </div>
+
         {{-- DESKTOP TABLE --}}
         <div class="hidden overflow-x-auto lg:block">
             <table class="w-full text-left text-sm">

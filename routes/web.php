@@ -31,14 +31,67 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middl
 
 // Protected Dashboard Routes
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', function () {
+    Route::get('/dashboard', function (\Illuminate\Http\Request $request) {
         $properties = Property::with(['category', 'propertyType', 'city', 'agent'])->latest()->get();
-        return view('dashboard.index', ['properties' => $properties]);
+
+        $query = Property::with(['category', 'propertyType', 'city', 'agent']);
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('property_id_code', 'like', "%{$search}%")
+                  ->orWhere('address', 'like', "%{$search}%");
+            });
+        }
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        if ($request->filled('type')) {
+            $query->where('property_type_id', $request->type);
+        }
+
+        if ($request->filled('transaction')) {
+            $query->where('transaction_type', $request->transaction);
+        }
+
+        $isFiltered = $request->filled('search') || $request->filled('status') || $request->filled('type') || $request->filled('transaction');
+        $tableProperties = $isFiltered ? $query->latest()->get() : $query->latest()->take(5)->get();
+        $propertyTypes = \App\Models\PropertyType::where('is_active', true)->orderBy('name')->get();
+
+        return view('dashboard.index', compact('properties', 'tableProperties', 'isFiltered', 'propertyTypes'));
     })->name("dashboard");
 
-    Route::get('/dashboard/properti', function () {
-        $properties = Property::with(['category', 'propertyType', 'city', 'agent'])->latest()->get();
-        return view('dashboard.properties', ['properties' => $properties]);
+    Route::get('/dashboard/properti', function (\Illuminate\Http\Request $request) {
+        $query = Property::with(['category', 'propertyType', 'city', 'agent']);
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('property_id_code', 'like', "%{$search}%")
+                  ->orWhere('address', 'like', "%{$search}%");
+            });
+        }
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        if ($request->filled('type')) {
+            $query->where('property_type_id', $request->type);
+        }
+
+        if ($request->filled('transaction')) {
+            $query->where('transaction_type', $request->transaction);
+        }
+
+        $properties = $query->latest()->get();
+        $propertyTypes = \App\Models\PropertyType::where('is_active', true)->orderBy('name')->get();
+
+        return view('dashboard.properties', compact('properties', 'propertyTypes'));
     })->name("dashboard.properties");
 
     // Property Types (Tipe Properti)
