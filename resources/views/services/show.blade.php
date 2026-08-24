@@ -689,13 +689,12 @@
         background: white;
         border: 1px solid var(--color-border);
         border-radius: var(--border-radius-lg);
-        padding: 32px 22px;
-        text-align: center;
         transition: all 0.35s ease;
         height: 100%;
         display: flex;
         flex-direction: column;
         box-shadow: var(--shadow-sm);
+        overflow: hidden;
     }
 
     .svc-other-card:hover {
@@ -704,24 +703,29 @@
         border-color: var(--color-gilded);
     }
 
-    .svc-other-icon {
-        width: 64px;
-        height: 64px;
-        background: var(--color-champagne);
-        color: var(--color-bronze);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.5rem;
-        margin: 0 auto 18px;
-        transition: all 0.3s ease;
+    .svc-other-image {
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
     }
 
-    .svc-other-card:hover .svc-other-icon {
-        background: var(--color-gilded);
-        color: var(--color-noir);
-        transform: scale(1.08) rotate(5deg);
+    .svc-other-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .svc-other-card:hover .svc-other-image img {
+        transform: scale(1.05);
+    }
+
+    .svc-other-content {
+        padding: 30px 20px;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        text-align: center;
     }
 
     .svc-other-card h3 {
@@ -952,10 +956,14 @@
             <div class="grid grid-cols-3">
                 @foreach($services as $other)
                     <div class="svc-other-card" data-scroll>
-                        <div class="svc-other-icon"><i class="fa-solid {{ $other->icon }}"></i></div>
-                        <h3>{{ $other->name }}</h3>
-                        <p>{{ $other->short_description }}</p>
-                        <a href="{{ route('services.show', $other->slug) }}" class="btn btn-outline" style="width: 100%;">Lihat Detail</a>
+                        <div class="svc-other-image">
+                            <img src="{{ $other->image_url }}" alt="{{ $other->name }}" loading="lazy">
+                        </div>
+                        <div class="svc-other-content">
+                            <h3>{{ $other->name }}</h3>
+                            <p>{{ $other->short_description }}</p>
+                            <a href="{{ route('services.show', $other->slug) }}" class="btn btn-outline" style="width: 100%;">Lihat Detail</a>
+                        </div>
                     </div>
                 @endforeach
             </div>

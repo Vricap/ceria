@@ -25,7 +25,7 @@ return [
             'seo_description' => 'DJM membantu pengurusan PBG dan IMB di Yogyakarta. Penyusunan gambar teknis, dokumen administrasi, hingga pendampingan pengajuan.',
             'description' => <<<'HTML'
 <!-- SVC_CARDS_START -->
-<h2 data-icon="fa-solid fa-triangle-exclamation" data-accent="kendala">Kendala yang Sering Dihadapi</h2>
+<h2>Kendala yang Sering Dihadapi</h2>
 <p>Beberapa kendala yang umum dihadapi dalam pengurusan PBG antara lain:</p>
 <ul>
 <li>Bingung dengan persyaratan pengurusan PBG.</li>
@@ -38,15 +38,7 @@ return [
 </ul>
 <p><strong>DJM membantu Anda mempersiapkan kebutuhan tersebut secara lebih praktis dan terarah.</strong></p>
 
-<h2 data-icon="fa-solid fa-clipboard-check" data-accent="persyaratan">Persyaratan IMB / PBG</h2>
-<p>Untuk mengurus IMB / PBG, bangunan Anda harus:</p>
-<ul>
-<li>Memiliki peruntukan lahan sesuai RTRW/RDTR.</li>
-<li>Memenuhi ketentuan KDB, KLB, dan Garis Sempadan.</li>
-<li>Tidak berada di kawasan konservasi atau jalur hijau.</li>
-</ul>
-
-<h2 data-icon="fa-solid fa-award" data-accent="manfaat">Manfaat Kepemilikan Surat IMB / PBG</h2>
+<h2>Manfaat Kepemilikan Surat IMB / PBG</h2>
 <p>Adapun beberapa manfaat dari IMB adalah sebagai berikut ini:</p>
 <ol>
 <li>Memastikan pembangunan berstatus legal. Pemerintah telah mewajibkan setiap orang yang akan, sedang atau pun telah membangun rumah, kantor dan bangunan lainnya untuk segera mengurus dokumen izin mendirikan bangunan.</li>
@@ -56,7 +48,15 @@ return [
 <li>Jaminan keamanan dan keselamatan. Memastikan penyelenggaraan bangunan gedung tersebut memenuhi standar yang menjamin keselamatan, kenyamanan, kesehatan dan kemudahan bagi penggunanya.</li>
 </ol>
 
-<h2 data-icon="fa-solid fa-handshake" data-accent="djm">Kenapa Menggunakan Jasa DJM?</h2>
+<h2>Persyaratan IMB / PBG</h2>
+<p>Untuk mengurus IMB / PBG, bangunan Anda harus:</p>
+<ul>
+<li>Memiliki peruntukan lahan sesuai RTRW/RDTR.</li>
+<li>Memenuhi ketentuan KDB, KLB, dan Garis Sempadan.</li>
+<li>Tidak berada di kawasan konservasi atau jalur hijau.</li>
+</ul>
+
+<h2>Kenapa Menggunakan Jasa DJM?</h2>
 <ul>
 <li>Konsultasi kebutuhan sebelum proses dimulai.</li>
 <li>Membantu mempersiapkan dokumen teknis.</li>

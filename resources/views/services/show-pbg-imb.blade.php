@@ -571,42 +571,6 @@
         background: linear-gradient(135deg, rgba(249, 240, 214, 0.5) 0%, rgba(212, 165, 105, 0.08) 100%);
     }
 
-    .svc-card-icon-wrap {
-        width: 56px;
-        height: 56px;
-        border-radius: 16px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.2rem;
-        margin-bottom: 18px;
-        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        position: relative;
-        background: linear-gradient(135deg, var(--color-champagne) 0%, rgba(212, 165, 105, 0.25) 100%);
-        color: var(--color-bronze);
-    }
-
-    .svc-card-icon-wrap::after {
-        content: '';
-        position: absolute;
-        inset: -4px;
-        border-radius: 20px;
-        opacity: 0;
-        transition: opacity 0.4s ease;
-        background: radial-gradient(circle, rgba(212, 165, 105, 0.12) 0%, transparent 70%);
-    }
-
-    .svc-card:hover .svc-card-icon-wrap {
-        transform: scale(1.08);
-        background: linear-gradient(135deg, var(--color-gilded) 0%, var(--color-gilded-dark) 100%);
-        color: #fff;
-        box-shadow: 0 8px 20px rgba(212, 165, 105, 0.3);
-    }
-
-    .svc-card:hover .svc-card-icon-wrap::after {
-        opacity: 1;
-    }
-
     .svc-card-header h2 {
         font-size: 1.12rem;
         font-weight: 700;
@@ -789,13 +753,12 @@
         background: white;
         border: 1px solid var(--color-border);
         border-radius: var(--border-radius-lg);
-        padding: 32px 22px;
-        text-align: center;
         transition: all 0.35s ease;
         height: 100%;
         display: flex;
         flex-direction: column;
         box-shadow: var(--shadow-sm);
+        overflow: hidden;
     }
 
     .svc-other-card:hover {
@@ -804,24 +767,29 @@
         border-color: var(--color-gilded);
     }
 
-    .svc-other-icon {
-        width: 64px;
-        height: 64px;
-        background: var(--color-champagne);
-        color: var(--color-bronze);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.5rem;
-        margin: 0 auto 18px;
-        transition: all 0.3s ease;
+    .svc-other-image {
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
     }
 
-    .svc-other-card:hover .svc-other-icon {
-        background: var(--color-gilded);
-        color: var(--color-noir);
-        transform: scale(1.08) rotate(5deg);
+    .svc-other-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .svc-other-card:hover .svc-other-image img {
+        transform: scale(1.05);
+    }
+
+    .svc-other-content {
+        padding: 30px 20px;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        text-align: center;
     }
 
     .svc-other-card h3 {
@@ -939,7 +907,6 @@
         }
         .svc-card-header { padding: 22px 20px 16px; }
         .svc-card-body { padding: 0 20px 22px; }
-        .svc-card-icon-wrap { width: 48px; height: 48px; border-radius: 14px; font-size: 1rem; margin-bottom: 14px; }
         .svc-card-header h2 { font-size: 1.05rem; }
 
         .svc-cta-card { padding: 45px 24px; }
@@ -1082,24 +1049,14 @@
             $cardSections = array_filter(array_map('trim', $cardSections));
             $cardsHtml = '<div class="svc-cards-grid">';
             foreach ($cardSections as $card) {
-                $accent = '';
-                $iconClass = 'fa-solid fa-circle-info';
-                if (preg_match('/<h2\s+data-icon="([^"]+)"\s+data-accent="([^"]+)">/', $card, $m)) {
-                    $iconClass = $m[1];
-                    $accent = $m[2];
-                } elseif (preg_match('/<h2\s+data-icon="([^"]+)">/', $card, $m)) {
-                    $iconClass = $m[1];
-                }
-                $accentAttr = $accent ? ' data-accent="' . $accent . '"' : '';
                 $cleanCard = preg_replace('/<h2[^>]*>/', '<h2>', $card, 1);
-                $cleanCard = preg_replace('/<h2>/', '<h2><span class="svc-card-icon"><i class="' . $iconClass . '"></i></span>', $cleanCard, 1);
                 if (preg_match('/(<h2>[\s\S]*?<\/h2>)([\s\S]*)/', $cleanCard, $parts)) {
                     $headerHtml = '<div class="svc-card-header">' . $parts[1] . '</div>';
                     $bodyContent = trim($parts[2]);
                     $bodyHtml = '<div class="svc-card-body">' . $bodyContent . '</div>';
                     $cleanCard = $headerHtml . $bodyHtml;
                 }
-                $cardsHtml .= '<div class="svc-card"' . $accentAttr . '>' . $cleanCard . '</div>';
+                $cardsHtml .= '<div class="svc-card">' . $cleanCard . '</div>';
             }
             $cardsHtml .= '</div>';
         }
@@ -1170,10 +1127,14 @@
             <div class="grid grid-cols-3">
                 @foreach($services as $other)
                     <div class="svc-other-card" data-scroll>
-                        <div class="svc-other-icon"><i class="fa-solid {{ $other->icon }}"></i></div>
-                        <h3>{{ $other->name }}</h3>
-                        <p>{{ $other->short_description }}</p>
-                        <a href="{{ route('services.show', $other->slug) }}" class="btn btn-outline" style="width: 100%;">Lihat Detail</a>
+                        <div class="svc-other-image">
+                            <img src="{{ $other->image_url }}" alt="{{ $other->name }}" loading="lazy">
+                        </div>
+                        <div class="svc-other-content">
+                            <h3>{{ $other->name }}</h3>
+                            <p>{{ $other->short_description }}</p>
+                            <a href="{{ route('services.show', $other->slug) }}" class="btn btn-outline" style="width: 100%;">Lihat Detail</a>
+                        </div>
                     </div>
                 @endforeach
             </div>
