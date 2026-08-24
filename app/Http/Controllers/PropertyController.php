@@ -7,7 +7,6 @@ use App\Models\Category;
 use App\Models\PropertyType;
 use App\Http\Controllers\FacilityController;
 use App\Models\City;
-use App\Models\District;
 use App\Models\Agent;
 use App\Models\PropertyImage;
 use App\Models\PropertyFacility;
@@ -109,7 +108,11 @@ class PropertyController extends Controller
         $property = Property::with([
             'agent', 'category', 'propertyType', 'city', 'district', 'area',
             'images', 'facilities', 'province'
-        ])->where('slug', $slug)->visible()->firstOrFail();
+        ])->where('slug', $slug)->visible()->first();
+
+        if (!$property) {
+            abort(404);
+        }
 
         // Increment views
         $property->increment('views');
@@ -126,7 +129,46 @@ class PropertyController extends Controller
             ->take(4)
             ->get();
 
-        return view('properties.show', compact('property', 'related'));
+        // ─── SEO meta fallback ────────────────────────────────────────────
+        $cityName      = $property->city?->name;
+        $transaction   = match ($property->status) {
+            'sold'   => 'Terjual',
+            'rented' => 'Tersewa',
+            default  => $property->transaction_type === 'disewa' ? 'Disewa' : 'Dijual',
+        };
+
+        $metaTitle = $property->meta_title ?: sprintf(
+            '%s — %s%s | DJM Property',
+            $property->title,
+            $transaction,
+            $cityName ? ' di ' . $cityName : ''
+        );
+
+        $metaDescription = $property->meta_description;
+        if (!$metaDescription) {
+            if (Str::length(trim(strip_tags((string) $property->short_description))) >= 80) {
+                $metaDescription = Str::limit(trim(strip_tags($property->short_description)), 158);
+            } else {
+                // Deskripsi pendek/absen — susun dari tipe + lokasi + spesifikasi.
+                $specs = [];
+                if ($property->land_area)     $specs[] = 'luas tanah ' . (int) $property->land_area . ' m²';
+                if ($property->building_area) $specs[] = 'luas bangunan ' . (int) $property->building_area . ' m²';
+                if ($property->bedrooms)      $specs[] = $property->bedrooms . ' kamar tidur';
+                if ($property->bathrooms)     $specs[] = $property->bathrooms . ' kamar mandi';
+                if ($property->certificate)   $specs[] = 'sertifikat ' . $property->certificate;
+
+                $line = trim(($property->propertyType?->name ?? 'Properti') . ' ' . strtolower($transaction));
+                $line .= $cityName ? ' di ' . ($property->district?->name ? $property->district->name . ', ' : '') . $cityName : '';
+                $line .= '.';
+                if ($specs) {
+                    $line .= ' Spesifikasi: ' . implode(', ', array_slice($specs, 0, 4)) . '.';
+                }
+                $line .= ' Info lengkap & kunjungan: hubungi DJM Property.';
+                $metaDescription = Str::limit($line, 158);
+            }
+        }
+
+        return view('properties.show', compact('property', 'related', 'metaTitle', 'metaDescription'));
     }
 
     public function submitInquiry(Request $request, string $slug): RedirectResponse

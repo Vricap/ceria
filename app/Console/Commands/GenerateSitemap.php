@@ -18,31 +18,47 @@ class GenerateSitemap extends Command
     {
         $this->info('Generating sitemap...');
 
+        // Base URL produksi yang tetap — tidak bergantung APP_URL agar
+        // sitemap selalu valid meskipun command dijalankan via cron/CLI.
+        $base = rtrim(config('seo.base_url'), '/');
+
         $sitemap = Sitemap::create();
 
-        // Static Pages
-        $sitemap->add(Url::create('/')->setPriority(1.0)->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY));
-        $sitemap->add(Url::create('/tentang')->setPriority(0.8)->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY));
-        $sitemap->add(Url::create('/properti')->setPriority(0.9)->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY));
-        $sitemap->add(Url::create('/layanan')->setPriority(0.8)->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY));
-        $sitemap->add(Url::create('/portfolio')->setPriority(0.7)->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY));
-        $sitemap->add(Url::create('/kontak')->setPriority(0.7)->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY));
+        $staticPages = [
+            '/'          => ['priority' => 1.0, 'freq' => Url::CHANGE_FREQUENCY_DAILY],
+            '/properti'  => ['priority' => 0.9, 'freq' => Url::CHANGE_FREQUENCY_DAILY],
+            '/tentang'   => ['priority' => 0.8, 'freq' => Url::CHANGE_FREQUENCY_MONTHLY],
+            '/layanan'   => ['priority' => 0.8, 'freq' => Url::CHANGE_FREQUENCY_MONTHLY],
+            '/portfolio' => ['priority' => 0.7, 'freq' => Url::CHANGE_FREQUENCY_MONTHLY],
+            '/kontak'    => ['priority' => 0.7, 'freq' => Url::CHANGE_FREQUENCY_MONTHLY],
+        ];
 
-        // Dynamic Pages - Properties
-        $properties = Property::visible()->get();
-        foreach ($properties as $property) {
+        foreach ($staticPages as $path => $meta) {
             $sitemap->add(
-                Url::create("/properti/{$property->slug}")
-                    ->setLastModificationDate($property->updated_at)
-                    ->setPriority(0.9)
-                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
+                Url::create("{$base}{$path}")
+                    ->setPriority($meta['priority'])
+                    ->setChangeFrequency($meta['freq'])
             );
         }
 
-        // Dynamic Pages - Services
+        // Detail properti (status tampil: published, featured, sold, rented).
+        Property::visible()
+            ->select(['slug', 'updated_at'])
+            ->chunk(500, function ($properties) use ($sitemap, $base) {
+                foreach ($properties as $property) {
+                    $sitemap->add(
+                        Url::create("{$base}/properti/{$property->slug}")
+                            ->setLastModificationDate($property->updated_at)
+                            ->setPriority(0.9)
+                            ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
+                    );
+                }
+            });
+
+        // Layanan
         foreach (ServiceItem::all() as $service) {
             $sitemap->add(
-                Url::create("/layanan/{$service->slug}")
+                Url::create("{$base}/layanan/{$service->slug}")
                     ->setPriority(0.7)
                     ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)
             );

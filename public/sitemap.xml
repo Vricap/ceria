@@ -1,368 +1,260 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
     <url>
-    <loc>http://localhost</loc>
+    <loc>https://destyjayamandiri.com/</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
             </url>
     <url>
-    <loc>http://localhost/tentang</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-            </url>
-    <url>
-    <loc>http://localhost/properti</loc>
+    <loc>https://destyjayamandiri.com/properti</loc>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
             </url>
     <url>
-    <loc>http://localhost/layanan</loc>
+    <loc>https://destyjayamandiri.com/tentang</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://localhost/portfolio</loc>
+    <loc>https://destyjayamandiri.com/layanan</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+            </url>
+    <url>
+    <loc>https://destyjayamandiri.com/portfolio</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
             </url>
     <url>
-    <loc>http://localhost/kontak</loc>
+    <loc>https://destyjayamandiri.com/kontak</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
             </url>
     <url>
-    <loc>http://localhost/properti/kos-eksklusif-bandara-kulon-progo</loc>
-    <lastmod>2026-08-18T04:06:59+00:00</lastmod>
+    <loc>https://destyjayamandiri.com/properti/rumah-modern-dekat-kampus-ugm</loc>
+    <lastmod>2026-08-23T15:13:56+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
             </url>
     <url>
-    <loc>http://localhost/properti/rumah-eksklusif-kaliurang-hills</loc>
-    <lastmod>2026-08-17T18:02:04+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-            </url>
-    <url>
-    <loc>http://localhost/properti/rumah-modern-dekat-kampus-ugm</loc>
-    <lastmod>2026-08-18T08:15:06+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-            </url>
-    <url>
-    <loc>http://localhost/properti/luxury-villa-with-private-pool</loc>
-    <lastmod>2026-08-17T16:57:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-            </url>
-    <url>
-    <loc>http://localhost/properti/urban-apartment-pusat-kota</loc>
-    <lastmod>2026-08-17T16:57:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-            </url>
-    <url>
-    <loc>http://localhost/properti/ocean-view-house-bantul</loc>
+    <loc>https://destyjayamandiri.com/properti/ocean-view-house-bantul</loc>
     <lastmod>2026-08-18T04:06:49+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
             </url>
     <url>
-    <loc>http://localhost/properti/ruko-strategis-jl-kaliurang</loc>
+    <loc>https://destyjayamandiri.com/properti/ruko-strategis-jl-kaliurang</loc>
     <lastmod>2026-08-18T06:48:28+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
             </url>
     <url>
-    <loc>http://localhost/properti/tanah-kavling-siap-bangun-godean</loc>
-    <lastmod>2026-08-17T17:36:45+00:00</lastmod>
+    <loc>https://destyjayamandiri.com/properti/tanah-kavling-siap-bangun-godean</loc>
+    <lastmod>2026-08-23T15:07:36+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
             </url>
     <url>
-    <loc>http://localhost/properti/rumah-cluster-modern-godean</loc>
+    <loc>https://destyjayamandiri.com/properti/rumah-cluster-modern-godean</loc>
     <lastmod>2026-08-18T04:07:22+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
             </url>
     <url>
-    <loc>http://localhost/properti/gudang-modern-sleman</loc>
+    <loc>https://destyjayamandiri.com/properti/gudang-modern-sleman</loc>
     <lastmod>2026-08-17T16:57:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
             </url>
     <url>
-    <loc>http://localhost/properti/hotel-boutique-wonosari</loc>
-    <lastmod>2026-08-18T09:27:08+00:00</lastmod>
+    <loc>https://destyjayamandiri.com/properti/kos-eksklusif-bandara-kulon-progo</loc>
+    <lastmod>2026-08-18T04:06:59+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
             </url>
     <url>
-    <loc>http://localhost/properti/tanah-kavling-perbukitan-patuk</loc>
+    <loc>https://destyjayamandiri.com/properti/ruko-sewa-harian-bantul-city</loc>
+    <lastmod>2026-08-23T15:13:56+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+            </url>
+    <url>
+    <loc>https://destyjayamandiri.com/properti/rumah-mewah-jogja-permai</loc>
+    <lastmod>2026-08-23T15:07:37+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+            </url>
+    <url>
+    <loc>https://destyjayamandiri.com/properti/tanah-kavling-perbukitan-patuk</loc>
     <lastmod>2026-08-17T18:03:50+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
             </url>
     <url>
-    <loc>http://localhost/properti/rumah-joglo-tradisional-imogiri</loc>
+    <loc>https://destyjayamandiri.com/properti/rumah-minimalis-sewa-wates</loc>
+    <lastmod>2026-08-17T16:57:01+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+            </url>
+    <url>
+    <loc>https://destyjayamandiri.com/properti/rumah-joglo-tradisional-imogiri</loc>
     <lastmod>2026-08-17T17:26:26+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
             </url>
     <url>
-    <loc>http://localhost/properti/rumah-cluster-griya-sentolo</loc>
+    <loc>https://destyjayamandiri.com/properti/rumah-cluster-griya-sentolo</loc>
     <lastmod>2026-08-17T16:57:01+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
             </url>
     <url>
-    <loc>http://localhost/properti/rumah-modern-minimalis-piyungan</loc>
+    <loc>https://destyjayamandiri.com/properti/rumah-modern-minimalis-piyungan</loc>
     <lastmod>2026-08-17T16:57:01+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
             </url>
     <url>
-    <loc>http://localhost/properti/ruko-2-lantai-wonosari-center</loc>
+    <loc>https://destyjayamandiri.com/properti/tanah-pertanian-sewa-pandak</loc>
     <lastmod>2026-08-17T16:57:01+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
             </url>
     <url>
-    <loc>http://localhost/properti/tanah-kavling-komersial-berbah</loc>
+    <loc>https://destyjayamandiri.com/properti/rumah-eksklusif-kaliurang-hills</loc>
+    <lastmod>2026-08-24T03:35:16+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+            </url>
+    <url>
+    <loc>https://destyjayamandiri.com/properti/rumah-type-36-sewa-banguntapan</loc>
     <lastmod>2026-08-17T16:57:01+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
             </url>
     <url>
-    <loc>http://localhost/properti/apartemen-premium-seturan</loc>
+    <loc>https://destyjayamandiri.com/properti/ruko-2-lantai-wonosari-center</loc>
+    <lastmod>2026-08-17T16:57:01+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+            </url>
+    <url>
+    <loc>https://destyjayamandiri.com/properti/rumah-tinggal-sewa-umbulharjo</loc>
+    <lastmod>2026-08-17T16:57:01+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+            </url>
+    <url>
+    <loc>https://destyjayamandiri.com/properti/gudang-sewa-dekat-bandara-yia</loc>
+    <lastmod>2026-08-17T16:57:01+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+            </url>
+    <url>
+    <loc>https://destyjayamandiri.com/properti/tanah-kavling-komersial-berbah</loc>
+    <lastmod>2026-08-17T16:57:01+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+            </url>
+    <url>
+    <loc>https://destyjayamandiri.com/properti/rumah-heritage-kotagede</loc>
+    <lastmod>2026-08-17T16:57:01+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+            </url>
+    <url>
+    <loc>https://destyjayamandiri.com/properti/ruko-sudah-disewa-prambanan</loc>
     <lastmod>2026-08-17T16:57:02+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
             </url>
     <url>
-    <loc>http://localhost/properti/vila-mewah-kaliurang-private-pool</loc>
+    <loc>https://destyjayamandiri.com/properti/tanah-sawah-sewa-tahunan-galur</loc>
     <lastmod>2026-08-17T16:57:02+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
             </url>
     <url>
-    <loc>http://localhost/properti/gedung-kantor-siap-pakai-bantul</loc>
-    <lastmod>2026-08-18T04:33:01+00:00</lastmod>
+    <loc>https://destyjayamandiri.com/properti/ruko-3-lantai-jalan-malioboro</loc>
+    <lastmod>2026-08-22T16:42:33+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
             </url>
     <url>
-    <loc>http://localhost/properti/ruko-3-lantai-jalan-malioboro</loc>
-    <lastmod>2026-08-17T16:57:02+00:00</lastmod>
+    <loc>https://destyjayamandiri.com/properti/gudang-industrial-umbulharjo</loc>
+    <lastmod>2026-08-24T03:26:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
             </url>
     <url>
-    <loc>http://localhost/properti/gudang-industrial-umbulharjo</loc>
-    <lastmod>2026-08-17T16:57:02+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-            </url>
-    <url>
-    <loc>http://localhost/properti/tanah-kebun-produktif-ngawen</loc>
-    <lastmod>2026-08-17T16:57:02+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-            </url>
-    <url>
-    <loc>http://localhost/properti/homestay-pantai-parangtritis</loc>
-    <lastmod>2026-08-18T06:48:06+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-            </url>
-    <url>
-    <loc>http://localhost/properti/rumah-tradisional-jawa-nanggulan</loc>
-    <lastmod>2026-08-17T16:57:03+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-            </url>
-    <url>
-    <loc>http://localhost/properti/rumah-minimalis-asri-wonosari</loc>
-    <lastmod>2026-08-17T16:57:03+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-            </url>
-    <url>
-    <loc>http://localhost/properti/vila-jogja-bernuansa-tropis-disewakan</loc>
-    <lastmod>2026-08-17T18:01:16+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-            </url>
-    <url>
-    <loc>http://localhost/properti/kantor-siap-pakai-malioboro</loc>
-    <lastmod>2026-08-17T16:57:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-            </url>
-    <url>
-    <loc>http://localhost/properti/ruko-sewa-harian-bantul-city</loc>
-    <lastmod>2026-08-17T16:57:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-            </url>
-    <url>
-    <loc>http://localhost/properti/rumah-minimalis-sewa-wates</loc>
-    <lastmod>2026-08-17T16:57:01+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-            </url>
-    <url>
-    <loc>http://localhost/properti/vila-pemandangan-laut-gunungkidul</loc>
-    <lastmod>2026-08-17T16:57:01+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-            </url>
-    <url>
-    <loc>http://localhost/properti/ruang-kantor-co-working-sleman</loc>
-    <lastmod>2026-08-17T16:57:01+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-            </url>
-    <url>
-    <loc>http://localhost/properti/tanah-pertanian-sewa-pandak</loc>
-    <lastmod>2026-08-17T16:57:01+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-            </url>
-    <url>
-    <loc>http://localhost/properti/rumah-type-36-sewa-banguntapan</loc>
-    <lastmod>2026-08-17T16:57:01+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-            </url>
-    <url>
-    <loc>http://localhost/properti/rumah-tinggal-sewa-umbulharjo</loc>
-    <lastmod>2026-08-17T16:57:01+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-            </url>
-    <url>
-    <loc>http://localhost/properti/gudang-sewa-dekat-bandara-yia</loc>
-    <lastmod>2026-08-17T16:57:01+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-            </url>
-    <url>
-    <loc>http://localhost/properti/studio-apartment-condoview-sleman</loc>
-    <lastmod>2026-08-17T16:57:01+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-            </url>
-    <url>
-    <loc>http://localhost/properti/hotel-syariah-tugu-jogja</loc>
-    <lastmod>2026-08-17T18:05:24+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-            </url>
-    <url>
-    <loc>http://localhost/properti/tanah-sawah-sewa-tahunan-galur</loc>
-    <lastmod>2026-08-17T16:57:02+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-            </url>
-    <url>
-    <loc>http://localhost/properti/rumah-mewah-sewa-bulanan-godean</loc>
+    <loc>https://destyjayamandiri.com/properti/rumah-mewah-sewa-bulanan-godean</loc>
     <lastmod>2026-08-17T17:26:02+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
             </url>
     <url>
-    <loc>http://localhost/properti/apartemen-cozy-tegalrejo-jogja</loc>
+    <loc>https://destyjayamandiri.com/properti/tanah-kebun-produktif-ngawen</loc>
     <lastmod>2026-08-17T16:57:02+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
             </url>
     <url>
-    <loc>http://localhost/properti/ruko-modern-sewa-bulanan-sewon</loc>
+    <loc>https://destyjayamandiri.com/properti/ruko-modern-sewa-bulanan-sewon</loc>
     <lastmod>2026-08-17T16:57:02+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
             </url>
     <url>
-    <loc>http://localhost/properti/virtual-office-premium-jetis</loc>
-    <lastmod>2026-08-17T16:57:02+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-            </url>
-    <url>
-    <loc>http://localhost/properti/gudang-logistik-dekat-jalan-tol-sleman</loc>
+    <loc>https://destyjayamandiri.com/properti/rumah-tradisional-jawa-nanggulan</loc>
     <lastmod>2026-08-17T16:57:03+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
             </url>
     <url>
-    <loc>http://localhost/properti/ruko-strategis-sewa-bulanan-wonosari</loc>
+    <loc>https://destyjayamandiri.com/properti/gudang-logistik-dekat-jalan-tol-sleman</loc>
     <lastmod>2026-08-17T16:57:03+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
             </url>
     <url>
-    <loc>http://localhost/properti/food-court-space-sewa-bulanan-sleman</loc>
-    <lastmod>2026-08-17T17:17:31+00:00</lastmod>
+    <loc>https://destyjayamandiri.com/properti/ruko-strategis-sewa-bulanan-wonosari</loc>
+    <lastmod>2026-08-17T16:57:03+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
             </url>
     <url>
-    <loc>http://localhost/properti/apartemen-condoview-sleman-disewakan</loc>
-    <lastmod>2026-08-17T16:57:00+00:00</lastmod>
+    <loc>https://destyjayamandiri.com/properti/rumah-minimalis-asri-wonosari</loc>
+    <lastmod>2026-08-17T16:57:03+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
             </url>
     <url>
-    <loc>http://localhost/properti/ruko-sudah-disewa-prambanan</loc>
-    <lastmod>2026-08-17T16:57:02+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-            </url>
-    <url>
-    <loc>http://localhost/properti/rumah-mewah-jogja-permai</loc>
-    <lastmod>2026-08-17T16:57:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-            </url>
-    <url>
-    <loc>http://localhost/properti/toko-bangunan-sudah-terjual</loc>
-    <lastmod>2026-08-17T16:57:01+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-            </url>
-    <url>
-    <loc>http://localhost/properti/rumah-heritage-kotagede</loc>
-    <lastmod>2026-08-17T16:57:01+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-            </url>
-    <url>
-    <loc>http://localhost/layanan/pbg-imb</loc>
+    <loc>https://destyjayamandiri.com/layanan/pbg-imb</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
             </url>
     <url>
-    <loc>http://localhost/layanan/pengeringan</loc>
+    <loc>https://destyjayamandiri.com/layanan/pengeringan</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
             </url>
     <url>
-    <loc>http://localhost/layanan/pecah-sertifikat</loc>
+    <loc>https://destyjayamandiri.com/layanan/pecah-sertifikat</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
             </url>
     <url>
-    <loc>http://localhost/layanan/pembangunan</loc>
+    <loc>https://destyjayamandiri.com/layanan/pembangunan</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
             </url>
     <url>
-    <loc>http://localhost/layanan/renovasi</loc>
+    <loc>https://destyjayamandiri.com/layanan/renovasi</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
             </url>
     <url>
-    <loc>http://localhost/layanan/jasa-konstruksi</loc>
+    <loc>https://destyjayamandiri.com/layanan/jasa-konstruksi</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
             </url>

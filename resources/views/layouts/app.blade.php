@@ -6,6 +6,9 @@
     <title>@yield('title', 'DJM Property – Solusi Properti & Konstruksi di Yogyakarta')</title>
     <link rel="icon" type="image/png" href="{{ asset('images/logodjm1.png') }}">
     <meta name="description" content="@yield('meta_description', 'DJM Property menyediakan informasi dan layanan properti, konstruksi, serta jasa pendukung kebutuhan properti di Yogyakarta. Temukan properti dan solusi properti yang sesuai dengan kebutuhan Anda.')">
+    @hasSection('robots')
+        <meta name="robots" content="@yield('robots')">
+    @endif
 
     <!-- Canonical URL -->
     <link rel="canonical" href="@yield('canonical', url()->current())">
@@ -47,26 +50,45 @@
         $orgAddress = \App\Support\Site::get('contact_address', 'Jl. Kaliurang KM 7, Sleman, Yogyakarta');
         $orgPhone = \App\Support\Site::get('contact_phone', '+62 274 123456');
         $orgEmail = \App\Support\Site::get('contact_email', 'info@djmproperty.id');
+        $orgSocials = collect([
+            \App\Support\Site::get('social_instagram'),
+            \App\Support\Site::get('social_facebook'),
+            \App\Support\Site::get('social_youtube'),
+            \App\Support\Site::get('social_tiktok'),
+        ])->filter(fn ($u) => filled($u))->values()->all();
     @endphp
     <script type="application/ld+json">
     {
       "@@context": "https://schema.org",
-      "@@type": "Organization",
+      "@@type": "RealEstateAgent",
+      "@@id": "{{ url('/') }}#organization",
       "name": "{{ $orgName }}",
+      "alternateName": "DJM Property",
       "url": "{{ url('/') }}",
       "logo": "{{ asset('images/logodjm.png') }}",
+      "description": "Perusahaan properti, perizinan bangunan (PBG/IMB), dan konstruksi yang melayani wilayah Yogyakarta: Sleman, Bantul, Kota Yogyakarta, Kulon Progo, dan Gunungkidul.",
       "address": {
         "@@type": "PostalAddress",
         "streetAddress": "{{ $orgAddress }}",
+        "addressLocality": "Sleman",
+        "addressRegion": "Daerah Istimewa Yogyakarta",
         "addressCountry": "ID"
       },
-      "contactPoint": {
-        "@@type": "ContactPoint",
-        "telephone": "{{ $orgPhone }}",
-        "contactType": "customer service",
-        "availableLanguage": "Indonesian"
-      },
-      "email": "{{ $orgEmail }}"
+      "telephone": "{{ $orgPhone }}",
+      "email": "{{ $orgEmail }}",
+      "areaServed": [
+        { "@@type": "City", "name": "Yogyakarta" },
+        { "@@type": "AdministrativeArea", "name": "Sleman" },
+        { "@@type": "AdministrativeArea", "name": "Bantul" },
+        { "@@type": "AdministrativeArea", "name": "Kota Yogyakarta" },
+        { "@@type": "AdministrativeArea", "name": "Kulon Progo" },
+        { "@@type": "AdministrativeArea", "name": "Gunungkidul" }
+      ]@if(!empty($orgSocials)),
+      "sameAs": [
+        @foreach($orgSocials as $i => $url)
+            "{{ $url }}"@if(!$loop->last),@endif
+        @endforeach
+      ]@endif
     }
     </script>
 
@@ -1090,9 +1112,15 @@
                         Desty Jaya Mandiri — perusahaan terpercaya di bidang perizinan, properti, dan konstruksi di Yogyakarta dan sekitarnya.
                     </p>
                     <div class="social-links">
-                        <a href="#" title="Facebook DJM"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="#" title="Instagram DJM"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="https://wa.me/6281234567890" target="_blank" title="WhatsApp DJM"><i class="fa-brands fa-whatsapp"></i></a>
+                        @foreach(collect([
+                            ['url' => \App\Support\Site::get('social_facebook'), 'icon' => 'fa-facebook-f', 'label' => 'Facebook DJM'],
+                            ['url' => \App\Support\Site::get('social_instagram'), 'icon' => 'fa-instagram', 'label' => 'Instagram DJM'],
+                            ['url' => \App\Support\Site::get('social_youtube'), 'icon' => 'fa-youtube', 'label' => 'YouTube DJM'],
+                            ['url' => \App\Support\Site::get('social_tiktok'), 'icon' => 'fa-tiktok', 'label' => 'TikTok DJM'],
+                        ])->filter(fn ($s) => filled($s['url'])) as $social)
+                            <a href="{{ $social['url'] }}" target="_blank" rel="noopener noreferrer" title="{{ $social['label'] }}"><i class="fa-brands {{ $social['icon'] }}"></i></a>
+                        @endforeach
+                        <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', \App\Support\Site::get('contact_whatsapp', '6281234567890')) }}" target="_blank" rel="noopener noreferrer" title="WhatsApp DJM"><i class="fa-brands fa-whatsapp"></i></a>
                     </div>
                 </div>
 
@@ -1123,19 +1151,19 @@
                     <ul class="contact-info" style="list-style: none;">
                         <li>
                             <i class="fa-solid fa-location-dot"></i>
-                            <span>Jl. Kaliurang KM 7, Sleman, Yogyakarta</span>
+                            <span>{{ \App\Support\Site::get('contact_address', 'Jl. Kaliurang KM 7, Sleman, Yogyakarta') }}</span>
                         </li>
                         <li>
                             <i class="fa-solid fa-phone"></i>
-                            <span>+62 274 123456</span>
+                            <span>{{ \App\Support\Site::get('contact_phone', '+62 274 123456') }}</span>
                         </li>
                         <li>
                             <i class="fa-brands fa-whatsapp"></i>
-                            <span>+62 812 3456 7890</span>
+                            <span>{{ \App\Support\Site::get('contact_whatsapp_display', '+62 812 3456 7890') }}</span>
                         </li>
                         <li>
                             <i class="fa-solid fa-envelope"></i>
-                            <span>info@djmproperty.id</span>
+                            <span>{{ \App\Support\Site::get('contact_email', 'info@djmproperty.id') }}</span>
                         </li>
                     </ul>
                 </div>
@@ -1155,7 +1183,7 @@
     <!-- Floating WhatsApp Button -->
     @hasSection('hide_wa_floating')
     @else
-    <a href="https://wa.me/6281234567890" class="floating-wa" target="_blank" rel="noopener noreferrer">
+    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', \App\Support\Site::get('contact_whatsapp', '6281234567890')) }}" class="floating-wa" target="_blank" rel="noopener noreferrer" aria-label="Hubungi DJM Property via WhatsApp">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
     @endif

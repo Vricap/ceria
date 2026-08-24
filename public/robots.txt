@@ -11,4 +11,4 @@ Disallow: /properties/update/
 Disallow: /properties/destroy/
 Disallow: /properties/images/
 
-Sitemap: /sitemap.xml
+Sitemap: https://destyjayamandiri.com/sitemap.xml

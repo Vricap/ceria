@@ -18,7 +18,8 @@ return [
         'contact_address'   => 'Jl. Kaliurang KM 7, Sleman, Yogyakarta',
         'contact_phone'     => '+62 274 123456',
         'contact_whatsapp'  => '6281234567890',
-        'contact_email'     => 'info@djmProperty.id',
+        'contact_whatsapp_display' => '+62 812 3456 7890',
+        'contact_email'     => 'info@djmproperty.id',
         'contact_hours'     => 'Senin – Jumat: 08.00–17.00 WIB',
 
         // Social

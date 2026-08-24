@@ -6,52 +6,61 @@
     $isAvailable = !$isSold && !$isRented;
 @endphp
 
-@section('title', $property->meta_title ?: ($property->title . ' | DJM Property'))
-@section('meta_description', $property->meta_description ?: ($property->short_description ?: Str::limit(strip_tags($property->description), 155)))
+@section('title', $metaTitle ?? ($property->title . ' | DJM Property'))
+@section('meta_description', $metaDescription ?: ($property->meta_description ?: $property->short_description ?: Str::limit(strip_tags($property->description), 155)))
 @section('og_image', $property->og_image ?: $property->thumbnail_url)
 
 @section('canonical', url('/properti/' . $property->slug))
+@php
+    $detailDescription = $metaDescription ?: ($property->meta_description ?: $property->short_description ?: Str::limit(strip_tags($property->description), 155));
+    $detailUrl = url('/properti/' . $property->slug);
+
+    $breadcrumbItems = collect([
+        ['name' => 'Beranda', 'item' => url('/')],
+        ['name' => 'Properti', 'item' => route('properties.index')],
+    ]);
+    $breadcrumbItems->push(['name' => $property->title]);
+    $breadcrumbSchema = [
+        '@context'        => 'https://schema.org',
+        '@type'           => 'BreadcrumbList',
+        'itemListElement' => $breadcrumbItems->map(fn ($it, $i) => array_filter([
+            '@type'    => 'ListItem',
+            'position' => $i + 1,
+            'name'     => $it['name'],
+            'item'     => $it['item'] ?? null,
+        ], fn ($v) => $v !== null))->values()->all(),
+    ];
+
+    $price = (float) ($property->price_rent_monthly ?: $property->price);
+    $product = array_filter([
+        '@context'      => 'https://schema.org',
+        '@type'         => 'Product',
+        'name'          => $property->title,
+        'description'   => Str::limit(strip_tags($detailDescription), 300),
+        'image'         => $property->og_image ?: $property->thumbnail_url,
+        'url'           => $detailUrl,
+        'category'      => $property->propertyType?->name,
+        'sku'           => !empty($property->property_id_code) ? $property->property_id_code : null,
+        'offers'        => [
+            '@type'         => 'Offer',
+            'url'           => $detailUrl,
+            'availability'  => $isAvailable ? 'https://schema.org/InStock' : 'https://schema.org/SoldOut',
+            'priceCurrency' => 'IDR',
+            'price'         => $price > 0 ? $price : null,
+        ],
+        'geo'           => ($property->latitude && $property->longitude) ? [
+            '@type'     => 'GeoCoordinates',
+            'latitude'  => (float) $property->latitude,
+            'longitude' => (float) $property->longitude,
+        ] : null,
+    ], fn ($v) => $v !== null);
+@endphp
 @section('schema')
 <script type="application/ld+json">
-{
-  "@@context": "https://schema.org",
-  "@@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@@type": "ListItem",
-      "position": 1,
-      "name": "Beranda",
-      "item": "{{ url('/') }}"
-    },
-    {
-      "@@type": "ListItem",
-      "position": 2,
-      "name": "Properti",
-      "item": "{{ route('properties.index') }}"
-    },
-    {
-      "@@type": "ListItem",
-      "position": 3,
-      "name": "{{ $property->title }}"
-    }
-  ]
-}
+{!! json_encode($breadcrumbSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
 </script>
 <script type="application/ld+json">
-{
-  "@@context": "https://schema.org",
-  "@@type": "Product",
-  "name": "{{ $property->title }}",
-  "description": "{{ $property->meta_description ?: $property->short_description ?: Str::limit(strip_tags($property->description), 200) }}",
-  "image": "{{ $property->og_image ?: $property->thumbnail_url }}",
-  "url": "{{ url('/properti/' . $property->slug) }}",
-  "offers": {
-    "@@type": "Offer",
-    "price": "{{ $property->price }}",
-    "priceCurrency": "IDR",
-    "availability": "{{ $isAvailable ? 'https://schema.org/InStock' : 'https://schema.org/SoldOut' }}"
-  }
-}
+{!! json_encode($product, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
 </script>
 @endsection
 

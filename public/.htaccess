@@ -5,6 +5,16 @@
 
     RewriteEngine On
 
+    # ─── Canonical host & protocol (produksi saja, tidak memengaruhi dev lokal) ───
+    # 1) HTTP -> HTTPS untuk domain produksi
+    RewriteCond %{HTTP_HOST} (^|\.)destyjayamandiri\.com$ [NC]
+    RewriteCond %{HTTPS} off
+    RewriteRule ^ https://destyjayamandiri.com%{REQUEST_URI} [R=301,L]
+
+    # 2) www -> non-www (HTTPS)
+    RewriteCond %{HTTP_HOST} ^www\.destyjayamandiri\.com$ [NC]
+    RewriteRule ^ https://destyjayamandiri.com%{REQUEST_URI} [R=301,L]
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
