@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\PropertyType;
 use App\Http\Controllers\FacilityController;
 use App\Models\City;
+use App\Models\District;
 use App\Models\Agent;
 use App\Models\PropertyImage;
 use App\Models\PropertyFacility;
