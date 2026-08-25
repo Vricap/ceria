@@ -215,11 +215,11 @@ class PropertyController extends Controller
         $categories    = Category::where('is_active', true)->orderBy('sort_order')->orderBy('name')->get();
         $propertyTypes = PropertyType::where('is_active', true)->orderBy('sort_order')->orderBy('name')->get();
         $cities        = City::where('is_active', true)->orderBy('name')->get();
-        $districts     = District::where('is_active', true)->orderBy('name')->get();
+        // $districts     = District::where('is_active', true)->orderBy('name')->get();
         $agents        = Agent::where('is_active', true)->orderBy('name')->get();
         $facilities    = FacilityController::active();
 
-        return view('dashboard.create', compact('categories', 'propertyTypes', 'cities', 'districts', 'agents', 'facilities'));
+        return view('dashboard.create', compact('categories', 'propertyTypes', 'cities', 'agents', 'facilities'));
     }
 
     /**
@@ -340,11 +340,11 @@ class PropertyController extends Controller
         $categories    = Category::where('is_active', true)->orderBy('sort_order')->orderBy('name')->get();
         $propertyTypes = PropertyType::where('is_active', true)->orderBy('sort_order')->orderBy('name')->get();
         $cities        = City::where('is_active', true)->orderBy('name')->get();
-        $districts     = District::where('is_active', true)->orderBy('name')->get();
+        // $districts     = District::where('is_active', true)->orderBy('name')->get();
         $agents        = Agent::where('is_active', true)->orderBy('name')->get();
         $facilities    = FacilityController::active();
 
-        return view('dashboard.edit', compact('property', 'categories', 'propertyTypes', 'cities', 'districts', 'agents', 'facilities'));
+        return view('dashboard.edit', compact('property', 'categories', 'propertyTypes', 'cities', 'agents', 'facilities'));
     }
 
     /**

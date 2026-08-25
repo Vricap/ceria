@@ -239,17 +239,6 @@
                 </div>
 
                 {{-- Kecamatan --}}
-                <!-- <div>
-                    <label for="district_id" class="field-label">Kecamatan</label>
-                    <select id="district_id" name="district_id" class="field-input">
-                        <option value="">-- Pilih Kecamatan --</option>
-                        @foreach($districts as $dist)
-                            <option value="{{ $dist->id }}" data-city-id="{{ $dist->city_id }}" {{ old('district_id', $property->district_id) == $dist->id ? 'selected' : '' }}>
-                                {{ $dist->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div> -->
 
                 {{-- Alamat --}}
                 <div class="md:col-span-2">
