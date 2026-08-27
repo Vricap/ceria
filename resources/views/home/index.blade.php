@@ -837,7 +837,7 @@
         <div class="cta-whatsapp-card" data-scroll>
             <h2 class="cta-wa-title">Siap Membantu Kebutuhan Anda</h2>
             <p class="cta-wa-subtitle">Konsultasikan kebutuhan perizinan, properti, atau konstruksi Anda langsung bersama tim ahli DJM — tanpa biaya awal.</p>
-            <a href="https://wa.me/6281234567890?text=Halo%20DJM%2C%20saya%20ingin%20berkonsultasi%20mengenai%20layanan%20DJM."
+            <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', \App\Support\Site::get('contact_whatsapp', '628216726285')) }}?text=Halo%20DJM%2C%20saya%20ingin%20berkonsultasi%20mengenai%20layanan%20DJM."
                target="_blank"
                rel="noopener noreferrer"
                class="btn-whatsapp"

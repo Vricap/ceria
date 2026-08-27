@@ -179,8 +179,8 @@
             <div>
                 @php
                     $contactAddress = $settings['contact_address'] ?? 'Jl. Kaliurang KM 7, Sleman, Yogyakarta';
-                    $contactPhone = $settings['contact_phone'] ?? '+62 274 123456';
-                    $contactWhatsapp = $settings['contact_whatsapp'] ?? '+62 812 3456 7890';
+                    $contactPhone = $settings['contact_phone'] ?? '+62 821 6726 285';
+                    $contactWhatsapp = $settings['contact_whatsapp'] ?? '+62 821 6726 285';
                     $contactEmail = $settings['contact_email'] ?? 'info@djmproperty.id';
                     $waNumber = preg_replace('/[^0-9]/', '', $contactWhatsapp);
                 @endphp

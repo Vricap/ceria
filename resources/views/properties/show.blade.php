@@ -393,7 +393,7 @@
 
     $hasMore = count($highlights) > 3 || $property->facilities->count() > 0;
 
-    $whatsappUrl = 'https://wa.me/6281234567890?text=' . $property->whatsapp_message;
+    $whatsappUrl = 'https://wa.me/' . preg_replace('/[^0-9]/', '', \App\Support\Site::get('contact_whatsapp', '628216726285')) . '?text=' . $property->whatsapp_message;
 @endphp
 
 <div class="container prop-page">

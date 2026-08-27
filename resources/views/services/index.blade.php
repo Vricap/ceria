@@ -5,7 +5,7 @@
 @section('canonical', url('/layanan'))
 
 @php
-    $contactWhatsapp = \App\Support\Site::get('contact_whatsapp', '+62 812 3456 7890');
+    $contactWhatsapp = \App\Support\Site::get('contact_whatsapp', '+62 821 6726 285');
     $waNumber = preg_replace('/[^0-9]/', '', $contactWhatsapp);
 @endphp
 

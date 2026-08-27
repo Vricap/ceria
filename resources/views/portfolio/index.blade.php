@@ -311,7 +311,7 @@
         <div class="cta-portfolio" data-scroll>
             <h2>Ingin Menggunakan Jasa DJM?</h2>
             <p>Konsultasikan kebutuhan perizinan, konstruksi, atau properti Anda langsung bersama tim ahli kami.</p>
-            <a href="https://wa.me/6281234567890?text=Halo%20DJM%2C%20saya%20ingin%20berkonsultasi%20mengenai%20layanan%20DJM."
+            <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', \App\Support\Site::get('contact_whatsapp', '628216726285')) }}?text=Halo%20DJM%2C%20saya%20ingin%20berkonsultasi%20mengenai%20layanan%20DJM."
                target="_blank" rel="noopener noreferrer"
                class="btn btn-white"
                style="padding: 14px 36px; font-size: 1.05rem; display: inline-flex; align-items: center; gap: 10px;">

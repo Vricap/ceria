@@ -48,7 +48,7 @@
     @php
         $orgName = \App\Support\Site::get('company_name', 'Desty Jaya Mandiri');
         $orgAddress = \App\Support\Site::get('contact_address', 'Jl. Kaliurang KM 7, Sleman, Yogyakarta');
-        $orgPhone = \App\Support\Site::get('contact_phone', '+62 274 123456');
+        $orgPhone = \App\Support\Site::get('contact_phone', '+62 821 6726 285');
         $orgEmail = \App\Support\Site::get('contact_email', 'info@djmproperty.id');
         $orgSocials = collect([
             \App\Support\Site::get('social_instagram'),
@@ -1120,7 +1120,7 @@
                         ])->filter(fn ($s) => filled($s['url'])) as $social)
                             <a href="{{ $social['url'] }}" target="_blank" rel="noopener noreferrer" title="{{ $social['label'] }}"><i class="fa-brands {{ $social['icon'] }}"></i></a>
                         @endforeach
-                        <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', \App\Support\Site::get('contact_whatsapp', '6281234567890')) }}" target="_blank" rel="noopener noreferrer" title="WhatsApp DJM"><i class="fa-brands fa-whatsapp"></i></a>
+                        <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', \App\Support\Site::get('contact_whatsapp', '628216726285')) }}" target="_blank" rel="noopener noreferrer" title="WhatsApp DJM"><i class="fa-brands fa-whatsapp"></i></a>
                     </div>
                 </div>
 
@@ -1155,11 +1155,11 @@
                         </li>
                         <li>
                             <i class="fa-solid fa-phone"></i>
-                            <span>{{ \App\Support\Site::get('contact_phone', '+62 274 123456') }}</span>
+                            <span>{{ \App\Support\Site::get('contact_phone', '+62 821 6726 285') }}</span>
                         </li>
                         <li>
                             <i class="fa-brands fa-whatsapp"></i>
-                            <span>{{ \App\Support\Site::get('contact_whatsapp_display', '+62 812 3456 7890') }}</span>
+                            <span>{{ \App\Support\Site::get('contact_whatsapp_display', '+62 821 6726 285') }}</span>
                         </li>
                         <li>
                             <i class="fa-solid fa-envelope"></i>
@@ -1183,7 +1183,7 @@
     <!-- Floating WhatsApp Button -->
     @hasSection('hide_wa_floating')
     @else
-    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', \App\Support\Site::get('contact_whatsapp', '6281234567890')) }}" class="floating-wa" target="_blank" rel="noopener noreferrer" aria-label="Hubungi DJM Property via WhatsApp">
+    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', \App\Support\Site::get('contact_whatsapp', '628216726285')) }}" class="floating-wa" target="_blank" rel="noopener noreferrer" aria-label="Hubungi DJM Property via WhatsApp">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
     @endif
