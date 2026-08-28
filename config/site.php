@@ -15,7 +15,7 @@ return [
         'site_description'  => 'Platform properti terpercaya di Yogyakarta. Temukan rumah, tanah, villa, dan properti impian Anda.',
 
         // Contact
-        'contact_address'   => 'Jl. Kaliurang KM 7, Sleman, Yogyakarta',
+        'contact_address'   => 'Depok, Sleman, Yogyakarta',
         'contact_phone'     => '+62 821 6726 285',
         'contact_whatsapp'  => '628216726285',
         'contact_whatsapp_display' => '+62 821 6726 285',

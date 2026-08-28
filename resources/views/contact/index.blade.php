@@ -10,14 +10,14 @@
 
     .contact-grid {
         display: grid;
-        grid-template-columns: 1fr 1.5fr;
+        grid-template-columns: 1fr;
         gap: 60px;
         align-items: start;
     }
 
     .contact-info-list {
-        display: flex;
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
         gap: 16px;
     }
 
@@ -128,6 +128,9 @@
         .form-row {
             grid-template-columns: 1fr;
         }
+        .contact-info-list {
+            grid-template-columns: 1fr;
+        }
         .contact-form-card {
             padding: 30px 25px;
         }
@@ -235,16 +238,6 @@
                 </div>
             </div>
 
-            <!-- Google Maps -->
-            <div class="contact-form-card">
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d988.2745163227136!2d110.40420506953696!3d-7.779426170752717!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a5900741d07fd%3A0x147ef590bcd70514!2sKOS%20PUTRI%20BU%20NUR!5e0!3m2!1sid!2sid!4v1786522666324!5m2!1sid!2sid"
-                    style="border:0; width: 100%; min-height: 450px; border-radius: var(--border-radius-lg);"
-                    allowfullscreen=""
-                    loading="lazy"
-                    referrerpolicy="strict-origin-when-cross-origin">
-                </iframe>
             </div>
-        </div>
     </div>
 @endsection
